@@ -2,37 +2,55 @@ version: '3.8'
 
 services:
   odoo:
-    image: odoo:18
-    container_name: odoo18
+    image: ${ODOO_IMAGE:-odoo:18}
+    container_name: ${ODOO_CONTAINER_NAME:-odoo18}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
-      - "8070:8069"
+      - "${ODOO_HTTP_PORT:-8070}:8069"
     volumes:
       # Datos persistentes de Odoo
       - odoo-data:/var/lib/odoo
       
       # Configuración
-      - ./config:/etc/odoo
-      
+      - ./config:/etc/odoo${BIND_MOUNT_SUFFIX:-}
+
       # Addons personalizados
-      - ./addons:/mnt/extra-addons
+      - ./addons:/mnt/extra-addons${BIND_MOUNT_SUFFIX:-}
     environment:
-      - HOST=db
-      - USER=odoo
-      - PASSWORD=odoo
-    restart: always
+      - HOST=${DB_HOST:-db}
+      - PORT=${DB_PORT:-5432}
+      - USER=${DB_USER:-odoo}
+      - PASSWORD=${DB_PASSWORD:-odoo}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python3 -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8069/web/login', timeout=5)"
+      interval: ${ODOO_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${ODOO_HEALTHCHECK_TIMEOUT:-10s}
+      retries: ${ODOO_HEALTHCHECK_RETRIES:-5}
+      start_period: ${ODOO_HEALTHCHECK_START_PERIOD:-60s}
+    restart: ${RESTART_POLICY:-always}
 
   db:
-    image: postgres:15
-    container_name: odoo-db
+    image: ${DB_IMAGE:-postgres:15}
+    container_name: ${DB_CONTAINER_NAME:-odoo-db}
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=odoo
-      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=${DB_NAME:-postgres}
+      - POSTGRES_USER=${DB_USER:-odoo}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-odoo}
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    restart: always
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: ${DB_HEALTHCHECK_INTERVAL:-10s}
+      timeout: ${DB_HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${DB_HEALTHCHECK_RETRIES:-5}
+      start_period: ${DB_HEALTHCHECK_START_PERIOD:-10s}
+    restart: ${RESTART_POLICY:-always}
 
 volumes:
   odoo-data:
