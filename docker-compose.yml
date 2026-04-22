@@ -1,14 +1,39 @@
 version: '3.8'
 
 services:
+  proxy:
+    image: ${PROXY_IMAGE:-nginx:1.27-alpine}
+    container_name: ${PROXY_CONTAINER_NAME:-odoo-proxy}
+    depends_on:
+      odoo:
+        condition: service_healthy
+    ports:
+      - "${PUBLIC_HTTP_PORT:-8070}:80"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d${BIND_MOUNT_SUFFIX:-}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -q --spider http://127.0.0.1/ || exit 1
+      interval: ${PROXY_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${PROXY_HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${PROXY_HEALTHCHECK_RETRIES:-5}
+      start_period: ${PROXY_HEALTHCHECK_START_PERIOD:-10s}
+    restart: ${RESTART_POLICY:-always}
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: ${PROXY_MEM_LIMIT:-256m}
+    pids_limit: ${PROXY_PIDS_LIMIT:-100}
+    networks:
+      - edge
+      - app
+
   odoo:
     image: ${ODOO_IMAGE:-odoo:18}
     container_name: ${ODOO_CONTAINER_NAME:-odoo18}
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - "${ODOO_HTTP_PORT:-8070}:8069"
     volumes:
       # Datos persistentes de Odoo
       - odoo-data:/var/lib/odoo
@@ -32,6 +57,13 @@ services:
       retries: ${ODOO_HEALTHCHECK_RETRIES:-5}
       start_period: ${ODOO_HEALTHCHECK_START_PERIOD:-60s}
     restart: ${RESTART_POLICY:-always}
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: ${ODOO_MEM_LIMIT:-2g}
+    cpus: ${ODOO_CPUS:-2.0}
+    pids_limit: ${ODOO_PIDS_LIMIT:-512}
+    networks:
+      - app
 
   db:
     image: ${DB_IMAGE:-postgres:15}
@@ -51,7 +83,19 @@ services:
       retries: ${DB_HEALTHCHECK_RETRIES:-5}
       start_period: ${DB_HEALTHCHECK_START_PERIOD:-10s}
     restart: ${RESTART_POLICY:-always}
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: ${DB_MEM_LIMIT:-1g}
+    cpus: ${DB_CPUS:-1.0}
+    pids_limit: ${DB_PIDS_LIMIT:-256}
+    networks:
+      - app
 
 volumes:
   odoo-data:
   postgres-data:
+
+networks:
+  edge:
+  app:
+    internal: true

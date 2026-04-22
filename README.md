@@ -10,6 +10,14 @@ Este proyecto levanta Odoo + Postgres usando `podman-compose`.
 cp .env.example .env
 ```
 
+Ejemplos listos por sistema:
+
+```bash
+cp .env.linux-selinux.example .env
+# o
+cp .env.windows.example .env
+```
+
 2. Edita `.env` y cambia al menos `DB_PASSWORD`.
 
 ### Compatibilidad Linux / Windows
@@ -23,6 +31,8 @@ cp .env.example .env
 podman-compose up -d
 ```
 
+El acceso publico se hace por el proxy Nginx en `PUBLIC_HTTP_PORT` (por defecto `8070`).
+
 ## 3) Ver estado y logs
 
 ```bash
@@ -32,9 +42,11 @@ podman-compose logs -f
 
 ## 4) Acceso
 
-- Odoo: `http://localhost:${ODOO_HTTP_PORT}` (por defecto `8070`)
+- Odoo: `http://localhost:${PUBLIC_HTTP_PORT}` (por defecto `8070`)
 
 ## Notas
 
-- `depends_on` usa `condition: service_healthy`, por lo que Odoo espera a que Postgres este sano.
-- Se incluyen `healthcheck` para `db` y `odoo`.
+- La arquitectura usa `proxy` (Nginx) delante de Odoo para no exponer Odoo directamente.
+- `depends_on` usa `condition: service_healthy`, por lo que el arranque respeta salud de dependencias.
+- Se incluyen `healthcheck` para `proxy`, `db` y `odoo`.
+- Se aplican limites basicos de recursos y `no-new-privileges` en los contenedores.
