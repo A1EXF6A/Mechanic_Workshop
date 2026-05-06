@@ -104,7 +104,7 @@ docker-compose.override.yml
 .DS_Store
 Thumbs.db
 
-odoo.conf
+config/odoo.conf
 backup.dump
 odoo.sql.gz
 taller.sql 
