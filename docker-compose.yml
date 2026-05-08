@@ -19,15 +19,12 @@ services:
     image: odoo:18
     container_name: odoo18
     volumes:
-      - odoo-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
+      - ./filestore:/var/lib/odoo/.local/share/Odoo
     restart: always
     networks:
       - app
-
-volumes:
-  odoo-data:
 
 networks:
   edge:
