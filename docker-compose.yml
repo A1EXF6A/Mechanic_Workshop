@@ -1,16 +1,19 @@
-version: '3.8'
-
 services:
   proxy:
     image: nginx:1.27-alpine
     container_name: odoo-proxy
+
     depends_on:
       - odoo
+
     ports:
       - "8070:80"
+
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
+
     restart: always
+
     networks:
       - edge
       - app
@@ -18,11 +21,19 @@ services:
   odoo:
     image: odoo:18
     container_name: odoo18
+
     volumes:
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
-      - ./filestore:/var/lib/odoo/.local/share/Odoo
+
+      # TODO el almacenamiento interno de Odoo
+      - ./odoo-data:/var/lib/odoo
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
     restart: always
+
     networks:
       - app
 
