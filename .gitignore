@@ -108,3 +108,5 @@ config/odoo.conf
 backup.dump
 odoo.sql.gz
 taller.sql 
+odoo-data/.local/share/Odoo/sessions/
+odoo-data/.local/share/Odoo/addons/
