@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cita_page" name="Agendar Cita - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title pt48 pb24 text-center">
+                    <div class="container">
+                        <h2>Agendar Cita de Reparación</h2>
+                        <p class="lead">Completa el formulario para reservar tu turno.</p>
+                    </div>
+                </section>
+
+                <section class="pt32 pb64">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card shadow-sm">
+                                    <div class="card-body p-4">
+                                        <form action="#" method="get">
+                                            
+                                            <h4 class="mb-3">Tus Datos</h4>
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Nombre Completo</label>
+                                                <input type="text" class="form-control" id="name" name="name" required="1" placeholder="Ej. Juan Pérez"/>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label">Teléfono de Contacto</label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" required="1" placeholder="Ej. 0987654321"/>
+                                            </div>
+
+                                            <h4 class="mb-3 mt-4">Datos del Vehículo</h4>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="brand" class="form-label">Marca</label>
+                                                    <input type="text" class="form-control" id="brand" name="brand" required="1" placeholder="Ej. Toyota"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="model" class="form-label">Modelo</label>
+                                                    <input type="text" class="form-control" id="model" name="model" required="1" placeholder="Ej. Corolla"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="plate" class="form-label">Placa</label>
+                                                    <input type="text" class="form-control" id="plate" name="plate" required="1" placeholder="Ej. ABC-1234"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="year" class="form-label">Año</label>
+                                                    <input type="number" class="form-control" id="year" name="year" required="1" placeholder="Ej. 2020"/>
+                                                </div>
+                                            </div>
+
+                                            <h4 class="mb-3 mt-4">Detalles de la Cita</h4>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="date" class="form-label">Fecha Deseada</label>
+                                                    <input type="date" class="form-control" id="date" name="date" required="1"/>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="repair_type" class="form-label">Tipo de Servicio</label>
+                                                    <select class="form-select" id="repair_type" name="repair_type">
+                                                        <option value="mantenimiento">Mantenimiento Preventivo</option>
+                                                        <option value="motor">Reparación de Motor</option>
+                                                        <option value="frenos">Frenos</option>
+                                                        <option value="diagnostico">Diagnóstico Computarizado</option>
+                                                        <option value="otro">Otro</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="observations" class="form-label">Observaciones o Síntomas</label>
+                                                <textarea class="form-control" id="observations" name="observations" rows="3" placeholder="Describe brevemente el problema de tu vehículo..."></textarea>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-primary btn-lg w-100" onclick="alert('Formulario visual únicamente (Fase 1). Los datos no se han guardado.')">Solicitar Cita</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

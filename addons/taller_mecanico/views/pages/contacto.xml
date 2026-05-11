@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="contacto_page" name="Contacto - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title pt48 pb24 bg-200 text-center">
+                    <div class="container">
+                        <h2>Contáctanos</h2>
+                        <p class="lead">Estamos aquí para ayudarte.</p>
+                    </div>
+                </section>
+
+                <section class="s_text_block pt48 pb48">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 mb-4">
+                                <h3>Información de Contacto</h3>
+                                <ul class="list-unstyled mt-4">
+                                    <li class="mb-3"><i class="fa fa-map-marker text-primary mr-2"/> <strong>Dirección:</strong> Av. Principal 123, Ciudad</li>
+                                    <li class="mb-3"><i class="fa fa-phone text-primary mr-2"/> <strong>Teléfono:</strong> +1 234 567 8900</li>
+                                    <li class="mb-3"><i class="fa fa-envelope text-primary mr-2"/> <strong>Email:</strong> info@tallermecanico.com</li>
+                                </ul>
+                                <h4 class="mt-5">Horarios de Atención</h4>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Lunes a Viernes: 8:00 AM - 6:00 PM</li>
+                                    <li>Sábados: 9:00 AM - 2:00 PM</li>
+                                    <li>Domingos: Cerrado</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <!-- Placeholder for a map or image -->
+                                <div class="bg-200 d-flex align-items-center justify-content-center" style="height: 350px; border-radius: 8px;">
+                                    <span class="text-muted"><i class="fa fa-map fa-3x"/> Mapa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

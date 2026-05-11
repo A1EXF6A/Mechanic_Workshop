@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menús en el sitio web -->
+    <record id="menu_taller_home" model="website.menu">
+        <field name="name">Inicio</field>
+        <field name="url">/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">10</field>
+    </record>
+
+    <record id="menu_taller_servicios" model="website.menu">
+        <field name="name">Servicios</field>
+        <field name="url">/taller/servicios</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">20</field>
+    </record>
+
+    <record id="menu_taller_contacto" model="website.menu">
+        <field name="name">Contacto</field>
+        <field name="url">/taller/contacto</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">30</field>
+    </record>
+
+    <record id="menu_taller_cita" model="website.menu">
+        <field name="name">Agendar Cita</field>
+        <field name="url">/taller/cita</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">40</field>
+    </record>
+
+    <!-- Personalizar el Footer -->
+    <template id="taller_custom_footer" inherit_id="website.layout" name="Footer Personalizado Taller">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+                <section class="s_text_block pt32 pb32 bg-dark">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 mb-3 mt-3">
+                                <h4 class="text-white">Taller Mecánico</h4>
+                                <p class="text-white-50">Tu vehículo en las mejores manos. Ofrecemos calidad, confianza y garantía en todos nuestros servicios automotrices.</p>
+                            </div>
+                            <div class="col-lg-4 mb-3 mt-3">
+                                <h4 class="text-white">Enlaces Rápidos</h4>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Inicio</a></li>
+                                    <li class="mb-2"><a href="/taller/servicios" class="text-white-50 text-decoration-none">Servicios</a></li>
+                                    <li class="mb-2"><a href="/taller/contacto" class="text-white-50 text-decoration-none">Contacto</a></li>
+                                    <li class="mb-2"><a href="/taller/cita" class="text-white-50 text-decoration-none">Agendar Cita</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 mb-3 mt-3">
+                                <h4 class="text-white">Contacto</h4>
+                                <ul class="list-unstyled text-white-50">
+                                    <li class="mb-2"><i class="fa fa-map-marker mr-2"/> Av. Principal 123, Ciudad</li>
+                                    <li class="mb-2"><i class="fa fa-phone mr-2"/> +1 234 567 8900</li>
+                                    <li class="mb-2"><i class="fa fa-envelope mr-2"/> info@tallermecanico.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="o_footer_copyright bg-black-75 pt16 pb16">
+                    <div class="container">
+                        <div class="row text-center text-white-50">
+                            <div class="col-12">
+                                <span>© 2026 Taller Mecánico. Todos los derechos reservados.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
