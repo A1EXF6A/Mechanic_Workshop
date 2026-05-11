@@ -1,0 +1,9 @@
+id,product_id/id,location_id/id,inventory_quantity
+quant_aceite,product_aceite_sintetico,stock.stock_location_stock,50
+quant_filtro,product_filtro_aceite,stock.stock_location_stock,100
+quant_pastillas,product_pastillas_freno,stock.stock_location_stock,20
+quant_bujia,product_bujia_iridium,stock.stock_location_stock,200
+quant_liquido,product_liquido_frenos,stock.stock_location_stock,30
+quant_llanta,product_llanta_michelin,stock.stock_location_stock,40
+quant_bateria,product_bateria_bosch,stock.stock_location_stock,15
+quant_limpiaparabrisas,product_limpiaparabrisas,stock.stock_location_stock,60

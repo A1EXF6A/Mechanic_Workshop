@@ -29,6 +29,20 @@
         <field name="sequence" type="int">40</field>
     </record>
 
+    <record id="menu_taller_productos" model="website.menu">
+        <field name="name">Comprar Productos</field>
+        <field name="url">/taller/productos</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">50</field>
+    </record>
+
+    <record id="menu_taller_carrito" model="website.menu">
+        <field name="name">🛒 Carrito</field>
+        <field name="url">/taller/carrito</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+
     <!-- Personalizar el Footer -->
     <template id="taller_custom_footer" inherit_id="website.layout" name="Footer Personalizado Taller">
         <xpath expr="//div[@id='footer']" position="replace">

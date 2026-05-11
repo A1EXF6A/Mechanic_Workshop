@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="carrito_page" name="Carrito - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="pt48 pb48">
+                    <div class="container">
+                        <h2 class="mb-4">Tu Carrito de Compras</h2>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                                <th>Subtotal</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="cart_items" t-as="item">
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <img t-att-src="website.image_url(item['product'], 'image_128')" class="img-thumbnail me-3" style="width: 50px;"/>
+                                                            <span t-field="item['product'].name"/>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control js_update_qty" t-att-value="item['qty']" t-att-data-product-id="item['product'].id" style="width: 80px;"/>
+                                                    </td>
+                                                    <td t-esc="item['subtotal']" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                                    <td>
+                                                        <button class="btn btn-link text-danger js_remove_item" t-att-data-product-id="item['product'].id">
+                                                            <i class="fa fa-trash"/>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Resumen de Compra</h4>
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <span>Subtotal</span>
+                                            <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3 fw-bold border-top pt-3">
+                                            <span>Total</span>
+                                            <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                        </div>
+                                        <form action="/taller/confirmar-compra" method="POST">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                                Confirmar y Pagar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

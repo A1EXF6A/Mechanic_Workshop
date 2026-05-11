@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="confirmacion_page" name="Confirmación - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="pt64 pb64 text-center">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <i class="fa fa-check-circle fa-5x text-success mb-4 animate-bounce"/>
+                                <h2 class="mb-3">¡Gracias por tu compra!</h2>
+                                <p class="lead mb-4">Tu pedido ha sido procesado exitosamente y la factura ha sido generada.</p>
+                                
+                                <div class="card shadow-sm mb-4">
+                                    <div class="card-body">
+                                        <div class="row text-start">
+                                            <div class="col-6 mb-2"><strong>Número de Orden:</strong></div>
+                                            <div class="col-6 mb-2 text-end"><span t-field="order.name"/></div>
+                                            
+                                            <div class="col-6 mb-2"><strong>Total Pagado:</strong></div>
+                                            <div class="col-6 mb-2 text-end"><span t-field="order.amount_total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/></div>
+                                            
+                                            <div class="col-6"><strong>Estado:</strong></div>
+                                            <div class="col-6 text-end"><span class="badge bg-success">Confirmado</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-info">
+                                    <i class="fa fa-info-circle me-2"/> 
+                                    Se ha descontado automáticamente el stock de nuestro inventario.
+                                </div>
+                                
+                                <div class="mt-5">
+                                    <a href="/taller/productos" class="btn btn-outline-primary btn-lg me-3">Seguir Comprando</a>
+                                    <a href="/" class="btn btn-primary btn-lg">Volver al Inicio</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

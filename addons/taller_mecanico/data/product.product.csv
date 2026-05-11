@@ -1,0 +1,9 @@
+id,name,default_code,list_price,standard_price,type,is_storable,sale_ok,purchase_ok
+product_aceite_sintetico,Aceite Sintético 5W-30 (1L),REP-001,25.00,15.00,consu,True,True,True
+product_filtro_aceite,Filtro de Aceite Universal,REP-002,12.50,5.00,consu,True,True,True
+product_pastillas_freno,Pastillas de Freno Delanteras,REP-003,45.00,22.00,consu,True,True,True
+product_bujia_iridium,Bujía Iridium Premium,REP-004,8.00,3.50,consu,True,True,True
+product_liquido_frenos,Líquido de Frenos DOT4 (500ml),REP-005,15.00,7.00,consu,True,True,True
+product_llanta_michelin,Llanta Michelin 205/55 R16,REP-006,120.00,85.00,consu,True,True,True
+product_bateria_bosch,Batería Bosch 12V 75Ah,REP-007,150.00,110.00,consu,True,True,True
+product_limpiaparabrisas,Kit de Limpiaparabrisas,REP-008,20.00,10.00,consu,True,True,True
