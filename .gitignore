@@ -103,3 +103,8 @@ docker-compose.override.yml
 # System specific
 .DS_Store
 Thumbs.db
+
+config/odoo.conf
+backup.dump
+odoo.sql.gz
+taller.sql 
