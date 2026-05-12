@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-# pyrefly: ignore [missing-import]
 from odoo import http
-# pyrefly: ignore [missing-import]
 from odoo.http import request
 
 class TallerShopController(http.Controller):
@@ -9,8 +7,7 @@ class TallerShopController(http.Controller):
     @http.route(['/taller/productos'], type='http', auth="public", website=True)
     def productos(self, **kw):
         # Buscamos productos que se puedan vender y tengan stock (storable)
-        # Odoo 16+ usa product.template para el catálogo general
-        products = request.env['product.template'].sudo().search([
+        products = request.env['product.product'].sudo().search([
             ('sale_ok', '=', True),
             ('type', 'in', ['product', 'consu']),
         ])
@@ -20,7 +17,6 @@ class TallerShopController(http.Controller):
 
     @http.route(['/taller/carrito'], type='http', auth="public", website=True)
     def carrito(self, **kw):
-        # Recuperamos el carrito de la sesión
         cart = request.session.get('taller_cart', {})
         cart_items = []
         total = 0.0
@@ -43,9 +39,22 @@ class TallerShopController(http.Controller):
 
     @http.route(['/taller/carrito/agregar'], type='json', auth="public", website=True)
     def agregar_al_carrito(self, product_id, qty=1, **kw):
+        product = request.env['product.product'].sudo().browse(int(product_id))
+        if not product.exists():
+             return {'success': False, 'error': 'Producto no encontrado'}
+        
         cart = dict(request.session.get('taller_cart', {}))
         pid = str(product_id)
-        cart[pid] = cart.get(pid, 0) + int(qty)
+        requested_qty = cart.get(pid, 0) + int(qty)
+        
+        # Validación de Stock
+        if product.type == 'product' and product.qty_available < requested_qty:
+             return {
+                 'success': False, 
+                 'error': f'Solo quedan {int(product.qty_available)} unidades disponibles.'
+             }
+
+        cart[pid] = requested_qty
         request.session['taller_cart'] = cart
         request.session.modified = True
         return {'count': sum(cart.values()), 'success': True}
@@ -62,12 +71,26 @@ class TallerShopController(http.Controller):
 
     @http.route(['/taller/carrito/actualizar'], type='json', auth="public", website=True)
     def actualizar_cantidad(self, product_id, qty, **kw):
+        product = request.env['product.product'].sudo().browse(int(product_id))
+        if not product.exists():
+             return {'success': False, 'error': 'Producto no encontrado'}
+
         cart = dict(request.session.get('taller_cart', {}))
         pid = str(product_id)
-        if int(qty) > 0:
-            cart[pid] = int(qty)
+        new_qty = int(qty)
+
+        # Validación de Stock al actualizar
+        if product.type == 'product' and product.qty_available < new_qty:
+             return {
+                 'success': False, 
+                 'error': f'Stock insuficiente. Máximo disponible: {int(product.qty_available)}'
+             }
+
+        if new_qty > 0:
+            cart[pid] = new_qty
         elif pid in cart:
             del cart[pid]
+            
         request.session['taller_cart'] = cart
         request.session.modified = True
         return {'success': True}
@@ -80,8 +103,7 @@ class TallerShopController(http.Controller):
         if not cart:
             return request.redirect('/taller/productos')
 
-        # 1. Crear Orden de Venta (Modulo Ventas)
-        # Obtenemos el almacén de forma segura (warehouse_id no siempre está en website)
+        # Obtenemos el almacén de forma segura
         warehouse = getattr(request.website, 'warehouse_id', False)
         if not warehouse:
             warehouse = request.env['stock.warehouse'].sudo().search([
@@ -94,7 +116,6 @@ class TallerShopController(http.Controller):
             'warehouse_id': warehouse.id if warehouse else False,
         })
 
-        # 2. Agregar líneas (Conexión Productos/Inventario)
         for product_id, qty in cart.items():
             product = request.env['product.product'].sudo().browse(int(product_id))
             if product.exists():
@@ -105,15 +126,14 @@ class TallerShopController(http.Controller):
                     'price_unit': product.lst_price,
                 })
 
-        # 3. Confirmar la orden (Esto descuenta INVENTARIO automáticamente)
+        # Confirmar la orden (Esto descuenta INVENTARIO)
         sale_order.action_confirm()
 
-        # 4. Generar Factura (Modulo Facturación)
-        # Odoo 16+ usa _create_invoices
+        # Generar Factura
         invoice = sale_order._create_invoices()
-        invoice.action_post() # Publicar factura
+        invoice.action_post()
 
-        # 5. Limpiar carrito y redirigir
+        # Limpiar carrito
         request.session['taller_cart'] = {}
 
         return request.render('taller_mecanico.confirmacion_page', {

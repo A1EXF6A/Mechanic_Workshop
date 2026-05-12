@@ -19,7 +19,7 @@
                         <div class="row g-4">
                             <t t-foreach="products" t-as="product">
                                 <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px !important; transition: transform 0.3s ease;">
+                                    <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px !important; transition: var(--taller-transition);">
                                         <!-- Badge de Calidad -->
                                         <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
                                             <span class="badge bg-primary px-3 py-2 rounded-pill shadow-sm" style="font-size: 0.7rem; letter-spacing: 1px;">ORIGINAL</span>
@@ -35,8 +35,19 @@
                                         
                                         <!-- Content -->
                                         <div class="card-body p-4 d-flex flex-column">
-                                            <div class="mb-2">
-                                                <small class="text-uppercase fw-bold text-muted" style="font-size: 0.65rem; letter-spacing: 1.5px;">Categoría: Repuestos</small>
+                                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                                <small class="text-uppercase fw-bold text-muted" style="font-size: 0.65rem; letter-spacing: 1.5px;">Repuesto</small>
+                                                <!-- Indicador de Stock -->
+                                                <t t-if="product.qty_available &gt; 0">
+                                                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success border-0 px-2 py-1" style="font-size: 0.65rem;">
+                                                        <i class="fa fa-check-circle me-1"/> <t t-esc="int(product.qty_available)"/> disponibles
+                                                    </span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border-0 px-2 py-1" style="font-size: 0.65rem;">
+                                                        <i class="fa fa-times-circle me-1"/> Agotado
+                                                    </span>
+                                                </t>
                                             </div>
                                             <h5 class="fw-bold mb-3 text-truncate-2" t-field="product.name" style="min-height: 2.8rem; font-size: 1.1rem;"/>
                                             
@@ -45,11 +56,12 @@
                                                       t-field="product.list_price" 
                                                       t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
                                                 
-                                                <button class="btn btn-primary rounded-circle p-0 js_add_to_cart d-flex align-items-center justify-content-center shadow" 
+                                                <button t-att-class="'btn rounded-circle p-0 js_add_to_cart d-flex align-items-center justify-content-center shadow ' + ('btn-primary' if product.qty_available &gt; 0 else 'btn-secondary opacity-50')" 
                                                         t-att-data-product-id="product.product_variant_id.id"
+                                                        t-att-disabled="'disabled' if product.qty_available &lt;= 0 else None"
                                                         style="width: 42px; height: 42px;"
-                                                        title="Agregar al carrito">
-                                                    <i class="fa fa-plus"/>
+                                                        t-att-title="'Agregar al carrito' if product.qty_available &gt; 0 else 'Producto agotado'">
+                                                    <i t-att-class="'fa ' + ('fa-plus' if product.qty_available &gt; 0 else 'fa-ban')"/>
                                                 </button>
                                             </div>
                                         </div>

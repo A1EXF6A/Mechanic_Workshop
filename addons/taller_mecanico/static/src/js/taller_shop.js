@@ -23,7 +23,6 @@ publicWidget.registry.TallerShop = publicWidget.Widget.extend({
         }
 
         $btn.prop('disabled', true);
-        console.log("TallerShop: Agregando producto", productId);
 
         this._performRPC('/taller/carrito/agregar', {
             product_id: productId,
@@ -38,7 +37,7 @@ publicWidget.registry.TallerShop = publicWidget.Widget.extend({
                     $btn.prop('disabled', false);
                 }, 2000);
             } else {
-                console.error("TallerShop: Error en respuesta", data);
+                alert(data.error || "Error al agregar al carrito");
                 $btn.prop('disabled', false);
             }
         }).catch((err) => {
@@ -77,6 +76,9 @@ publicWidget.registry.TallerShop = publicWidget.Widget.extend({
         }).then((data) => {
             if (data && data.success) {
                 window.location.reload();
+            } else {
+                alert(data.error || "No se pudo actualizar la cantidad");
+                window.location.reload(); // Recargar para revertir el input
             }
         });
     },
@@ -87,7 +89,6 @@ publicWidget.registry.TallerShop = publicWidget.Widget.extend({
     _performRPC: function (url, params) {
         params = params || {};
         
-        // Es CRITICO enviar el token CSRF para que la sesión sea persistente en Odoo 18
         if (typeof odoo !== 'undefined' && odoo.csrf_token) {
             params['csrf_token'] = odoo.csrf_token;
         }

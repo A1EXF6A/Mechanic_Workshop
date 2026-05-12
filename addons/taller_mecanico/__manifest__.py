@@ -12,6 +12,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/product.product.csv',
+        'data/stock_init_data.xml',
         'views/pages/home.xml',
         'views/pages/servicios.xml',
         'views/pages/contacto.xml',
