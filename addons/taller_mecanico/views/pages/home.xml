@@ -1,33 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Sobrescribir la página de inicio por defecto de Odoo -->
     <template id="home_page" inherit_id="website.homepage" name="Inicio - Taller Mecánico">
         <xpath expr="//div[@id='wrap']" position="replace">
             <div id="wrap" class="oe_structure oe_empty">
-                <!-- Banner -->
-                <section class="s_cover parallax s_parallax_is_mutted bg-black-50 pt96 pb96" data-scroll-background-ratio="1">
-                    <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"/>
-                    <div class="o_we_bg_filter bg-black-50"/>
-                    <div class="container s_allow_columns">
-                        <h1 style="text-align: center; color: white;">Tu Taller Mecánico de Confianza</h1>
-                        <p class="lead" style="text-align: center; color: white;">Brindamos servicios de calidad con personal altamente capacitado para tu vehículo.</p>
-                        <div style="text-align: center;">
-                            <a href="/taller/cita" class="btn btn-primary btn-lg mt-3">Agendar una Cita Ahora</a>
+                <!-- Premium Hero Section -->
+                <section class="s_cover pt128 pb128 position-relative overflow-hidden" style="background-color: var(--taller-primary);">
+                    <div class="position-absolute w-100 h-100 top-0 start-0 opacity-50" 
+                         style="background-image: url('/taller_mecanico/static/src/img/hero.png'); background-size: cover; background-position: center;"/>
+                    <div class="container position-relative z-index-1">
+                        <div class="row align-items-center">
+                            <div class="col-lg-7 text-white py-5">
+                                <h1 class="display-3 mb-4 fw-bold">Ingeniería y Pasión por tu Vehículo</h1>
+                                <p class="lead mb-5 text-white-50 fs-4">
+                                    Mantenimiento preventivo, reparaciones de alta precisión y diagnóstico avanzado en un ambiente de primer nivel.
+                                </p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <a href="/taller/cita" class="btn btn-primary btn-lg px-5 shadow-lg">Agendar Servicio</a>
+                                    <a href="/taller/productos" class="btn btn-outline-light btn-lg px-5">Comprar Productos</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
                 
-                <!-- About Us -->
-                <section class="s_text_image pt32 pb32">
+                <!-- Modern Features -->
+                <section class="py-5 bg-white border-bottom">
                     <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6 pt16 pb16">
-                                <h2>Nuestra Experiencia</h2>
-                                <p>Con más de 15 años de experiencia, garantizamos soluciones rápidas, seguras y al mejor precio del mercado. Utilizamos tecnología de punta para el diagnóstico automotriz.</p>
-                                <a href="/taller/servicios" class="btn btn-outline-primary mt-2">Conoce nuestros servicios</a>
+                        <div class="row text-center g-4">
+                            <div class="col-md-4">
+                                <div class="p-4">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                                        <i class="fa fa-wrench fa-2x text-primary"/>
+                                    </div>
+                                    <h4 class="mb-3">Tecnología de Punta</h4>
+                                    <p class="text-muted small px-lg-4">Equipamiento láser y escaneo computarizado para un diagnóstico exacto de tu motor.</p>
+                                </div>
                             </div>
-                            <div class="col-lg-6 pt16 pb16">
-                                <img src="/web/image/website.s_text_image_default_image" class="img img-fluid mx-auto rounded" alt="Taller"/>
+                            <div class="col-md-4">
+                                <div class="p-4 border-start border-end">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                                        <i class="fa fa-shield fa-2x text-primary"/>
+                                    </div>
+                                    <h4 class="mb-3">Garantía Extendida</h4>
+                                    <p class="text-muted small px-lg-4">Todas nuestras reparaciones cuentan con certificación y respaldo oficial de piezas originales.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-4">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                                        <i class="fa fa-clock-o fa-2x text-primary"/>
+                                    </div>
+                                    <h4 class="mb-3">Servicio Express</h4>
+                                    <p class="text-muted small px-lg-4">Mantenimiento preventivo en tiempo récord sin sacrificar la calidad técnica.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Services Preview -->
+                <section class="py-5 bg-light">
+                    <div class="container py-5">
+                        <div class="text-center mb-5">
+                            <h6 class="text-primary text-uppercase fw-bold mb-2">Nuestra Especialidad</h6>
+                            <h2 class="display-5 fw-bold">Servicios de Clase Mundial</h2>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-4 border-0 shadow-sm">
+                                    <div class="mb-4 text-primary"><i class="fa fa-car fa-3x"/></div>
+                                    <h3 class="h4 mb-3">Mecánica General</h3>
+                                    <p class="text-muted">Desde frenos hasta suspensión, cubrimos todas las necesidades vitales de tu motor con precisión quirúrgica.</p>
+                                    <a href="/taller/servicios" class="text-primary fw-bold text-decoration-none mt-auto">Más información <i class="fa fa-arrow-right ms-2"/></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-4 border-0 shadow-sm">
+                                    <div class="mb-4 text-primary"><i class="fa fa-bolt fa-3x"/></div>
+                                    <h3 class="h4 mb-3">Sistema Eléctrico</h3>
+                                    <p class="text-muted">Diagnóstico por computadora y reparación experta de sistemas de encendido, baterías y cableado complejo.</p>
+                                    <a href="/taller/servicios" class="text-primary fw-bold text-decoration-none mt-auto">Más información <i class="fa fa-arrow-right ms-2"/></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-4 border-0 shadow-sm">
+                                    <div class="mb-4 text-primary"><i class="fa fa-tint fa-3x"/></div>
+                                    <h3 class="h4 mb-3">Cambio de Aceite</h3>
+                                    <p class="text-muted">Utilizamos lubricantes sintéticos de alto desempeño para prolongar la vida útil de tu automóvil.</p>
+                                    <a href="/taller/servicios" class="text-primary fw-bold text-decoration-none mt-auto">Más información <i class="fa fa-arrow-right ms-2"/></a>
+                                </div>
                             </div>
                         </div>
                     </div>

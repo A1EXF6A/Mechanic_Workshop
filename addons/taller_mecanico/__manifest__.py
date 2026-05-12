@@ -1,11 +1,11 @@
 {
-    'name': 'Taller Mecánico',
+    'name': 'Taller Mecanico',
     'version': '1.0',
     'category': 'Website',
-    'summary': 'Sitio web para el taller mecánico',
+    'summary': 'Sitio web para el taller mecanico',
     'description': """
-        Módulo para el sitio web del taller mecánico.
-        Incluye páginas estáticas: Inicio, Servicios, Contacto y Formulario de Cita.
+        Modulo para el sitio web del taller mecanico.
+        Incluye paginas estaticas: Inicio, Servicios, Contacto y Formulario de Cita.
     """,
     'author': 'Tu Nombre',
     'depends': ['website', 'stock', 'sale', 'account'],
@@ -26,6 +26,7 @@
     'license': 'LGPL-3',
     'assets': {
         'web.assets_frontend': [
+            'taller_mecanico/static/src/css/taller_style.css',
             'taller_mecanico/static/src/js/taller_shop.js',
         ],
     },

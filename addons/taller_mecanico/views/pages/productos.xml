@@ -2,32 +2,83 @@
 <odoo>
     <template id="productos_page" name="Productos - Taller Mecánico">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure">
-                <section class="s_title pt48 pb24 text-center">
-                    <div class="container">
-                        <h2>Nuestros Productos y Repuestos</h2>
-                        <p class="lead">Calidad garantizada para tu vehículo.</p>
+            <div id="wrap" class="oe_structure bg-light">
+                <!-- Header Optimizado -->
+                <section class="pt48 pb48 text-center text-white" style="background-color: var(--taller-primary);">
+                    <div class="container py-2">
+                        <h2 class="fw-bold mb-3" style="color: var(--taller-white);">Tienda de Repuestos</h2>
+                        <p class="mx-auto text-white opacity-75" style="max-width: 650px; font-size: 1.05rem;">
+                            Componentes originales y accesorios de alto desempeño para tu vehículo.
+                        </p>
                     </div>
                 </section>
-                <section class="s_dynamic_snippet_products pt32 pb32">
+
+                <!-- Products Grid -->
+                <section class="py-5">
                     <div class="container">
-                        <div class="row">
+                        <div class="row g-4">
                             <t t-foreach="products" t-as="product">
-                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                                    <div class="card h-100 shadow-sm border-0 transition-hover">
-                                        <img t-att-src="website.image_url(product, 'image_1920')" class="card-img-top p-3" t-att-alt="product.name" style="height: 200px; object-fit: contain;"/>
-                                        <div class="card-body d-flex flex-column">
-                                            <h5 class="card-title text-truncate" t-field="product.name"/>
-                                            <p class="card-text text-primary fw-bold" t-field="product.list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
-                                            <div class="mt-auto">
-                                                <button class="btn btn-primary w-100 js_add_to_cart" t-att-data-product-id="product.product_variant_id.id">
-                                                    <i class="fa fa-shopping-cart me-2"/> Agregar
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px !important; transition: transform 0.3s ease;">
+                                        <!-- Badge de Calidad -->
+                                        <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                                            <span class="badge bg-primary px-3 py-2 rounded-pill shadow-sm" style="font-size: 0.7rem; letter-spacing: 1px;">ORIGINAL</span>
+                                        </div>
+                                        
+                                        <!-- Image Container -->
+                                        <div class="bg-white p-4 text-center d-flex align-items-center justify-content-center" style="height: 220px; border-bottom: 1px solid #f1f5f9;">
+                                            <img t-att-src="website.image_url(product, 'image_1920')" 
+                                                 class="img-fluid" 
+                                                 t-att-alt="product.name" 
+                                                 style="max-height: 100%; object-fit: contain;"/>
+                                        </div>
+                                        
+                                        <!-- Content -->
+                                        <div class="card-body p-4 d-flex flex-column">
+                                            <div class="mb-2">
+                                                <small class="text-uppercase fw-bold text-muted" style="font-size: 0.65rem; letter-spacing: 1.5px;">Categoría: Repuestos</small>
+                                            </div>
+                                            <h5 class="fw-bold mb-3 text-truncate-2" t-field="product.name" style="min-height: 2.8rem; font-size: 1.1rem;"/>
+                                            
+                                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top">
+                                                <span class="h5 fw-bold text-primary mb-0" 
+                                                      t-field="product.list_price" 
+                                                      t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                                
+                                                <button class="btn btn-primary rounded-circle p-0 js_add_to_cart d-flex align-items-center justify-content-center shadow" 
+                                                        t-att-data-product-id="product.product_variant_id.id"
+                                                        style="width: 42px; height: 42px;"
+                                                        title="Agregar al carrito">
+                                                    <i class="fa fa-plus"/>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Trust Section -->
+                <section class="py-5 bg-white border-top">
+                    <div class="container py-4 text-center">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <i class="fa fa-truck fa-2x text-primary mb-3"/>
+                                <h6 class="fw-bold">Envíos Rápidos</h6>
+                                <p class="small text-muted mb-0">Entrega en taller o a domicilio.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-check-square-o fa-2x text-primary mb-3"/>
+                                <h6 class="fw-bold">Calidad Certificada</h6>
+                                <p class="small text-muted mb-0">Garantía oficial en cada pieza.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-lock fa-2x text-primary mb-3"/>
+                                <h6 class="fw-bold">Pago Seguro</h6>
+                                <p class="small text-muted mb-0">Transacciones 100% protegidas.</p>
+                            </div>
                         </div>
                     </div>
                 </section>

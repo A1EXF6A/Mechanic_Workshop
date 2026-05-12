@@ -2,53 +2,108 @@
 <odoo>
     <template id="servicios_page" name="Servicios - Taller Mecánico">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
-                <section class="s_title pt48 pb24 text-center">
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                <!-- Header Optimizado -->
+                <section class="pt48 pb48 text-center text-white" style="background-color: var(--taller-primary);">
                     <div class="container">
-                        <h2>Nuestros Servicios</h2>
-                        <p class="lead">Cuidamos de tu vehículo con los mejores especialistas.</p>
+                        <h6 class="text-uppercase fw-bold mb-2" style="color: #60A5FA; letter-spacing: 2px; font-size: 0.75rem;">Excelencia Automotriz</h6>
+                        <h2 class="fw-bold mb-3" style="color: var(--taller-white);">Servicios Especializados</h2>
+                        <p class="mx-auto text-white opacity-75" style="max-width: 650px; font-size: 1.05rem;">
+                            Tecnología avanzada y técnicos certificados bajo los estándares más estrictos de calidad automotriz.
+                        </p>
                     </div>
                 </section>
 
-                <section class="s_features pt32 pb32">
+                <!-- Services Grid -->
+                <section class="py-5 mt-n4 position-relative z-index-2">
                     <div class="container">
-                        <div class="row">
+                        <div class="row g-4">
                             <!-- Servicio 1 -->
-                            <div class="col-lg-4 pt16 pb16 text-center">
-                                <i class="fa fa-cogs fa-4x mb-3 text-primary"/>
-                                <h3>Mantenimiento Preventivo</h3>
-                                <p>Revisión general, cambio de aceite, filtros y fluidos para asegurar la vida útil de tu motor.</p>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-5 border-0 shadow-sm text-center">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle" style="width: 100px; height: 100px; margin: 0 auto;">
+                                        <i class="fa fa-cogs fa-3x text-primary"/>
+                                    </div>
+                                    <h3 class="fw-bold h4 mb-3">Mantenimiento Pro</h3>
+                                    <p class="text-muted mb-4 small">Revisión integral de 50 puntos, cambio de fluidos y filtros bajo estándares de fábrica originales.</p>
+                                    <a href="/taller/cita" class="btn btn-outline-primary w-100 mt-auto fw-bold">AGENDAR CITA</a>
+                                </div>
                             </div>
                             <!-- Servicio 2 -->
-                            <div class="col-lg-4 pt16 pb16 text-center">
-                                <i class="fa fa-car fa-4x mb-3 text-primary"/>
-                                <h3>Reparación de Frenos</h3>
-                                <p>Diagnóstico, cambio de pastillas y rectificación de discos para garantizar tu seguridad.</p>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-5 border-0 shadow-sm text-center">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle" style="width: 100px; height: 100px; margin: 0 auto;">
+                                        <i class="fa fa-life-ring fa-3x text-primary"/>
+                                    </div>
+                                    <h3 class="fw-bold h4 mb-3">Frenos y Seguridad</h3>
+                                    <p class="text-muted mb-4 small">Diagnóstico láser de discos y pastillas para garantizar una frenada precisa en cualquier condición climática.</p>
+                                    <a href="/taller/cita" class="btn btn-outline-primary w-100 mt-auto fw-bold">AGENDAR CITA</a>
+                                </div>
                             </div>
                             <!-- Servicio 3 -->
-                            <div class="col-lg-4 pt16 pb16 text-center">
-                                <i class="fa fa-laptop fa-4x mb-3 text-primary"/>
-                                <h3>Diagnóstico Computarizado</h3>
-                                <p>Escaneo avanzado con equipos de última generación para identificar fallas ocultas.</p>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-5 border-0 shadow-sm text-center">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle" style="width: 100px; height: 100px; margin: 0 auto;">
+                                        <i class="fa fa-laptop fa-3x text-primary"/>
+                                    </div>
+                                    <h3 class="fw-bold h4 mb-3">Diagnóstico Computarizado</h3>
+                                    <p class="text-muted mb-4 small">Escaneo profundo de la ECU y borrado de códigos de falla con equipos OEM de última generación.</p>
+                                    <a href="/taller/cita" class="btn btn-outline-primary w-100 mt-auto fw-bold">AGENDAR CITA</a>
+                                </div>
+                            </div>
+                            <!-- Servicio 4 -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-5 border-0 shadow-sm text-center">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle" style="width: 100px; height: 100px; margin: 0 auto;">
+                                        <i class="fa fa-snowflake-o fa-3x text-primary"/>
+                                    </div>
+                                    <h3 class="fw-bold h4 mb-3">Aire Acondicionado</h3>
+                                    <p class="text-muted mb-4 small">Recarga de gas ecológico, detección de fugas y limpieza ultrasónica del sistema de climatización.</p>
+                                    <a href="/taller/cita" class="btn btn-outline-primary w-100 mt-auto fw-bold">AGENDAR CITA</a>
+                                </div>
+                            </div>
+                            <!-- Servicio 5 -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-5 border-0 shadow-sm text-center">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle" style="width: 100px; height: 100px; margin: 0 auto;">
+                                        <i class="fa fa-tachometer fa-3x text-primary"/>
+                                    </div>
+                                    <h3 class="fw-bold h4 mb-3">Alineación 3D</h3>
+                                    <p class="text-muted mb-4 small">Ajuste de precisión láser en las 4 ruedas para evitar el desgaste irregular y mejorar la estabilidad.</p>
+                                    <a href="/taller/cita" class="btn btn-outline-primary w-100 mt-auto fw-bold">AGENDAR CITA</a>
+                                </div>
+                            </div>
+                            <!-- Servicio 6 -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 p-5 border-0 shadow-sm text-center">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle" style="width: 100px; height: 100px; margin: 0 auto;">
+                                        <i class="fa fa-bolt fa-3x text-primary"/>
+                                    </div>
+                                    <h3 class="fw-bold h4 mb-3">Sistema Eléctrico</h3>
+                                    <p class="text-muted mb-4 small">Prueba de alternador, arranque y reemplazo de baterías con marcas de alta gama y garantía total.</p>
+                                    <a href="/taller/cita" class="btn btn-outline-primary w-100 mt-auto fw-bold">AGENDAR CITA</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
                 
-                <section class="pt32 pb48 text-center bg-primary text-white">
-                    <div class="container">
-                        <h3 class="mb-4">¿Necesitas repuestos o accesorios de calidad?</h3>
-                        <p class="lead mb-4">Explora nuestro catálogo de productos y compra directamente en línea.</p>
-                        <a href="/taller/productos" class="btn btn-light btn-lg shadow">
-                            <i class="fa fa-shopping-bag me-2"/> Ver Catálogo de Productos
-                        </a>
-                    </div>
-                </section>
-
-                <section class="pt32 pb48 text-center bg-200">
-                    <div class="container">
-                        <h3 class="mb-4">¿Necesitas un servicio especializado?</h3>
-                        <a href="/taller/contacto" class="btn btn-primary btn-lg">Contáctanos</a>
+                <!-- Catalog CTA -->
+                <section class="py-5 pb-5">
+                    <div class="container py-4">
+                        <div class="card bg-primary p-5 text-white border-0 shadow-lg position-relative overflow-hidden" style="border-radius: 20px !important;">
+                            <div class="row align-items-center position-relative z-index-1">
+                                <div class="col-lg-8">
+                                    <h2 class="h1 fw-bold mb-3">¿Buscas repuestos o accesorios?</h2>
+                                    <p class="lead text-white-50 mb-0">Explora nuestra tienda en línea y encuentra todo lo necesario para potenciar tu vehículo.</p>
+                                </div>
+                                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                                    <a href="/taller/productos" class="btn btn-light btn-lg px-5 py-3 fw-bold shadow">
+                                        IR A LA TIENDA <i class="fa fa-shopping-cart ms-2"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>

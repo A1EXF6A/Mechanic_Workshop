@@ -2,84 +2,119 @@
 <odoo>
     <template id="cita_page" name="Agendar Cita - Taller Mecánico">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
-                <section class="s_title pt48 pb24 text-center">
-                    <div class="container">
-                        <h2>Agendar Cita de Reparación</h2>
-                        <p class="lead">Completa el formulario para reservar tu turno.</p>
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                <!-- Header Section -->
+                <section class="pt64 pb32 text-center" style="background-color: var(--taller-primary);">
+                    <div class="container py-5">
+                        <h2 class="text-white display-4 fw-bold mb-3">Reserva tu Turno</h2>
+                        <p class="text-white-50 lead fs-4">Ponemos a tu disposición a los mejores expertos automotrices.</p>
                     </div>
                 </section>
 
-                <section class="pt32 pb64">
+                <section class="py-5 mt-n5 position-relative z-index-2">
                     <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-md-8">
-                                <div class="card shadow-sm">
-                                    <div class="card-body p-4">
-                                        <form action="#" method="get">
-                                            
-                                            <h4 class="mb-3">Tus Datos</h4>
-                                            <div class="mb-3">
-                                                <label for="name" class="form-label">Nombre Completo</label>
-                                                <input type="text" class="form-control" id="name" name="name" required="1" placeholder="Ej. Juan Pérez"/>
+                            <div class="col-lg-9">
+                                <div class="card border-0 shadow-lg overflow-hidden">
+                                    <div class="row g-0">
+                                        <!-- Sidebar Informativo -->
+                                        <div class="col-md-4 bg-primary d-none d-md-flex align-items-center justify-content-center p-5 text-center text-white">
+                                            <div>
+                                                <i class="fa fa-calendar-check-o fa-5x mb-4 opacity-50"/>
+                                                <h3 class="h4 fw-bold">Agendamiento Express</h3>
+                                                <p class="small opacity-75">Confirmamos tu cita en menos de 2 horas hábiles mediante WhatsApp o llamada.</p>
+                                                <hr class="border-white opacity-25 my-4"/>
+                                                <div class="text-start small">
+                                                    <p><i class="fa fa-check-circle me-2"/> Repuestos Originales</p>
+                                                    <p><i class="fa fa-check-circle me-2"/> Técnicos Certificados</p>
+                                                    <p><i class="fa fa-check-circle me-2"/> Lavado de cortesía</p>
+                                                </div>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="phone" class="form-label">Teléfono de Contacto</label>
-                                                <input type="tel" class="form-control" id="phone" name="phone" required="1" placeholder="Ej. 0987654321"/>
-                                            </div>
+                                        </div>
+                                        
+                                        <!-- Formulario -->
+                                        <div class="col-md-8 p-4 p-lg-5 bg-white">
+                                            <form action="#" method="get">
+                                                <!-- Sección 1: Cliente -->
+                                                <div class="mb-5 border-bottom pb-3">
+                                                    <h4 class="fw-bold"><i class="fa fa-user-circle me-2 text-primary"/>Información Personal</h4>
+                                                    <p class="text-muted small">Tus datos para contactarte sobre el estado de tu vehículo.</p>
+                                                </div>
 
-                                            <h4 class="mb-3 mt-4">Datos del Vehículo</h4>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="brand" class="form-label">Marca</label>
-                                                    <input type="text" class="form-control" id="brand" name="brand" required="1" placeholder="Ej. Toyota"/>
+                                                <div class="row g-4 mb-4">
+                                                    <div class="col-md-6">
+                                                        <label for="name" class="form-label fw-bold small text-uppercase text-muted">Nombre Completo</label>
+                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="name" name="name" required="1" placeholder="Ej. Juan Pérez"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="phone" class="form-label fw-bold small text-uppercase text-muted">Teléfono Móvil</label>
+                                                        <input type="tel" class="form-control form-control-lg bg-light border-0" id="phone" name="phone" required="1" placeholder="Ej. 0987654321"/>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="model" class="form-label">Modelo</label>
-                                                    <input type="text" class="form-control" id="model" name="model" required="1" placeholder="Ej. Corolla"/>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="plate" class="form-label">Placa</label>
-                                                    <input type="text" class="form-control" id="plate" name="plate" required="1" placeholder="Ej. ABC-1234"/>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="year" class="form-label">Año</label>
-                                                    <input type="number" class="form-control" id="year" name="year" required="1" placeholder="Ej. 2020"/>
-                                                </div>
-                                            </div>
 
-                                            <h4 class="mb-3 mt-4">Detalles de la Cita</h4>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="date" class="form-label">Fecha Deseada</label>
-                                                    <input type="date" class="form-control" id="date" name="date" required="1"/>
+                                                <!-- Sección 2: Vehículo -->
+                                                <div class="mb-5 border-bottom pb-3 mt-5">
+                                                    <h4 class="fw-bold"><i class="fa fa-car me-2 text-primary"/>Detalles del Vehículo</h4>
+                                                    <p class="text-muted small">Información técnica necesaria para el diagnóstico previo.</p>
                                                 </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="repair_type" class="form-label">Tipo de Servicio</label>
-                                                    <select class="form-select" id="repair_type" name="repair_type">
-                                                        <option value="mantenimiento">Mantenimiento Preventivo</option>
-                                                        <option value="motor">Reparación de Motor</option>
-                                                        <option value="frenos">Frenos</option>
-                                                        <option value="diagnostico">Diagnóstico Computarizado</option>
-                                                        <option value="otro">Otro</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-4">
-                                                <label for="observations" class="form-label">Observaciones o Síntomas</label>
-                                                <textarea class="form-control" id="observations" name="observations" rows="3" placeholder="Describe brevemente el problema de tu vehículo..."></textarea>
-                                            </div>
 
-                                            <div class="text-center">
-                                                <button type="button" class="btn btn-primary btn-lg w-100" onclick="alert('Formulario visual únicamente (Fase 1). Los datos no se han guardado.')">Solicitar Cita</button>
-                                            </div>
-                                        </form>
+                                                <div class="row g-4 mb-4">
+                                                    <div class="col-md-6">
+                                                        <label for="brand" class="form-label fw-bold small text-uppercase text-muted">Marca y Modelo</label>
+                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="brand" name="brand" required="1" placeholder="Ej. Toyota Corolla"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="plate" class="form-label fw-bold small text-uppercase text-muted">Placa / Matrícula</label>
+                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="plate" name="plate" required="1" placeholder="Ej. ABC-1234"/>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Sección 3: Cita -->
+                                                <div class="mb-5 border-bottom pb-3 mt-5">
+                                                    <h4 class="fw-bold"><i class="fa fa-cog me-2 text-primary"/>Servicio Requerido</h4>
+                                                    <p class="text-muted small">Selecciona la fecha y el tipo de especialidad.</p>
+                                                </div>
+
+                                                <div class="row g-4 mb-5">
+                                                    <div class="col-md-6">
+                                                        <label for="date" class="form-label fw-bold small text-uppercase text-muted">Fecha Preferida</label>
+                                                        <input type="date" class="form-control form-control-lg bg-light border-0" id="date" name="date" required="1"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="repair_type" class="form-label fw-bold small text-uppercase text-muted">Especialidad</label>
+                                                        <select class="form-select form-control-lg bg-light border-0" id="repair_type" name="repair_type">
+                                                            <option value="mantenimiento">Mantenimiento Preventivo</option>
+                                                            <option value="motor">Reparación de Motor</option>
+                                                            <option value="frenos">Sistema de Frenos</option>
+                                                            <option value="diagnostico">Escaneo Computarizado</option>
+                                                            <option value="otro">Otro Servicio Especializado</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label for="observations" class="form-label fw-bold small text-uppercase text-muted">Notas Adicionales</label>
+                                                    <textarea class="form-control bg-light border-0" id="observations" name="observations" rows="3" placeholder="Describe brevemente lo que necesita tu vehículo..."></textarea>
+                                                </div>
+
+                                                <div class="pt-3">
+                                                    <button type="button" class="btn btn-primary btn-lg w-100 py-3 shadow-lg fw-bold" onclick="alert('Tu solicitud ha sido enviada. Nos pondremos en contacto contigo a la brevedad.')">
+                                                        SOLICITAR CITA AHORA
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+                
+                <!-- Help Section -->
+                <section class="py-5 text-center">
+                    <div class="container">
+                        <p class="text-muted mb-0">¿Tienes una emergencia mecánica? Llámanos directamente al <span class="text-primary fw-bold">+1 234 567 8900</span></p>
                     </div>
                 </section>
             </div>

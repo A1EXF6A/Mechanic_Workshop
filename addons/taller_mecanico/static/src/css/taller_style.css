@@ -1,0 +1,140 @@
+/* @odoo-module */
+
+:root {
+    /* Color Palette - Automotive Premium */
+    --taller-primary: #0F172A;     /* Deep Slate */
+    --taller-accent: #2563EB;      /* Racing Blue */
+    --taller-accent-hover: #1D4ED8;
+    --taller-bg-light: #F8FAFC;    /* Cool Grey Light */
+    --taller-text-main: #1E293B;
+    --taller-text-muted: #64748B;
+    --taller-white: #FFFFFF;
+    
+    /* Design Tokens */
+    --taller-radius: 12px;
+    --taller-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --taller-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --taller-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --taller-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset & Typography */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    background-color: var(--taller-bg-light);
+    color: var(--taller-text-main);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    color: var(--taller-primary);
+}
+
+/* Modern Sticky Navbar - FORCE DARK */
+header#top, 
+header#top .navbar, 
+header#top .navbar-collapse,
+header#top .container {
+    background-color: var(--taller-primary) !important;
+    background: var(--taller-primary) !important;
+    transition: var(--taller-transition);
+}
+
+header#top {
+    position: sticky !important;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+header#top .navbar {
+    padding: 0.75rem 0;
+    border: none !important;
+}
+
+header#top .navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--taller-white) !important;
+}
+
+header#top .nav-link {
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: var(--taller-transition);
+    position: relative;
+}
+
+header#top .nav-link:hover {
+    color: var(--taller-white) !important;
+}
+
+header#top .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--taller-accent);
+    transition: var(--taller-transition);
+    transform: translateX(-50%);
+    border-radius: 10px 10px 0 0;
+}
+
+header#top .nav-link:hover::after {
+    width: 50%;
+}
+
+/* Elegant Buttons */
+.btn {
+    border-radius: var(--taller-radius) !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 500 !important;
+    transition: var(--taller-transition) !important;
+}
+
+.btn-primary {
+    background-color: var(--taller-accent) !important;
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--taller-accent-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+/* Modern Cards */
+.card {
+    border: none !important;
+    border-radius: var(--taller-radius) !important;
+    background: var(--taller-white) !important;
+    box-shadow: var(--taller-shadow-md) !important;
+    transition: var(--taller-transition) !important;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--taller-shadow-lg) !important;
+}
+
+/* Modern Form Controls */
+.form-control {
+    border-radius: var(--taller-radius) !important;
+    border: 1px solid #E2E8F0 !important;
+    padding: 0.75rem 1rem !important;
+    transition: var(--taller-transition) !important;
+}
+
+.form-control:focus {
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+}

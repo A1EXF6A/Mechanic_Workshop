@@ -2,68 +2,115 @@
 <odoo>
     <template id="carrito_page" name="Carrito - Taller Mecánico">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure">
-                <section class="pt48 pb48">
-                    <div class="container">
-                        <h2 class="mb-4">Tu Carrito de Compras</h2>
-                        <div class="row">
+            <div id="wrap" class="oe_structure bg-light">
+                <section class="py-5">
+                    <div class="container py-4">
+                        <!-- Breadcrumb minimalista -->
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <a href="/taller/productos" class="text-muted text-decoration-none small hover-primary">Tienda</a>
+                            <i class="fa fa-chevron-right text-muted small" style="font-size: 0.6rem;"/>
+                            <span class="fw-bold small text-primary">Tu Carrito</span>
+                        </div>
+
+                        <div class="row g-5">
+                            <!-- Lista de Productos -->
                             <div class="col-lg-8">
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Subtotal</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <t t-foreach="cart_items" t-as="item">
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <img t-att-src="website.image_url(item['product'], 'image_128')" class="img-thumbnail me-3" style="width: 50px;"/>
-                                                            <span t-field="item['product'].name"/>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
-                                                    </td>
-                                                    <td>
-                                                        <input type="number" class="form-control js_update_qty" t-att-value="item['qty']" t-att-data-product-id="item['product'].id" style="width: 80px;"/>
-                                                    </td>
-                                                    <td t-esc="item['subtotal']" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
-                                                    <td>
-                                                        <button class="btn btn-link text-danger js_remove_item" t-att-data-product-id="item['product'].id">
-                                                            <i class="fa fa-trash"/>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </t>
-                                        </tbody>
-                                    </table>
+                                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border-0 mb-4" style="border-radius: 20px !important;">
+                                    <h2 class="fw-bold mb-5 h3 text-primary">Tu Selección</h2>
+                                    
+                                    <t t-if="not cart_items">
+                                        <div class="text-center py-5">
+                                            <div class="mb-4 text-muted opacity-25">
+                                                <i class="fa fa-shopping-basket fa-5x"/>
+                                            </div>
+                                            <h4 class="fw-bold">Tu carrito está vacío</h4>
+                                            <p class="text-muted mb-4">Parece que aún no has seleccionado ningún repuesto para tu vehículo.</p>
+                                            <a href="/taller/productos" class="btn btn-primary px-5 py-3 fw-bold rounded-pill shadow">IR A LA TIENDA</a>
+                                        </div>
+                                    </t>
+                                    
+                                    <t t-foreach="cart_items" t-as="item">
+                                        <div class="row align-items-center mb-4 pb-4 border-bottom g-3">
+                                            <!-- Imagen -->
+                                            <div class="col-3 col-md-2">
+                                                <div class="bg-light p-2 rounded-3 text-center d-flex align-items-center justify-content-center" style="height: 80px;">
+                                                    <img t-att-src="website.image_url(item['product'], 'image_128')" 
+                                                         class="img-fluid" t-att-alt="item['product'].name" 
+                                                         style="max-height: 100%; object-fit: contain;"/>
+                                                </div>
+                                            </div>
+                                            <!-- Detalles -->
+                                            <div class="col-9 col-md-4">
+                                                <h6 class="fw-bold mb-1" t-field="item['product'].name"/>
+                                                <small class="text-muted">SKU: <t t-esc="item['product'].default_code or 'AUT-MOD-001'"/></small>
+                                            </div>
+                                            <!-- Precio Unitario -->
+                                            <div class="col-6 col-md-2 text-md-center">
+                                                <span class="fw-bold text-dark" t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                            </div>
+                                            <!-- Cantidad -->
+                                            <div class="col-6 col-md-2">
+                                                <div class="input-group input-group-sm border rounded-pill overflow-hidden bg-light mx-auto" style="max-width: 100px;">
+                                                    <input type="number" class="form-control js_update_qty border-0 bg-transparent text-center fw-bold" 
+                                                           t-att-value="item['qty']" t-att-data-product-id="item['product'].id" min="1"/>
+                                                </div>
+                                            </div>
+                                            <!-- Subtotal y Eliminar -->
+                                            <div class="col-12 col-md-2 text-md-end d-flex align-items-center justify-content-between justify-content-md-end gap-3">
+                                                <span class="fw-bold d-md-none small text-muted">Subtotal:</span>
+                                                <span class="fw-bold h6 mb-0 text-primary" t-esc="item['subtotal']" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                                <button class="btn btn-link text-danger p-0 js_remove_item ms-2" t-att-data-product-id="item['product'].id" title="Eliminar">
+                                                    <i class="fa fa-times-circle fa-lg"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center px-2">
+                                    <a href="/taller/productos" class="text-decoration-none text-muted hover-primary small fw-bold">
+                                        <i class="fa fa-arrow-left me-2"/> SEGUIR COMPRANDO
+                                    </a>
                                 </div>
                             </div>
+
+                            <!-- Resumen de Pago (Sticky) -->
                             <div class="col-lg-4">
-                                <div class="card shadow-sm">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-4">Resumen de Compra</h4>
-                                        <div class="d-flex justify-content-between mb-3">
+                                <div class="card border-0 shadow-sm rounded-4 overflow-hidden sticky-top" style="top: 100px; border-radius: 20px !important;">
+                                    <div class="card-body p-4 p-md-5">
+                                        <h4 class="fw-bold mb-4">Resumen de Pago</h4>
+                                        
+                                        <div class="d-flex justify-content-between mb-3 text-muted">
                                             <span>Subtotal</span>
                                             <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
                                         </div>
-                                        <div class="d-flex justify-content-between mb-3 fw-bold border-top pt-3">
-                                            <span>Total</span>
-                                            <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                        <div class="d-flex justify-content-between mb-3 text-muted">
+                                            <span>Envío / Instalación</span>
+                                            <span class="text-success fw-bold">GRATIS</span>
                                         </div>
+                                        
+                                        <hr class="my-4 opacity-50"/>
+                                        
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <span class="h5 fw-bold">Total Final</span>
+                                            <span class="h4 fw-bold text-primary" t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                        </div>
+                                        
                                         <form action="/taller/confirmar-compra" method="POST">
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                            <button type="submit" class="btn btn-primary btn-lg w-100">
-                                                Confirmar y Pagar
+                                            <button type="submit" class="btn btn-primary btn-lg w-100 py-3 shadow-lg fw-bold rounded-pill">
+                                                CONFIRMAR Y PAGAR <i class="fa fa-chevron-right ms-2 small"/>
                                             </button>
                                         </form>
+                                        
+                                        <div class="mt-5 text-center pt-3 border-top">
+                                            <p class="small text-muted mb-3"><i class="fa fa-shield me-2 text-success"/> Compra 100% Protegida</p>
+                                            <div class="d-flex justify-content-center gap-3 opacity-50 grayscale" style="filter: grayscale(1);">
+                                                <i class="fa fa-cc-visa fa-2x"/>
+                                                <i class="fa fa-cc-mastercard fa-2x"/>
+                                                <i class="fa fa-cc-paypal fa-2x"/>
+                                                <i class="fa fa-cc-stripe fa-2x"/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
