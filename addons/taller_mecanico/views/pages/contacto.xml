@@ -2,89 +2,111 @@
 <odoo>
     <template id="contacto_page" name="Contacto - Taller Mecánico">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty bg-light">
-                <!-- Header Optimizado -->
-                <section class="pt48 pb48 text-center text-white" style="background-color: var(--taller-primary);">
-                    <div class="container py-2">
-                        <h2 class="fw-bold mb-3" style="color: var(--taller-white);">Hablemos de tu Vehículo</h2>
-                        <p class="mx-auto text-white opacity-75" style="max-width: 600px; font-size: 1.05rem;">
-                            Asesoría técnica experta y soluciones integrales de mantenimiento a tu alcance.
-                        </p>
-                    </div>
-                </section>
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="py-5" style="background: #f8fafc;">
+                    <div class="container py-4">
+                        <div class="text-center mb-5">
+                            <h6 class="text-primary text-uppercase fw-bold mb-2" style="font-size: 0.75rem; letter-spacing: 2px;">Contacto</h6>
+                            <h2 class="fw-bold mb-2">Estamos aquí para ayudarte</h2>
+                            <p class="text-muted" style="max-width: 500px; margin: 0 auto;">Resuelve tus dudas o agenda una cita directamente con nuestro equipo.</p>
+                        </div>
 
-                <section class="py-5 mt-n4 position-relative z-index-2">
-                    <div class="container">
-                        <div class="row g-5">
-                            <!-- Info Cards -->
-                            <div class="col-lg-5">
-                                <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 20px !important;">
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <div class="card border-0 h-100 p-3 text-center" style="background: #ffffff;">
                                     <div class="card-body">
-                                        <h3 class="fw-bold mb-5 h4 text-primary">Canales de Atención</h3>
-                                        
-                                        <div class="d-flex align-items-start mb-4">
-                                            <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-4 text-primary shadow-sm">
-                                                <i class="fa fa-map-marker fa-2x"/>
-                                            </div>
-                                            <div>
-                                                <h6 class="fw-bold mb-1 h5">Nuestra Ubicación</h6>
-                                                <p class="text-muted small mb-0">Av. Principal 123, Sector Automotriz, Ciudad Central</p>
-                                            </div>
+                                        <div class="bg-primary bg-opacity-10 rounded-2 d-inline-flex align-items-center justify-content-center mb-3" style="width: 44px; height: 44px;">
+                                            <i class="fa fa-map-marker text-primary"/>
                                         </div>
-
-                                        <div class="d-flex align-items-start mb-4">
-                                            <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-4 text-primary shadow-sm">
-                                                <i class="fa fa-phone fa-2x"/>
-                                            </div>
-                                            <div>
-                                                <h6 class="fw-bold mb-1 h5">Líneas Directas</h6>
-                                                <p class="text-muted small mb-0">+1 234 567 8900<br/>+1 234 567 8901</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex align-items-start mb-0">
-                                            <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-4 text-primary shadow-sm">
-                                                <i class="fa fa-envelope fa-2x"/>
-                                            </div>
-                                            <div>
-                                                <h6 class="fw-bold mb-1 h5">Correo Electrónico</h6>
-                                                <p class="text-muted small mb-0">atencion@tallermecanico.com<br/>soporte@tallermecanico.com</p>
-                                            </div>
-                                        </div>
+                                        <h6 class="fw-bold mb-2">Dirección</h6>
+                                        <p class="text-muted small mb-0">Av. Principal 123, Ciudad</p>
                                     </div>
                                 </div>
-
-                                <div class="card border-0 shadow-lg p-4 bg-primary text-white" style="border-radius: 20px !important;">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 h-100 p-3 text-center" style="background: #ffffff;">
                                     <div class="card-body">
-                                        <h4 class="fw-bold mb-4">Horarios de Taller</h4>
-                                        <div class="d-flex justify-content-between mb-3 pb-2 border-bottom border-white border-opacity-10">
-                                            <span>Lunes - Viernes</span>
-                                            <span class="fw-bold">08:00 - 18:00</span>
+                                        <div class="bg-primary bg-opacity-10 rounded-2 d-inline-flex align-items-center justify-content-center mb-3" style="width: 44px; height: 44px;">
+                                            <i class="fa fa-phone text-primary"/>
                                         </div>
-                                        <div class="d-flex justify-content-between mb-3 pb-2 border-bottom border-white border-opacity-10">
-                                            <span>Sábados</span>
-                                            <span class="fw-bold">09:00 - 14:00</span>
+                                        <h6 class="fw-bold mb-2">Teléfono</h6>
+                                        <p class="text-muted small mb-0">+1 234 567 8900</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 h-100 p-3 text-center" style="background: #ffffff;">
+                                    <div class="card-body">
+                                        <div class="bg-primary bg-opacity-10 rounded-2 d-inline-flex align-items-center justify-content-center mb-3" style="width: 44px; height: 44px;">
+                                            <i class="fa fa-envelope text-primary"/>
                                         </div>
-                                        <div class="d-flex justify-content-between">
-                                            <span>Domingos</span>
-                                            <span class="badge bg-danger rounded-pill px-3 py-2 fw-bold" style="font-size: 0.7rem;">CERRADO</span>
+                                        <h6 class="fw-bold mb-2">Email</h6>
+                                        <p class="text-muted small mb-0">contacto@tallermecanico.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-5 align-items-start">
+                            <div class="col-lg-5">
+                                <div class="card border-0" style="background: #ffffff;">
+                                    <div class="card-body p-4 p-lg-5">
+                                        <h4 class="fw-bold mb-1">Horarios</h4>
+                                        <p class="text-muted small mb-4">Te esperamos en nuestros horarios de atención.</p>
+
+                                        <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+                                            <span class="text-muted small">Lunes - Viernes</span>
+                                            <span class="fw-bold small">08:00 - 18:00</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+                                            <span class="text-muted small">Sábados</span>
+                                            <span class="fw-bold small">09:00 - 14:00</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center py-3">
+                                            <span class="text-muted small">Domingos</span>
+                                            <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3 py-1">Cerrado</span>
+                                        </div>
+
+                                        <div class="mt-4 pt-3 border-top">
+                                            <p class="text-muted small mb-2">
+                                                <i class="fa fa-clock-o text-primary me-2"/>
+                                                Consulta disponibilidad antes de visitarnos.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Map / Visual Representation -->
                             <div class="col-lg-7">
-                                <div class="h-100 rounded-4 shadow-sm overflow-hidden bg-white p-2">
-                                    <div class="bg-light w-100 h-100 d-flex align-items-center justify-content-center text-center p-5 rounded-4 border border-dashed border-2">
-                                        <div class="py-4">
-                                            <i class="fa fa-map-o fa-5x text-muted mb-4 opacity-25"/>
-                                            <h3 class="text-primary fw-bold mb-3">Encuéntranos Fácilmente</h3>
-                                            <p class="text-muted px-lg-5">Nuestras instalaciones están equipadas con tecnología de vanguardia y amplias zonas de espera para tu comodidad.</p>
-                                            <div class="mt-5">
-                                                <img src="/taller_mecanico/static/src/img/hero.png" class="img-fluid rounded-4 shadow-lg" style="max-height: 280px; object-fit: cover; width: 100%;"/>
+                                <div class="card border-0" style="background: #ffffff;">
+                                    <div class="card-body p-4 p-lg-5">
+                                        <h4 class="fw-bold mb-1">Envíanos un mensaje</h4>
+                                        <p class="text-muted small mb-4">Te responderemos en menos de 24 horas.</p>
+
+                                        <form action="#" method="get" class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" placeholder="Tu nombre" required="1"/>
                                             </div>
-                                        </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" class="form-control" placeholder="tu@email.com" required="1"/>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Teléfono</label>
+                                                <input type="tel" class="form-control" placeholder="+1 234 567 8900"/>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Mensaje</label>
+                                                <textarea class="form-control" rows="4" placeholder="¿En qué podemos ayudarte?" required="1"/>
+                                            </div>
+                                            <div class="col-12 pt-2">
+                                                <button type="button" class="btn btn-primary px-4" onclick="alert('Gracias por contactarnos. Te responderemos pronto.')">
+                                                    Enviar mensaje
+                                                    <i class="fa fa-send ms-2" style="font-size: 0.75rem;"/>
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -37,10 +37,17 @@
     </record>
 
     <record id="menu_taller_carrito" model="website.menu">
-        <field name="name">🛒 Carrito</field>
+        <field name="name">Carrito</field>
         <field name="url">/taller/carrito</field>
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">60</field>
+    </record>
+
+    <record id="menu_taller_login" model="website.menu">
+        <field name="name">Ingresar</field>
+        <field name="url">/taller/login</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">90</field>
     </record>
 
     <!-- Inyectar Google Fonts -->

@@ -8,11 +8,14 @@
         Incluye paginas estaticas: Inicio, Servicios, Contacto y Formulario de Cita.
     """,
     'author': 'Tu Nombre',
-    'depends': ['website', 'stock', 'sale', 'account'],
+    'depends': ['website', 'stock', 'sale', 'account', 'usuarios_taller'],
     'data': [
         'security/ir.model.access.csv',
         'data/product.product.csv',
         'data/stock_init_data.xml',
+        'views/pages/login.xml',
+        'views/pages/registro.xml',
+        'views/pages/registro_confirmacion.xml',
         'views/pages/home.xml',
         'views/pages/servicios.xml',
         'views/pages/contacto.xml',

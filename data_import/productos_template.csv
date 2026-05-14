@@ -1,0 +1,31 @@
+External ID;Name;Product Type;Internal Reference;Barcode;Sales Price;Cost;Weight;Sales Description
+product_template_01;Aceite 5W30 1L;Goods;MECH-001;;12.50;8.20;;Aceite sintetico para motores a gasolina.
+product_template_02;Aceite 10W40 1L;Goods;MECH-002;;11.90;7.80;;Aceite semisintetico para uso diario.
+product_template_03;Filtro de aceite A1;Goods;MECH-003;;6.50;3.80;;Filtro de aceite para motores 1.6 a 2.0.
+product_template_04;Filtro de aire A2;Goods;MECH-004;;8.20;4.60;;Filtro de aire de alto flujo.
+product_template_05;Bujia NGK BKR6E;Goods;MECH-005;;9.90;6.10;;Bujia estandar para motores de 4 cilindros.
+product_template_06;Pastillas de freno delanteras;Goods;MECH-006;;35.00;22.00;;Pastillas ceramicas para eje delantero.
+product_template_07;Pastillas de freno traseras;Goods;MECH-007;;32.00;20.50;;Pastillas semimetalicas para eje trasero.
+product_template_08;Disco de freno 280mm;Goods;MECH-008;;45.00;30.00;;Disco ventilado 280 mm.
+product_template_09;Bateria 12V 60Ah;Goods;MECH-009;;120.00;90.00;;Bateria libre de mantenimiento 60Ah.
+product_template_10;Neumatico 195/65R15;Goods;MECH-010;;85.00;60.00;;Neumatico radial para sedanes.
+product_template_11;Neumatico 205/55R16;Goods;MECH-011;;95.00;68.00;;Neumatico de alto agarre.
+product_template_12;Amortiguador delantero;Goods;MECH-012;;78.00;52.00;;Amortiguador hidraulico delantero.
+product_template_13;Amortiguador trasero;Goods;MECH-013;;74.00;49.00;;Amortiguador hidraulico trasero.
+product_template_14;Correa de distribucion;Goods;MECH-014;;55.00;37.00;;Correa de distribucion reforzada.
+product_template_15;Correa auxiliar;Goods;MECH-015;;25.00;16.00;;Correa auxiliar para accesorios.
+product_template_16;Liquido de frenos DOT4;Goods;MECH-016;;7.50;4.20;;Liquido de frenos DOT4 500ml.
+product_template_17;Liquido refrigerante 1L;Goods;MECH-017;;6.80;3.90;;Refrigerante 1L listo para usar.
+product_template_18;Filtro de combustible C1;Goods;MECH-018;;10.50;6.70;;Filtro de combustible para inyeccion.
+product_template_19;Limpiaparabrisas 22in;Goods;MECH-019;;12.00;7.50;;Plumilla 22 pulgadas.
+product_template_20;Lampara H4 60/55W;Goods;MECH-020;;5.50;3.10;;Lampara halogena H4.
+product_template_21;Kit de embrague;Goods;MECH-021;;180.00;130.00;;Kit de embrague completo.
+product_template_22;Alternador 90A;Goods;MECH-022;;210.00;160.00;;Alternador 90 amperios.
+product_template_23;Motor de arranque;Goods;MECH-023;;190.00;140.00;;Motor de arranque 12V.
+product_template_24;Sensor de oxigeno;Goods;MECH-024;;65.00;45.00;;Sensor lambda 4 cables.
+product_template_25;Bobina de encendido;Goods;MECH-025;;48.00;31.00;;Bobina de encendido individual.
+product_template_26;Radiador compacto;Goods;MECH-026;;135.00;95.00;;Radiador aluminio compacto.
+product_template_27;Termostato 88C;Goods;MECH-027;;18.00;11.00;;Termostato 88C.
+product_template_28;Kit de afinamiento;Goods;MECH-028;;60.00;40.00;;Kit de afinamiento basico.
+product_template_29;Aditivo limpiainyectores;Goods;MECH-029;;9.50;5.20;;Aditivo para limpieza de inyectores.
+product_template_30;Grasa multiproposito 500g;Goods;MECH-030;;7.80;4.10;;Grasa multiproposito 500g.
