@@ -1,0 +1,31 @@
+name;is_company;company_name;country_id;state_id;zip;city;street;street2;phone;mobile;email;vat;bank_ids/bank;bank_ids/acc_number
+Repuestos Andinos;1;;EC;Pichincha;170102;Quito;Av. Industrial 101;;022810001;0988100001;contacto@repuestosandinos.ec;0991000001;PICHINCHA;00200100101
+Lubricantes Sierra;1;;EC;Pichincha;170103;Quito;Calle Motores 202;;022810002;0988100002;ventas@lubricantessierra.ec;0991000002;PICHINCHA;00200100102
+Autopartes Guayas;1;;EC;Guayas;090101;Guayaquil;Av. Logistica 303;;042810003;0988100003;info@autopartesguayas.ec;0991000003;GUAYAQUIL;00200100103
+Frenos del Pacifico;1;;EC;Guayas;090102;Guayaquil;Calle Taller 404;;042810004;0988100004;comercial@frenospacifico.ec;0991000004;GUAYAQUIL;00200100104
+Electricos Austro;1;;EC;Azuay;010101;Cuenca;Av. Repuestos 505;;072810005;0988100005;ventas@electricosaustro.ec;0991000005;AUSTRO;00200100105
+Suspensiones Azuay;1;;EC;Azuay;010102;Cuenca;Calle Direccion 606;;072810006;0988100006;contacto@suspensionesazuay.ec;0991000006;AUSTRO;00200100106
+Filtros Manabi;1;;EC;Manabi;130101;Manta;Av. Filtros 707;;052810007;0988100007;info@filtrosmanabi.ec;0991000007;MANABI;00200100107
+Neumaticos Costa;1;;EC;Manabi;130102;Portoviejo;Calle Neumaticos 808;;052810008;0988100008;ventas@neumaticoscosta.ec;0991000008;MANABI;00200100108
+Transmision Ambato;1;;EC;Tungurahua;180101;Ambato;Av. Transmision 909;;032810009;0988100009;info@transmisionambato.ec;0991000009;AMBATO;00200100109
+Refrigeracion Central;1;;EC;Tungurahua;180102;Ambato;Calle Refrigeracion 1010;;032810010;0988100010;ventas@refrigeracioncentral.ec;0991000010;AMBATO;00200100110
+Iluminacion Quito;1;;EC;Pichincha;170104;Quito;Av. Iluminacion 1111;;022810011;0988100011;contacto@iluminacionquito.ec;0991000011;PICHINCHA;00200100111
+Correas y Bandas;1;;EC;Pichincha;170105;Quito;Calle Bandas 1212;;022810012;0988100012;ventas@correasbandas.ec;0991000012;PICHINCHA;00200100112
+Rodamientos Guayaquil;1;;EC;Guayas;090103;Guayaquil;Av. Rodamientos 1313;;042810013;0988100013;info@rodamientosgye.ec;0991000013;GUAYAQUIL;00200100113
+Quimicos del Valle;1;;EC;Guayas;090104;Guayaquil;Calle Quimicos 1414;;042810014;0988100014;ventas@quimicosdelvalle.ec;0991000014;GUAYAQUIL;00200100114
+Accesorios Cuenca;1;;EC;Azuay;010103;Cuenca;Av. Accesorios 1515;;072810015;0988100015;contacto@accesorioscuenca.ec;0991000015;AUSTRO;00200100115
+Herramientas Sierra;1;;EC;Azuay;010104;Cuenca;Calle Herramientas 1616;;072810016;0988100016;ventas@herramientassierra.ec;0991000016;AUSTRO;00200100116
+Sensores Manta;1;;EC;Manabi;130103;Manta;Av. Sensores 1717;;052810017;0988100017;info@sensoresmanta.ec;0991000017;MANABI;00200100117
+Electronica Auto;1;;EC;Manabi;130104;Manta;Calle Electronica 1818;;052810018;0988100018;ventas@electronicaauto.ec;0991000018;MANABI;00200100118
+Baterias Ambato;1;;EC;Tungurahua;180103;Ambato;Av. Baterias 1919;;032810019;0988100019;contacto@bateriasambato.ec;0991000019;AMBATO;00200100119
+Lubricantes Andinos;1;;EC;Tungurahua;180104;Ambato;Calle Lubricantes 2020;;032810020;0988100020;ventas@lubricantesandinos.ec;0991000020;AMBATO;00200100120
+Repuestos Premium;1;;EC;Pichincha;170106;Quito;Av. Repuestos 2121;;022810021;0988100021;info@repuestospremium.ec;0991000021;PICHINCHA;00200100121
+Frenos Seguros;1;;EC;Pichincha;170107;Quito;Calle Frenos 2222;;022810022;0988100022;ventas@frenosseguros.ec;0991000022;PICHINCHA;00200100122
+Suspension Plus;1;;EC;Guayas;090105;Guayaquil;Av. Suspension 2323;;042810023;0988100023;contacto@suspensionplus.ec;0991000023;GUAYAQUIL;00200100123
+Motor Parts EC;1;;EC;Guayas;090106;Guayaquil;Calle Motor 2424;;042810024;0988100024;ventas@motorpartsec.ec;0991000024;GUAYAQUIL;00200100124
+Filtros del Austro;1;;EC;Azuay;010105;Cuenca;Av. Filtros 2525;;072810025;0988100025;info@filtrosaustro.ec;0991000025;AUSTRO;00200100125
+Neumaticos Sierra;1;;EC;Azuay;010106;Cuenca;Calle Neumaticos 2626;;072810026;0988100026;ventas@neumaticossierrra.ec;0991000026;AUSTRO;00200100126
+Direccion Hidraulica;1;;EC;Manabi;130105;Manta;Av. Direccion 2727;;052810027;0988100027;contacto@direccionhidraulica.ec;0991000027;MANABI;00200100127
+Escape y Catalizadores;1;;EC;Manabi;130106;Manta;Calle Escape 2828;;052810028;0988100028;ventas@escapecatalizadores.ec;0991000028;MANABI;00200100128
+Pinturas y Limpieza;1;;EC;Tungurahua;180105;Ambato;Av. Limpieza 2929;;032810029;0988100029;info@pinturasylimpieza.ec;0991000029;AMBATO;00200100129
+Insumos Automotrices;1;;EC;Tungurahua;180106;Ambato;Calle Insumos 3030;;032810030;0988100030;ventas@insumosautomotrices.ec;0991000030;AMBATO;00200100130

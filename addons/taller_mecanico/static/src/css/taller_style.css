@@ -138,3 +138,64 @@ header#top .nav-link:hover::after {
     border-color: var(--taller-accent) !important;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
 }
+
+/* Auth Pages */
+.taller-auth {
+    position: relative;
+    background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.15), transparent 45%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.12), transparent 35%),
+                linear-gradient(135deg, #0d1b2a, #1b263b);
+    overflow: hidden;
+}
+
+.taller-auth::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.04) 25%, transparent 25%),
+                      linear-gradient(-45deg, rgba(255, 255, 255, 0.04) 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.04) 75%),
+                      linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.04) 75%);
+    background-size: 28px 28px;
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.taller-auth .container {
+    position: relative;
+    z-index: 1;
+}
+
+.taller-auth-card {
+    border-radius: 20px !important;
+    backdrop-filter: blur(6px);
+}
+
+.taller-auth-title {
+    font-size: 2rem;
+    color: var(--taller-primary);
+}
+
+.taller-auth-subtitle {
+    color: var(--taller-text-muted);
+}
+
+.taller-auth .form-control {
+    background: #f4f7fb !important;
+    border-color: transparent !important;
+}
+
+.taller-auth .form-control:focus {
+    background: #ffffff !important;
+    border-color: var(--taller-accent) !important;
+}
+
+.taller-auth .btn-outline-primary {
+    border-color: var(--taller-accent) !important;
+    color: var(--taller-accent) !important;
+}
+
+.taller-auth .btn-outline-primary:hover {
+    background: var(--taller-accent) !important;
+    color: var(--taller-white) !important;
+}

@@ -1,0 +1,31 @@
+Customer,Order Date,Order Lines / Product,Order Lines / Quantity,Order Lines / Unit Price
+Cliente 01,2026-05-01,Aceite 5W30 1L,2,12.50
+Cliente 02,2026-05-02,Filtro de aceite A1,3,6.50
+Cliente 03,2026-05-03,Pastillas de freno delanteras,1,35.00
+Cliente 04,2026-05-04,Disco de freno 280mm,2,45.00
+Cliente 05,2026-05-05,Bateria 12V 60Ah,1,120.00
+Cliente 06,2026-05-06,Neumatico 195/65R15,2,85.00
+Cliente 07,2026-05-07,Amortiguador delantero,2,78.00
+Cliente 08,2026-05-08,Correa de distribucion,1,55.00
+Cliente 09,2026-05-09,Liquido de frenos DOT4,4,7.50
+Cliente 10,2026-05-10,Liquido refrigerante 1L,3,6.80
+Cliente 11,2026-05-11,Filtro de aire A2,2,8.20
+Cliente 12,2026-05-12,Limpiaparabrisas 22in,2,12.00
+Cliente 13,2026-05-13,Lampara H4 60/55W,4,5.50
+Cliente 14,2026-05-14,Kit de embrague,1,180.00
+Cliente 15,2026-05-15,Alternador 90A,1,210.00
+Cliente 16,2026-05-16,Motor de arranque,1,190.00
+Cliente 17,2026-05-17,Sensor de oxigeno,1,65.00
+Cliente 18,2026-05-18,Bobina de encendido,2,48.00
+Cliente 19,2026-05-19,Radiador compacto,1,135.00
+Cliente 20,2026-05-20,Termostato 88C,2,18.00
+Cliente 21,2026-05-21,Kit de afinamiento,1,60.00
+Cliente 22,2026-05-22,Aditivo limpiainyectores,3,9.50
+Cliente 23,2026-05-23,Grasa multiproposito 500g,4,7.80
+Cliente 24,2026-05-24,Correa auxiliar,2,25.00
+Cliente 25,2026-05-25,Neumatico 205/55R16,2,95.00
+Cliente 26,2026-05-26,Filtro de combustible C1,2,10.50
+Cliente 27,2026-05-27,Pastillas de freno traseras,1,32.00
+Cliente 28,2026-05-28,Aceite 10W40 1L,2,11.90
+Cliente 29,2026-05-29,Bujia NGK BKR6E,4,9.90
+Cliente 30,2026-05-30,Amortiguador trasero,2,74.00
