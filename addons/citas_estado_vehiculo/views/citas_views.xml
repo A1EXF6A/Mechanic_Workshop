@@ -1,0 +1,65 @@
+<odoo>
+
+    <!-- FORMULARIO -->
+    <record id="view_citas_form" model="ir.ui.view">
+        <field name="name">taller.citas.form</field>
+        <field name="model">taller.citas</field>
+        <field name="arch" type="xml">
+            <form string="Cita">
+                <sheet>
+    <group>
+        <field name="name"/>
+        <field name="usuario_id"/>
+        <field name="vehiculo_id"/>
+        <field name="estado"/>
+        <field name="fecha"/>
+    </group>
+
+    <notebook>
+        <page string="Trabajos">
+            <field name="trabajo"/>
+            <field name="preferencias"/>
+        </page>
+
+        <page string="Piezas">
+            <field name="linea_ids">
+                <list editable="bottom">
+                    <field name="producto"/>
+                    <field name="marca"/>
+                    <field name="cantidad"/>
+                </list>
+            </field>
+        </page>
+    </notebook>
+</sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- LISTA -->
+    <record id="view_citas_list" model="ir.ui.view">
+        <field name="name">taller.citas.list</field>
+        <field name="model">taller.citas</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="usuario_id"/>
+                <field name="vehiculo_id"/>
+                <field name="estado"/>
+                <field name="fecha"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACCIÓN -->
+    <record id="action_citas" model="ir.actions.act_window">
+        <field name="name">Citas</field>
+        <field name="res_model">taller.citas</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- MENÚ -->
+    <menuitem id="menu_taller_root" name="Taller"/>
+    <menuitem id="menu_citas" name="Citas" parent="menu_taller_root" action="action_citas"/>
+
+</odoo>
