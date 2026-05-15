@@ -119,4 +119,50 @@ publicWidget.registry.TallerShop = publicWidget.Widget.extend({
     },
 });
 
+publicWidget.registry.TallerCitaAutofill = publicWidget.Widget.extend({
+    selector: '#wrap',
+    start: function () {
+        if (window.location.pathname !== '/taller/cita') return;
+        var self = this;
+        $.ajax({
+            url: '/taller/cita/user-data',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({jsonrpc: "2.0", method: "call", params: {}}),
+        }).then(function (data) {
+            if (data.result) {
+                var map = {name: 'name', phone: 'phone', brand: 'brand', plate: 'plate'};
+                for (var key in map) {
+                    if (data.result[key]) {
+                        var el = document.getElementById(map[key]);
+                        if (el) el.value = data.result[key];
+                    }
+                }
+            }
+        });
+    },
+});
+
+publicWidget.registry.TallerUserMenu = publicWidget.Widget.extend({
+    selector: '#top_menu',
+    start: function () {
+        var self = this;
+        $.ajax({
+            url: '/web/session/get_session_info',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({jsonrpc: "2.0", method: "call", params: {}}),
+        }).then(function (data) {
+            var loggedIn = data.result && data.result.uid;
+            if (loggedIn) {
+                self.$el.find('.nav-item:has([href*="/taller/login"])').hide();
+            } else {
+                self.$el.find('.nav-item:has([href*="/taller/mis-vehiculos"])').hide();
+            }
+        });
+    },
+});
+
 export default publicWidget.registry.TallerShop;

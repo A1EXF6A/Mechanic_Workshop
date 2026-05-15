@@ -95,8 +95,15 @@ class TallerShopController(http.Controller):
         request.session.modified = True
         return {'success': True}
 
-    @http.route(['/taller/confirmar-compra'], type='http', auth="user", website=True, methods=['POST'], csrf=True)
+    @http.route(['/taller/confirmar-compra'], type='http', auth="public", website=True)
+    def confirmar_compra_get(self, **kw):
+        return request.redirect('/taller/carrito')
+
+    @http.route(['/taller/confirmar-compra'], type='http', auth="public", website=True, methods=['POST'], csrf=True)
     def confirmar_compra(self, **kw):
+        if request.env.user._is_public():
+            return request.redirect('/taller/login?redirect=/taller/carrito')
+
         partner = request.env.user.partner_id
         cart = request.session.get('taller_cart', {})
 

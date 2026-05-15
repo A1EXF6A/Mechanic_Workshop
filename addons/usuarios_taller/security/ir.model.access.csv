@@ -1,2 +1,1 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_usuarios_taller_user_profile_admin,usuarios_taller.user_profile,model_usuarios_taller_user_profile,base.group_system,1,1,1,1

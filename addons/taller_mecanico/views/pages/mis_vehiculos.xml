@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mis_vehiculos_page" name="Mis Vehículos - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="py-5" style="background: #f8fafc;">
+                    <div class="container py-4">
+                        <div class="text-center mb-5">
+                            <h6 class="text-primary text-uppercase fw-bold mb-2" style="font-size: 0.75rem; letter-spacing: 2px;">VEHÍCULOS</h6>
+                            <h2 class="fw-bold mb-2">Mis Vehículos</h2>
+                            <p class="text-muted" style="max-width: 500px; margin: 0 auto;">Registrá tus vehículos para un servicio más rápido.</p>
+                        </div>
+
+                        <div class="row justify-content-center mb-5">
+                            <div class="col-lg-8">
+                                <div class="card border-0">
+                                    <div class="card-body p-4 p-lg-5">
+                                        <h4 class="fw-bold mb-1">Registrar Vehículo</h4>
+                                        <p class="text-muted small mb-4">Completá los datos de tu vehículo.</p>
+
+                                        <form action="/taller/mis-vehiculos/submit" method="post" class="row g-3">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                            <div class="col-md-6">
+                                                <label class="form-label">Matrícula</label>
+                                                <input type="text" name="matricula" class="form-control" required="1" placeholder="ABC-1234"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Marca</label>
+                                                <input type="text" name="marca" class="form-control" required="1" placeholder="Toyota"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Modelo</label>
+                                                <input type="text" name="modelo" class="form-control" required="1" placeholder="Corolla"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label">Año</label>
+                                                <input type="number" name="anio" class="form-control" placeholder="2024"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label">Color</label>
+                                                <input type="text" name="color" class="form-control" placeholder="Rojo"/>
+                                            </div>
+                                            <div class="col-12 pt-2">
+                                                <button type="submit" class="btn btn-primary px-4">
+                                                    Registrar vehículo
+                                                    <i class="fa fa-plus ms-2" style="font-size: 0.75rem;"/>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <t t-foreach="vehiculos" t-as="v">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card border-0 h-100">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex align-items-center gap-3 mb-3">
+                                                <div class="bg-primary bg-opacity-10 rounded-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                                                    <i class="fa fa-car text-primary"/>
+                                                </div>
+                                                <div>
+                                                    <h6 class="fw-bold mb-0">
+                                                        <t t-esc="v.marca"/> <t t-esc="v.modelo"/>
+                                                    </h6>
+                                                    <span class="small text-muted"><t t-esc="v.matricula"/></span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-3 small text-muted border-top pt-3">
+                                                <span><t t-esc="v.anio or '—'"/></span>
+                                                <span><t t-esc="v.color or '—'"/></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="not vehiculos">
+                                <div class="col-12 text-center py-5">
+                                    <div class="mb-3 text-muted opacity-25">
+                                        <i class="fa fa-car" style="font-size: 3rem;"/>
+                                    </div>
+                                    <p class="text-muted mb-0">Todavía no registraste ningún vehículo.</p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -2,22 +2,15 @@ from odoo import api, fields, models, tools
 from odoo.exceptions import ValidationError
 
 
-class TallerUserProfile(models.Model):
-    _name = "usuarios_taller.user_profile"
-    _description = "Usuarios Taller"
-    _order = "apellido, nombre"
+class Partner(models.Model):
+    _inherit = 'res.partner'
 
-    cedula = fields.Char(string="Cedula", required=True)
-    nombre = fields.Char(string="Nombre", required=True)
-    apellido = fields.Char(string="Apellido", required=True)
-    email = fields.Char(string="Direccion de correo", required=True)
-    direccion = fields.Char(string="Direccion donde vive", required=True)
-    password = fields.Char(string="Password", required=True)
-    celular = fields.Char(string="Celular", required=True)
-    edad = fields.Integer(string="Edad", required=True)
+    cedula = fields.Char(string="Cédula")
+    celular = fields.Char(string="Celular")
+    edad = fields.Integer(string="Edad")
 
     _sql_constraints = [
-        ("cedula_unique", "unique(cedula)", "La cedula ya existe."),
+        ("cedula_unique", "unique(cedula)", "La cédula ya existe."),
     ]
 
     @api.constrains("edad")
@@ -30,10 +23,10 @@ class TallerUserProfile(models.Model):
     def _check_email(self):
         for record in self:
             if record.email and not tools.single_email_re.match(record.email):
-                raise ValidationError("La direccion de correo no es valida.")
+                raise ValidationError("La dirección de correo no es válida.")
 
     @api.constrains("celular")
     def _check_celular(self):
         for record in self:
             if record.celular and not record.celular.isdigit():
-                raise ValidationError("El celular debe contener solo numeros.")
+                raise ValidationError("El celular debe contener solo números.")

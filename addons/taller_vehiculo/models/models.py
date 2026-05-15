@@ -12,7 +12,7 @@ class TallerVehiculo(models.Model):
     anio = fields.Integer(string='Año')
     color = fields.Char(string='Color')
     usuario_id = fields.Many2one(
-        comodel_name='usuarios_taller.user_profile',
+        comodel_name='res.partner',
         string='Propietario',
         required=True,
     )

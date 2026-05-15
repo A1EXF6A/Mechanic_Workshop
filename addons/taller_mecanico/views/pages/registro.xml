@@ -17,6 +17,13 @@
                                             <p class="text-muted small mb-0">Regístrate para gestionar tus servicios</p>
                                         </div>
 
+                                        <t t-if="error">
+                                            <div class="alert alert-danger d-flex align-items-center gap-2 mt-4 mb-0" role="alert">
+                                                <i class="fa fa-exclamation-circle flex-shrink-0"/>
+                                                <span><t t-esc="error"/></span>
+                                            </div>
+                                        </t>
+
                                         <form action="/taller/registro/submit" method="post" class="mt-4">
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 

@@ -26,6 +26,7 @@
 
                                         <form action="/taller/login/submit" method="post" class="mt-4">
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <input type="hidden" name="redirect" t-att-value="redirect or '/'"/>
 
                                             <div class="mb-3">
                                                 <label class="form-label">Correo electrónico</label>

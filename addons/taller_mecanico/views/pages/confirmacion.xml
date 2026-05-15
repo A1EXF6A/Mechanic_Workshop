@@ -10,7 +10,7 @@
                                 <!-- Animación Visual de Éxito -->
                                 <div class="mb-5 position-relative d-inline-block">
                                     <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 140px; height: 140px; margin: 0 auto; position: relative; z-index: 2;">
-                                        <i class="fa fa-check text-success" style="font-size: 4rem;"/>
+                                        <i class="fa fa-check-circle text-success" style="font-size: 4rem;"/>
                                     </div>
                                     <div class="position-absolute top-50 start-50 translate-middle bg-success bg-opacity-5 rounded-circle" style="width: 200px; height: 200px; z-index: 1;"/>
                                 </div>

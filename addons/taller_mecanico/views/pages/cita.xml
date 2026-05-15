@@ -44,11 +44,11 @@
                                                 <div class="row g-4 mb-4">
                                                     <div class="col-md-6">
                                                         <label for="name" class="form-label fw-bold small text-uppercase text-muted">Nombre Completo</label>
-                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="name" name="name" required="1" placeholder="Ej. Juan Pérez"/>
+                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="name" name="name" required="1" placeholder="Ej. Juan Pérez" disabled="disabled"/>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="phone" class="form-label fw-bold small text-uppercase text-muted">Teléfono Móvil</label>
-                                                        <input type="tel" class="form-control form-control-lg bg-light border-0" id="phone" name="phone" required="1" placeholder="Ej. 0987654321"/>
+                                                        <input type="tel" class="form-control form-control-lg bg-light border-0" id="phone" name="phone" required="1" placeholder="Ej. 0987654321" disabled="disabled"/>
                                                     </div>
                                                 </div>
 
@@ -61,11 +61,11 @@
                                                 <div class="row g-4 mb-4">
                                                     <div class="col-md-6">
                                                         <label for="brand" class="form-label fw-bold small text-uppercase text-muted">Marca y Modelo</label>
-                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="brand" name="brand" required="1" placeholder="Ej. Toyota Corolla"/>
+                                                        <input type="text" class="form-control form-control-lg bg-light border-0 taller-autofill" id="brand" name="brand" required="1" placeholder="Ej. Toyota Corolla"/>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="plate" class="form-label fw-bold small text-uppercase text-muted">Placa / Matrícula</label>
-                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="plate" name="plate" required="1" placeholder="Ej. ABC-1234"/>
+                                                        <input type="text" class="form-control form-control-lg bg-light border-0 taller-autofill" id="plate" name="plate" required="1" placeholder="Ej. ABC-1234"/>
                                                     </div>
                                                 </div>
 
