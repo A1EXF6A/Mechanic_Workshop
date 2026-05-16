@@ -7,6 +7,9 @@ class TallerUserProfile(models.Model):
     _description = "Usuarios Taller"
     _order = "apellido, nombre"
 
+  
+ 
+
     cedula = fields.Char(string="Cedula", required=True)
     nombre = fields.Char(string="Nombre", required=True)
     apellido = fields.Char(string="Apellido", required=True)
@@ -15,6 +18,8 @@ class TallerUserProfile(models.Model):
     password = fields.Char(string="Password", required=True)
     celular = fields.Char(string="Celular", required=True)
     edad = fields.Integer(string="Edad", required=True)
+
+    
 
     _sql_constraints = [
         ("cedula_unique", "unique(cedula)", "La cedula ya existe."),
@@ -37,3 +42,4 @@ class TallerUserProfile(models.Model):
         for record in self:
             if record.celular and not record.celular.isdigit():
                 raise ValidationError("El celular debe contener solo numeros.")
+

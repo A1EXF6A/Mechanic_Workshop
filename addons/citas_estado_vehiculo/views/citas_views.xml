@@ -7,31 +7,15 @@
         <field name="arch" type="xml">
             <form string="Cita">
                 <sheet>
-    <group>
-        <field name="name"/>
-        <field name="usuario_id"/>
-        <field name="vehiculo_id"/>
-        <field name="estado"/>
-        <field name="fecha"/>
-    </group>
-
-    <notebook>
-        <page string="Trabajos">
-            <field name="trabajo"/>
-            <field name="preferencias"/>
-        </page>
-
-        <page string="Piezas">
-            <field name="linea_ids">
-                <list editable="bottom">
-                    <field name="producto"/>
-                    <field name="marca"/>
-                    <field name="cantidad"/>
-                </list>
-            </field>
-        </page>
-    </notebook>
-</sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="usuario_id"/>
+                        <field name="vehiculo_id"/>
+                        <field name="estado"/>
+                        <field name="fecha"/>
+                        <field name="tipo_cita_id"/>
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
@@ -60,6 +44,9 @@
 
     <!-- MENÚ -->
     <menuitem id="menu_taller_root" name="Taller"/>
-    <menuitem id="menu_citas" name="Citas" parent="menu_taller_root" action="action_citas"/>
 
+    <menuitem id="menu_citas"
+          name="Citas"
+          parent="menu_taller_root"
+          action="action_citas"/>
 </odoo>
