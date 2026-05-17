@@ -1,0 +1,11 @@
+id,name,delivery_type,fixed_price,product_id/name
+delivery_local,Retiro en Taller,fixed,0.0,Envío: Retiro en Taller
+delivery_domicilio,Entrega a Domicilio Grúa,fixed,45.0,Envío: Entrega a Domicilio Grúa
+delivery_express,Entrega Express 2h,fixed,15.0,Envío: Entrega Express 2h
+delivery_provincia,Envío a Provincia (Servientrega),fixed,5.50,Envío: Provincia (Servientrega)
+delivery_norte,Entrega Zona Norte,fixed,3.50,Envío: Zona Norte
+delivery_sur,Entrega Zona Sur,fixed,4.00,Envío: Zona Sur
+delivery_valle,Entrega a los Valles,fixed,6.00,Envío: Valles
+delivery_cumbaya,Entrega Cumbayá/Tumbaco,fixed,5.00,Envío: Cumbayá/Tumbaco
+delivery_vip,Servicio VIP con Chofer,fixed,25.00,Envío: VIP con Chofer
+delivery_aeropuerto,Entrega en Aeropuerto,fixed,20.00,Envío: Aeropuerto

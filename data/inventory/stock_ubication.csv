@@ -1,0 +1,11 @@
+id,name,usage
+loc_estante_A,Estante A - Sistema de Frenos,internal
+loc_estante_B,Estante B - Filtros y Banda,internal
+loc_estante_C,Estante C - Aceites y Fluidos,internal
+loc_estante_D,Estante D - Baterías,internal
+loc_estante_E,Estante E - Neumáticos,internal
+loc_estante_F,Estante F - Sistema Eléctrico y Bujías,internal
+loc_vitrina_1,Vitrina Principal Recepción,internal
+loc_patio_1,Patio Exterior Vehículos,internal
+loc_chatarra_1,Área de Desechos y Partes Usadas,inventory
+loc_proveedores_1,Ubicación Virtual de Proveedores,supplier

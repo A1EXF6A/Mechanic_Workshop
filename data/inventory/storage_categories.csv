@@ -1,0 +1,12 @@
+id,name,max_weight,allow_new_product
+storage_cat_frenos,Estantes de Frenos Pesados,500.0,same
+storage_cat_filtros,Estantes Ligeros Filtros,100.0,mixed
+storage_cat_aceites,Zona de Tambores de Aceite,1000.0,same
+storage_cat_baterias,Racks Reforzados Baterías,800.0,same
+storage_cat_neumaticos,Racks Verticales Neumáticos,600.0,same
+storage_cat_bujias,Gavetas Pequeñas Eléctricos,50.0,mixed
+storage_cat_herramientas,Cajas de Herramientas,200.0,mixed
+storage_cat_chatarra,Contenedor de Desechos,2000.0,mixed
+storage_cat_recepcion,Área de Recepción Temporal,0.0,mixed
+storage_cat_quimicos,Armario de Químicos Peligrosos,150.0,same
+

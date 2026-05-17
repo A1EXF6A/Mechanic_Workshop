@@ -1,0 +1,11 @@
+id,name,parent_id/id,property_cost_method
+cat_servicios,Servicios,,standard
+cat_repuestos,Repuestos,,fifo
+cat_aceites,Aceites y Fluidos,cat_repuestos,fifo
+cat_frenos,Sistema de Frenos,cat_repuestos,fifo
+cat_filtros,Filtros,cat_repuestos,fifo
+cat_suspension,Suspensión y Dirección,cat_repuestos,fifo
+cat_electrico,Sistema Eléctrico,cat_repuestos,fifo
+cat_motor,Partes de Motor,cat_repuestos,fifo
+cat_neumaticos,Neumáticos y Llantas,cat_repuestos,fifo
+cat_accesorios,Accesorios,cat_repuestos,fifo

@@ -1,0 +1,11 @@
+id,name,detailed_type,categ_id/id,list_price,standard_price,default_code
+prod_serv_diag_comp,Diagnóstico Computarizado,service,cat_servicios,30.00,0.00,SERV-001
+prod_serv_mantenimiento_10k,Mantenimiento Preventivo 10.000 Km,service,cat_servicios,60.00,0.00,SERV-002
+prod_serv_cambio_frenos,Cambio de Pastillas y Discos,service,cat_servicios,45.00,0.00,SERV-003
+prod_serv_alineacion,Alineación y Balanceo,service,cat_servicios,25.00,0.00,SERV-004
+prod_serv_cambio_aceite,Servicio de Cambio de Aceite,service,cat_servicios,15.00,0.00,SERV-005
+prod_serv_lavado_motor,Lavado de Motor y Chasis,service,cat_servicios,20.00,0.00,SERV-006
+prod_serv_rev_electrica,Revisión del Sistema Eléctrico,service,cat_servicios,35.00,0.00,SERV-007
+prod_serv_abc_motor,ABC de Motor Completo,service,cat_servicios,85.00,0.00,SERV-008
+prod_serv_limpieza_inyectores,Limpieza de Inyectores por Ultrasonido,service,cat_servicios,40.00,0.00,SERV-009
+prod_serv_recarga_aa,Recarga de Aire Acondicionado,service,cat_servicios,50.00,0.00,SERV-010

@@ -1,0 +1,21 @@
+id,name,detailed_type,categ_id/id,list_price,standard_price,default_code
+prod_rep_pastillas_delanteras,Pastillas de Freno Delanteras Premium,product,cat_frenos,45.00,25.00,REP-FR-001
+prod_rep_pastillas_traseras,Pastillas de Freno Traseras Estándar,product,cat_frenos,35.00,18.00,REP-FR-002
+prod_rep_disco_freno,Disco de Freno Ventilado,product,cat_frenos,55.00,32.00,REP-FR-003
+prod_rep_liquido_frenos,Líquido de Frenos DOT4 (500ml),product,cat_frenos,12.00,6.50,REP-FR-004
+prod_rep_aceite_5w30,Aceite Sintético 5W30 (Galón),product,cat_aceites,42.00,28.00,REP-AC-001
+prod_rep_aceite_10w40,Aceite Semisintético 10W40 (Galón),product,cat_aceites,30.00,18.00,REP-AC-002
+prod_rep_filtro_aceite,Filtro de Aceite Metálico Estándar,product,cat_filtros,8.50,4.00,REP-FI-001
+prod_rep_filtro_aire_cabina,Filtro de Aire de Cabina (A/C),product,cat_filtros,15.00,8.00,REP-FI-002
+prod_rep_amortiguador_del,Amortiguador Delantero Gas,product,cat_suspension,85.00,55.00,REP-SU-001
+prod_rep_amortiguador_tras,Amortiguador Trasero Gas,product,cat_suspension,75.00,45.00,REP-SU-002
+prod_rep_rotula_direccion,Rótula de Dirección Exterior,product,cat_suspension,25.00,14.00,REP-SU-003
+prod_rep_bateria_60ah,Batería 12V 60Ah Libre Mantenimiento,product,cat_electrico,95.00,65.00,REP-EL-001
+prod_rep_bateria_75ah,Batería 12V 75Ah Libre Mantenimiento,product,cat_electrico,120.00,85.00,REP-EL-002
+prod_rep_bujia_iridium,Bujía de Iridium Alto Rendimiento,product,cat_electrico,14.00,8.00,REP-EL-003
+prod_rep_alternador,Alternador 12V 90A Universal,product,cat_electrico,180.00,120.00,REP-EL-004
+prod_rep_banda_distribucion,Banda de Distribución Reforzada,product,cat_motor,65.00,40.00,REP-MO-001
+prod_rep_bomba_agua,Bomba de Agua Metálica,product,cat_motor,55.00,35.00,REP-MO-002
+prod_rep_llanta_16,Neumático 205/55 R16 All Season,product,cat_neumaticos,115.00,85.00,REP-NE-001
+prod_rep_llanta_15,Neumático 195/65 R15 Economy,product,cat_neumaticos,85.00,60.00,REP-NE-002
+prod_rep_plumillas,Plumillas Limpiaparabrisas (Par),product,cat_accesorios,18.00,9.50,REP-AC-003

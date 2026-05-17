@@ -1,0 +1,11 @@
+id,name,job_title,work_phone,work_email
+emp_mecanico_1,Roberto Sánchez,Mecánico Senior,0981112223,roberto@taller.ec
+emp_mecanico_2,Luis Paredes,Mecánico Junior,0981112224,luis@taller.ec
+emp_mecanico_3,Carlos Jaramillo,Especialista Eléctrico,0981112225,carlos@taller.ec
+emp_mecanico_4,Andrés Noboa,Técnico de Suspensión,0981112226,andres@taller.ec
+emp_mecanico_5,Jorge Pazmiño,Ayudante de Mecánica,0981112227,jorge@taller.ec
+emp_supervisor,Marcos Vargas,Jefe de Taller,0981112228,marcos@taller.ec
+emp_recepcion,Andrea Cedeño,Recepción y Citas,0981112229,andrea@taller.ec
+emp_bodega,Santiago Flores,Encargado de Bodega,0981112230,santiago@taller.ec
+emp_limpieza,Carmen Ruiz,Personal de Mantenimiento,0981112231,carmen@taller.ec
+emp_gerente,Fernando Torres,Gerente General,0981112232,fernando@taller.ec

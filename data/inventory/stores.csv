@@ -1,0 +1,11 @@
+id,name,code
+wh_taller,Taller Principal Norte,TPN
+wh_secundario,Bodega de Repuestos Sur,BRS
+wh_pintura,Taller de Pintura,PINT
+wh_herramientas,Bodega de Herramientas,HERR
+wh_neumaticos,Bodega de Neumáticos,NEUM
+wh_lubricantes,Bodega de Lubricantes,LUB
+wh_chatarra,Zona de Chatarra,CHAT
+wh_garantia,Bodega de Garantías,GAR
+wh_recepcion,Zona de Recepción,REC
+wh_entregas,Zona de Entregas,ENT

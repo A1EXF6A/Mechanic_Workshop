@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_taller_cita_tree" model="ir.ui.view">
+        <field name="name">taller.cita.tree</field>
+        <field name="model">taller.cita</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="vehiculo_id"/>
+                <field name="cliente_id"/>
+                <field name="fecha_cita"/>
+                <field name="prioridad" widget="badge" decoration-danger="prioridad == 'urgente'" decoration-warning="prioridad == 'mantenimiento'" decoration-info="prioridad == 'rutinario'"/>
+                <field name="estado" widget="badge" decoration-success="estado == 'confirmada'" decoration-info="estado == 'solicitada'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_taller_cita_calendar" model="ir.ui.view">
+        <field name="name">taller.cita.calendar</field>
+        <field name="model">taller.cita</field>
+        <field name="arch" type="xml">
+            <calendar string="Citas de Revisión" date_start="fecha_cita" color="estado" mode="week">
+                <field name="vehiculo_id"/>
+                <field name="cliente_id"/>
+                <field name="prioridad"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_taller_cita_kanban" model="ir.ui.view">
+        <field name="name">taller.cita.kanban</field>
+        <field name="model">taller.cita</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="estado" class="o_kanban_small_column">
+                <field name="vehiculo_id"/>
+                <field name="cliente_id"/>
+                <field name="fecha_cita"/>
+                <field name="prioridad"/>
+                <field name="estado"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <strong><field name="vehiculo_id"/></strong>
+                                <div><field name="cliente_id"/></div>
+                                <div><i class="fa fa-calendar"/> <field name="fecha_cita"/></div>
+                                <div class="mt-2">
+                                    <field name="prioridad" widget="label_selection" options="{'classes': {'urgente': 'danger', 'mantenimiento': 'warning', 'rutinario': 'info'}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_taller_cita_form" model="ir.ui.view">
+        <field name="name">taller.cita.form</field>
+        <field name="model">taller.cita</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="estado" widget="statusbar" statusbar_visible="solicitada,confirmada,cancelada"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="vehiculo_id"/>
+                            <field name="cliente_id"/>
+                            <field name="fecha_cita"/>
+                            <field name="prioridad"/>
+                        </group>
+                        <group>
+                            <field name="motivo"/>
+                            <field name="orden_trabajo_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Detalle / Observaciones">
+                            <field name="descripcion" placeholder="Especifique los detalles a evaluar..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_taller_cita" model="ir.actions.act_window">
+        <field name="name">Citas de Revisión</field>
+        <field name="res_model">taller.cita</field>
+        <field name="view_mode">calendar,kanban,list,form</field>
+    </record>
+
+    <menuitem id="menu_cita_action" parent="menu_taller_operaciones" action="action_taller_cita" sequence="10"/>
+</odoo>

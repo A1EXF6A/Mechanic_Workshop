@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Cliente de prueba propio -->
+        <record id="demo_cliente_taller" model="res.partner">
+            <field name="name">Juan Pérez (Cliente Demo)</field>
+            <field name="is_company">False</field>
+            <field name="email">juan.perez@example.com</field>
+            <field name="phone">0991234567</field>
+        </record>
+
+        <!-- Demo Vehiculo -->
+        <record id="demo_vehiculo_1" model="taller.vehiculo">
+            <field name="placa">PBA-1234</field>
+            <field name="propietario_id" ref="demo_cliente_taller"/>
+            <field name="marca">Toyota</field>
+            <field name="modelo">Corolla</field>
+            <field name="anio">2018</field>
+            <field name="color">Plata</field>
+            <field name="kilometraje">45000</field>
+            <field name="tipo_combustible">gasolina</field>
+        </record>
+
+        <!-- Demo Orden Trabajo -->
+        <record id="demo_orden_1" model="taller.orden.trabajo">
+            <field name="vehiculo_id" ref="demo_vehiculo_1"/>
+            <field name="diagnostico">Ruido al frenar</field>
+            <field name="costo_mano_obra">50.00</field>
+            <field name="estado">listo</field>
+        </record>
+
+        <!-- Demo Cita -->
+        <record id="demo_cita_1" model="taller.cita">
+            <field name="cliente_id" ref="demo_cliente_taller"/>
+            <field name="vehiculo_id" ref="demo_vehiculo_1"/>
+            <field name="fecha_cita">2026-06-01 10:00:00</field>
+            <field name="motivo">mantenimiento</field>
+            <field name="prioridad">rutinario</field>
+            <field name="descripcion">Mantenimiento preventivo 50k km</field>
+            <field name="estado">solicitada</field>
+        </record>
+    </data>
+</odoo>

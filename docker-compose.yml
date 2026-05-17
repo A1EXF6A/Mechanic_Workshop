@@ -5,7 +5,8 @@ services:
     image: nginx:1.27-alpine
     container_name: odoo-proxy
     depends_on:
-      - odoo
+      odoo:
+        condition: service_healthy
     ports:
       - "8070:80"
     volumes:
@@ -18,16 +19,50 @@ services:
   odoo:
     image: odoo:18
     container_name: odoo18
+    depends_on:
+      db:
+        condition: service_healthy
     volumes:
       - odoo-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
+    environment:
+      - HOST=db
+      - PORT=5432
+      - USER=odoo
+      - PASSWORD=admin
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8069/web/login', timeout=5)\""]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: always
+    networks:
+      - app
+
+  db:
+    image: postgres:15
+    container_name: odoo-db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     restart: always
     networks:
       - app
 
 volumes:
   odoo-data:
+  postgres-data:
 
 networks:
   edge:

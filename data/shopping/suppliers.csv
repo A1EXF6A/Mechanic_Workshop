@@ -1,0 +1,11 @@
+id,name,is_company,supplier_rank,phone,email,vat,street,city,country_id/id
+prov_bosch,Bosch Ecuador,True,1,022999999,ventas@bosch.ec,1790000000001,Av. 10 de Agosto,Quito,base.ec
+prov_castrol,Distribuidora Castrol,True,1,042999999,pedidos@castrol.ec,0990000000001,Av. Las Aguas,Guayaquil,base.ec
+prov_frenos,Frenos Nacionales S.A.,True,1,072999999,info@frenosnac.ec,0190000000001,Parque Industrial,Cuenca,base.ec
+prov_filtros,Filtros y Partes Cia Ltda,True,1,022888888,contacto@filtros.ec,1790000000002,Av. Galo Plaza,Quito,base.ec
+prov_michelin,Llantas Michelin Ec,True,1,022777777,ventas@michelin.ec,1790000000003,Av. Eloy Alfaro,Quito,base.ec
+prov_ngk,Bujías NGK Andina,True,1,042888888,pedidos@ngk.com.ec,0990000000002,Vía a Daule,Guayaquil,base.ec
+prov_motul,Lubricantes Motul,True,1,022666666,info@motul.ec,1790000000004,Av. Amazonas,Quito,base.ec
+prov_kyb,Amortiguadores KYB,True,1,032555555,ventas@kyb.ec,1890000000001,Av. Cevallos,Ambato,base.ec
+prov_valeo,Embragues Valeo,True,1,022444444,contacto@valeo.ec,1790000000005,Av. República,Quito,base.ec
+prov_exide,Baterías Exide,True,1,042333333,ventas@exide.com.ec,0990000000003,Av. Juan Tanca Marengo,Guayaquil,base.ec

@@ -1,0 +1,12 @@
+id,name,is_company,phone,mobile,email,street,city,vat
+contact_juan_perez,Juan Pérez,False,,0991234567,juan.perez@example.com,Av. de los Shyris,Quito,1712345678
+contact_maria_glez,María González,False,,0987654321,maria.g@example.com,Calle Larga,Cuenca,0102345678
+contact_carlos_mendoza,Carlos Mendoza,False,,0971122334,carlos.mendoza@example.com,Urdesa Central,Guayaquil,0912345678
+contact_ana_silva,Ana Silva,False,,0998877665,ana.silva@example.com,Av. República,Quito,1723456789
+contact_luis_torres,Luis Torres,False,,0981122334,luis.torres@example.com,La Aurora,Daule,0923456789
+contact_sofia_ramirez,Sofía Ramírez,False,,0979988776,sofia.ramirez@example.com,Av. Eloy Alfaro,Quito,1734567890
+contact_jorge_herrera,Jorge Herrera,False,,0995544332,jorge.herrera@example.com,Av. 9 de Octubre,Guayaquil,0934567890
+contact_diana_castro,Diana Castro,False,,0983344556,diana.castro@example.com,Centro Histórico,Quito,1745678901
+contact_pedro_alv,Pedro Alvarado,False,,0976655443,pedro.alvarado@example.com,Av. Solano,Cuenca,0112345678
+contact_elena_ruiz,Elena Ruiz,False,,0991122334,elena.ruiz@example.com,Cumbayá,Quito,1756789012
+

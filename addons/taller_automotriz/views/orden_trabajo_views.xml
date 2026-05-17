@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_taller_orden_tree" model="ir.ui.view">
+        <field name="name">taller.orden.trabajo.tree</field>
+        <field name="model">taller.orden.trabajo</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="vehiculo_id"/>
+                <field name="fecha_ingreso"/>
+                <field name="tecnico_id"/>
+                <field name="prioridad" widget="badge" decoration-danger="prioridad == 'urgente'" decoration-warning="prioridad == 'mantenimiento'" decoration-info="prioridad == 'rutinario'"/>
+                <field name="costo_total_general" sum="Total"/>
+                <field name="estado" widget="badge" decoration-success="estado == 'entregado'" decoration-info="estado in ('proceso', 'listo')"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_taller_orden_kanban" model="ir.ui.view">
+        <field name="name">taller.orden.trabajo.kanban</field>
+        <field name="model">taller.orden.trabajo</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="estado" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="vehiculo_id"/>
+                <field name="tecnico_id"/>
+                <field name="estado"/>
+                <field name="prioridad"/>
+                <field name="costo_total_general"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click #{record.prioridad.raw_value == 'urgente' ? 'oe_kanban_color_2' : ''}">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                    </div>
+                                    <div class="o_dropdown_kanban dropdown">
+                                        <field name="prioridad" widget="label_selection" options="{'classes': {'urgente': 'danger', 'mantenimiento': 'warning', 'rutinario': 'info'}}"/>
+                                    </div>
+                                </div>
+                                <div class="text-muted o_row">
+                                    <field name="vehiculo_id"/>
+                                </div>
+                                <div class="text-muted o_row" t-if="record.tecnico_id.raw_value">
+                                    <i class="fa fa-user-circle"/> <field name="tecnico_id"/>
+                                </div>
+                                <div class="o_kanban_record_bottom mt-2">
+                                    <div class="oe_kanban_bottom_left">
+                                        <strong>Total: </strong><field name="costo_total_general" widget="monetary"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_taller_orden_form" model="ir.ui.view">
+        <field name="name">taller.orden.trabajo.form</field>
+        <field name="model">taller.orden.trabajo</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="estado" widget="statusbar" statusbar_visible="recibido,proceso,listo,entregado"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Urgente" bg_color="bg-danger" invisible="prioridad != 'urgente'"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vehiculo_id"/>
+                            <field name="cita_id"/>
+                            <field name="prioridad"/>
+                            <field name="fecha_ingreso"/>
+                        </group>
+                        <group>
+                            <field name="tecnico_id"/>
+                            <field name="tecnico_cargo"/>
+                            <field name="costo_mano_obra" widget="monetary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Diagnóstico">
+                            <field name="diagnostico" placeholder="Escriba el diagnóstico y observaciones..."/>
+                        </page>
+                        <page string="Servicios Realizados">
+                            <field name="servicio_linea_ids">
+                                <list editable="bottom">
+                                    <field name="producto_id"/>
+                                    <field name="cantidad"/>
+                                    <field name="precio_unitario" widget="monetary"/>
+                                    <field name="subtotal" widget="monetary" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Repuestos Utilizados">
+                            <field name="repuesto_linea_ids">
+                                <list editable="bottom">
+                                    <field name="producto_id"/>
+                                    <field name="cantidad"/>
+                                    <field name="precio_unitario" widget="monetary"/>
+                                    <field name="subtotal" widget="monetary" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="orden_total">
+                        <field name="costo_total_servicios" widget="monetary"/>
+                        <field name="costo_total_repuestos" widget="monetary"/>
+                        <field name="costo_mano_obra" widget="monetary"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="costo_total_general"/>
+                        </div>
+                        <field name="costo_total_general" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_taller_orden" model="ir.actions.act_window">
+        <field name="name">Órdenes de Trabajo</field>
+        <field name="res_model">taller.orden.trabajo</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <menuitem id="menu_orden_action" parent="menu_taller_operaciones" action="action_taller_orden" sequence="20"/>
+</odoo>
