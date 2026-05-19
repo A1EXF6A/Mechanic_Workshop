@@ -46,6 +46,5 @@
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="usuarios_taller_menu_root" name="Usuarios Taller"/>
-    <menuitem id="usuarios_taller_menu" name="Usuarios" parent="usuarios_taller_menu_root" action="usuarios_taller_user_profile_action"/>
+    <!-- Los menús se han movido a taller_mecanico para estar integrados -->
 </odoo>

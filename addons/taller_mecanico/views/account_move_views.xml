@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extensión de la vista de formulario de Factura para incluir campos simulados del SRI -->
+    <record id="view_move_form_inherit_sri_simulador" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.sri.simulador</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Añadir botón en la cabecera -->
+            <xpath expr="//header" position="inside">
+                <button name="action_enviar_sri" 
+                        string="Generar y Firmar XML (SRI)" 
+                        type="object" 
+                        class="btn-primary"
+                        invisible="state != 'posted' or sri_estado_autorizacion == 'autorizado'"/>
+            </xpath>
+            
+            <!-- Añadir pestaña SRI en el notebook principal -->
+            <xpath expr="//notebook" position="inside">
+                <page string="SRI Ecuador" name="sri_ecuador">
+                    <group>
+                        <group>
+                            <field name="sri_estado_autorizacion" widget="badge" decoration-success="sri_estado_autorizacion == 'autorizado'" decoration-info="sri_estado_autorizacion == 'enviado'" decoration-muted="sri_estado_autorizacion == 'borrador'"/>
+                            <field name="sri_fecha_autorizacion" invisible="sri_estado_autorizacion != 'autorizado'"/>
+                        </group>
+                        <group>
+                            <field name="sri_clave_acceso" invisible="sri_estado_autorizacion == 'borrador'"/>
+                            <field name="sri_xml_filename" invisible="1"/>
+                            <field name="sri_xml_file" filename="sri_xml_filename" widget="binary" invisible="not sri_xml_file"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

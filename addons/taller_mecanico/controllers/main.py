@@ -19,7 +19,92 @@ class TallerMecanicoController(http.Controller):
 
     @http.route(['/taller/cita'], type='http', auth="public", website=True)
     def taller_cita(self, **kw):
-        return request.render('taller_mecanico.cita_page', {})
+        marcas = request.env['taller.marca'].sudo().search([])
+        return request.render('taller_mecanico.cita_page', {'marcas': marcas})
+
+    @http.route(['/taller/cita/submit'], type='http', auth="public", website=True, methods=['POST'])
+    def taller_cita_submit(self, **post):
+        env = request.env
+
+        # 1. Procesar Cliente
+        nombre_completo = post.get('name', '').strip()
+        nombres = nombre_completo.split(' ', 1)
+        nombre = nombres[0]
+        apellido = nombres[1] if len(nombres) > 1 else 'Sin Apellido'
+        
+        cedula = post.get('cedula', '').strip()
+        email = post.get('email', '').strip()
+        celular = post.get('phone', '').strip()
+
+        user = env['usuarios_taller.user_profile'].sudo().search(['|', ('cedula', '=', cedula), ('email', '=', email)], limit=1)
+        if not user:
+            user = env['usuarios_taller.user_profile'].sudo().create({
+                'cedula': cedula,
+                'nombre': nombre,
+                'apellido': apellido,
+                'email': email,
+                'celular': celular,
+                'direccion': 'Registrado por Web',
+                'password': cedula, # Default pass
+                'edad': 18, # Default edad
+            })
+
+        # 2. Procesar Vehículo
+        marca_id = int(post.get('marca_id', 0))
+        modelo_str = post.get('modelo', '').strip()
+        placa = post.get('plate', '').strip().upper()
+
+        if marca_id and modelo_str:
+            modelo = env['taller.modelo'].sudo().search([('name', '=ilike', modelo_str), ('marca_id', '=', marca_id)], limit=1)
+            if not modelo:
+                modelo = env['taller.modelo'].sudo().create({
+                    'name': modelo_str.upper(),
+                    'marca_id': marca_id
+                })
+            modelo_id = modelo.id
+        else:
+            modelo_id = False
+
+        vehiculo = env['taller.vehiculo'].sudo().search([('placa', '=', placa)], limit=1)
+        if not vehiculo:
+            vehiculo = env['taller.vehiculo'].sudo().create({
+                'placa': placa,
+                'marca_id': marca_id,
+                'modelo_id': modelo_id,
+                'anio': 2020,  # default
+                'color': 'otro',  # default válido para campo Selection
+                'propietario_id': user.id,
+            })
+
+        # 3. Procesar Cita
+        fecha_cita = post.get('date')
+        repair_type = post.get('repair_type')
+        observaciones = post.get('observations', '')
+
+        # Mapeo de valores frontend a backend
+        motivo_map = {
+            'mantenimiento': 'mantenimiento',
+            'motor': 'falla_mecanica',
+            'frenos': 'revision',
+            'diagnostico': 'revision',
+            'otro': 'otro'
+        }
+        motivo_db = motivo_map.get(repair_type, 'otro')
+
+        cita = env['taller.cita'].sudo().create({
+            'cliente_id': user.id,
+            'vehiculo_id': vehiculo.id,
+            'fecha_cita': fecha_cita,
+            'motivo': motivo_db,
+            'descripcion': observaciones,
+            'estado': 'solicitada',
+        })
+
+        return request.redirect('/taller/cita/confirmacion')
+
+    @http.route(['/taller/cita/confirmacion'], type='http', auth="public", website=True)
+    def taller_cita_confirmacion(self, **kw):
+        return request.render('taller_mecanico.cita_confirmacion_page', {})
 
     @http.route(['/taller/registro'], type='http', auth="public", website=True)
     def taller_registro(self, **kw):

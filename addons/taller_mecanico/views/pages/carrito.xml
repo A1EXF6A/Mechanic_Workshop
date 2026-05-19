@@ -3,64 +3,74 @@
     <template id="carrito_page" name="Carrito - Taller Mecánico">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure bg-light">
+                <!-- Header Optimizado (Consistente con la tienda) -->
+                <section class="pt48 pb48 text-center text-white" style="background-color: var(--taller-primary);">
+                    <div class="container py-2">
+                        <h2 class="fw-bold mb-3" style="color: var(--taller-white);">Tu Carrito de Compras</h2>
+                        <p class="mx-auto text-white opacity-75" style="max-width: 650px; font-size: 1.05rem;">
+                            Revisa los repuestos seleccionados antes de procesar el pago seguro.
+                        </p>
+                    </div>
+                </section>
+
                 <section class="py-5">
-                    <div class="container py-4">
+                    <div class="container py-2">
                         <!-- Breadcrumb minimalista -->
                         <div class="mb-4 d-flex align-items-center gap-2">
-                            <a href="/taller/productos" class="text-muted text-decoration-none small hover-primary">Tienda</a>
+                            <a href="/taller/productos" class="text-muted text-decoration-none small hover-primary"><i class="fa fa-home me-1"/> Tienda</a>
                             <i class="fa fa-chevron-right text-muted small" style="font-size: 0.6rem;"/>
-                            <span class="fw-bold small text-primary">Tu Carrito</span>
+                            <span class="fw-bold small text-primary">Carrito</span>
                         </div>
 
                         <div class="row g-5">
                             <!-- Lista de Productos -->
                             <div class="col-lg-8">
                                 <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border-0 mb-4" style="border-radius: 20px !important;">
-                                    <h2 class="fw-bold mb-5 h3 text-primary">Tu Selección</h2>
+                                    <h3 class="fw-bold mb-5 text-dark border-bottom pb-3">Resumen de Artículos</h3>
                                     
                                     <t t-if="not cart_items">
-                                        <div class="text-center py-5">
+                                        <div class="text-center py-5 my-5">
                                             <div class="mb-4 text-muted opacity-25">
                                                 <i class="fa fa-shopping-basket fa-5x"/>
                                             </div>
                                             <h4 class="fw-bold">Tu carrito está vacío</h4>
                                             <p class="text-muted mb-4">Parece que aún no has seleccionado ningún repuesto para tu vehículo.</p>
-                                            <a href="/taller/productos" class="btn btn-primary px-5 py-3 fw-bold rounded-pill shadow">IR A LA TIENDA</a>
+                                            <a href="/taller/productos" class="btn btn-primary px-5 py-3 fw-bold rounded-pill shadow">VOLVER A LA TIENDA</a>
                                         </div>
                                     </t>
                                     
                                     <t t-foreach="cart_items" t-as="item">
                                         <div class="row align-items-center mb-4 pb-4 border-bottom g-3">
                                             <!-- Imagen -->
-                                            <div class="col-3 col-md-2">
-                                                <div class="bg-light p-2 rounded-3 text-center d-flex align-items-center justify-content-center" style="height: 80px;">
+                                            <div class="col-4 col-md-2 col-lg-1">
+                                                <div class="bg-light p-2 rounded-3 text-center d-flex align-items-center justify-content-center" style="height: 80px; border: 1px solid #f1f5f9;">
                                                     <img t-att-src="website.image_url(item['product'], 'image_128')" 
                                                          class="img-fluid" t-att-alt="item['product'].name" 
                                                          style="max-height: 100%; object-fit: contain;"/>
                                                 </div>
                                             </div>
                                             <!-- Detalles -->
-                                            <div class="col-9 col-md-4">
-                                                <h6 class="fw-bold mb-1" t-field="item['product'].name"/>
-                                                <small class="text-muted">SKU: <t t-esc="item['product'].default_code or 'AUT-MOD-001'"/></small>
+                                            <div class="col-8 col-md-4 col-lg-4">
+                                                <h6 class="fw-bold mb-1"><a t-att-href="item['product'].website_url" class="text-dark text-decoration-none"><t t-esc="item['product'].name"/></a></h6>
+                                                <small class="text-muted d-block mb-2">SKU: <t t-esc="item['product'].default_code or 'AUT-MOD-001'"/></small>
+                                                <span class="d-md-none fw-bold text-primary" t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
                                             </div>
-                                            <!-- Precio Unitario -->
-                                            <div class="col-6 col-md-2 text-md-center">
-                                                <span class="fw-bold text-dark" t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                            <!-- Precio Unitario (Solo Desktop) -->
+                                            <div class="d-none d-md-block col-md-2 col-lg-2 text-center">
+                                                <span class="fw-bold text-muted" t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
                                             </div>
-                                            <!-- Cantidad -->
-                                            <div class="col-6 col-md-2">
-                                                <div class="input-group input-group-sm border rounded-pill overflow-hidden bg-light mx-auto" style="max-width: 100px;">
-                                                    <input type="number" class="form-control js_update_qty border-0 bg-transparent text-center fw-bold" 
+                                            <!-- Cantidad (Controles Modernos) -->
+                                            <div class="col-6 col-md-2 col-lg-2 mt-3 mt-md-0 d-flex justify-content-center">
+                                                <div class="input-group input-group-sm border rounded-pill overflow-hidden bg-light" style="max-width: 90px;">
+                                                    <input type="number" class="form-control js_update_qty border-0 bg-transparent text-center fw-bold px-1" 
                                                            t-att-value="item['qty']" t-att-data-product-id="item['product'].id" min="1"/>
                                                 </div>
                                             </div>
                                             <!-- Subtotal y Eliminar -->
-                                            <div class="col-12 col-md-2 text-md-end d-flex align-items-center justify-content-between justify-content-md-end gap-3">
-                                                <span class="fw-bold d-md-none small text-muted">Subtotal:</span>
+                                            <div class="col-6 col-md-2 col-lg-3 mt-3 mt-md-0 text-end d-flex align-items-center justify-content-end gap-3">
                                                 <span class="fw-bold h6 mb-0 text-primary" t-esc="item['subtotal']" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
-                                                <button class="btn btn-link text-danger p-0 js_remove_item ms-2" t-att-data-product-id="item['product'].id" title="Eliminar">
-                                                    <i class="fa fa-times-circle fa-lg"/>
+                                                <button class="btn btn-link text-danger p-0 js_remove_item" t-att-data-product-id="item['product'].id" title="Eliminar">
+                                                    <i class="fa fa-trash-o fa-lg"/>
                                                 </button>
                                             </div>
                                         </div>

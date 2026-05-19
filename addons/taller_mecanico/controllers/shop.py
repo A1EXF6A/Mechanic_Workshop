@@ -4,15 +4,30 @@ from odoo.http import request
 
 class TallerShopController(http.Controller):
 
-    @http.route(['/taller/productos'], type='http', auth="public", website=True)
-    def productos(self, **kw):
-        # Buscamos productos que se puedan vender y tengan stock (storable)
-        products = request.env['product.product'].sudo().search([
+    @http.route(['/taller/productos', '/taller/productos/categoria/<model("product.public.category"):category>'], type='http', auth="public", website=True)
+    def productos(self, category=None, search='', **kw):
+        domain = [
             ('sale_ok', '=', True),
             ('type', 'in', ['product', 'consu']),
-        ])
+        ]
+        
+        # Filtro de Búsqueda
+        if search:
+            domain += [('name', 'ilike', search)]
+            
+        # Filtro de Categoría
+        if category:
+            domain += [('public_categ_ids', 'child_of', int(category.id))]
+            
+        # Obtenemos productos y todas las categorías para el sidebar
+        products = request.env['product.product'].sudo().search(domain)
+        categories = request.env['product.public.category'].sudo().search([])
+        
         return request.render('taller_mecanico.productos_page', {
             'products': products,
+            'categories': categories,
+            'current_category': category,
+            'search': search,
         })
 
     @http.route(['/taller/carrito'], type='http', auth="public", website=True)
@@ -97,25 +112,19 @@ class TallerShopController(http.Controller):
 
     @http.route(['/taller/confirmar-compra'], type='http', auth="user", website=True, methods=['POST'], csrf=True)
     def confirmar_compra(self, **kw):
-        partner = request.env.user.partner_id
         cart = request.session.get('taller_cart', {})
 
         if not cart:
             return request.redirect('/taller/productos')
 
-        # Obtenemos el almacén de forma segura
-        warehouse = getattr(request.website, 'warehouse_id', False)
-        if not warehouse:
-            warehouse = request.env['stock.warehouse'].sudo().search([
-                ('company_id', '=', request.website.company_id.id)
-            ], limit=1)
+        # Usar el generador nativo de Odoo para crear la orden asegurando que las direcciones 
+        # de facturación y envío (partner_invoice_id, partner_shipping_id) estén correctas.
+        sale_order = request.website.sale_get_order(force_create=True)
 
-        sale_order = request.env['sale.order'].sudo().create({
-            'partner_id': partner.id,
-            'company_id': request.website.company_id.id,
-            'warehouse_id': warehouse.id if warehouse else False,
-        })
+        # Limpiamos las líneas anteriores del carrito nativo por si acaso
+        sale_order.order_line.sudo().unlink()
 
+        # Insertamos los productos de nuestro carrito personalizado
         for product_id, qty in cart.items():
             product = request.env['product.product'].sudo().browse(int(product_id))
             if product.exists():
@@ -126,16 +135,8 @@ class TallerShopController(http.Controller):
                     'price_unit': product.lst_price,
                 })
 
-        # Confirmar la orden (Esto descuenta INVENTARIO)
-        sale_order.action_confirm()
-
-        # Generar Factura
-        invoice = sale_order._create_invoices()
-        invoice.action_post()
-
-        # Limpiar carrito
+        # Limpiar carrito personalizado
         request.session['taller_cart'] = {}
 
-        return request.render('taller_mecanico.confirmacion_page', {
-            'order': sale_order,
-        })
+        # Redirigir al flujo de checkout oficial (que maneja direcciones y luego pagos)
+        return request.redirect('/shop/checkout?express=1')

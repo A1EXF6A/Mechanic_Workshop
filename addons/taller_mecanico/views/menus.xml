@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_taller_root" name="Taller Mecánico" sequence="10"/>
+    <menuitem id="menu_taller_operaciones" name="Operaciones" parent="menu_taller_root" sequence="10"/>
+    <menuitem id="menu_taller_configuracion" name="Configuración" parent="menu_taller_root" sequence="50"/>
+
+    <!-- Acciones bajo Operaciones -->
+    <menuitem id="menu_taller_usuarios" name="Usuarios/Clientes del Taller" parent="menu_taller_operaciones" action="usuarios_taller.usuarios_taller_user_profile_action" sequence="5"/>
+    <menuitem id="menu_taller_vehiculos" name="Vehículos de Clientes" parent="menu_taller_operaciones" sequence="10"/>
+    <menuitem id="menu_taller_ordenes" name="Órdenes de Trabajo" parent="menu_taller_operaciones" sequence="20"/>
+    <menuitem id="menu_taller_citas" name="Citas de Revisión" parent="menu_taller_operaciones" sequence="30"/>
+</odoo>

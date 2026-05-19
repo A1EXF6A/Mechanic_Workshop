@@ -13,61 +13,109 @@
                     </div>
                 </section>
 
-                <!-- Products Grid -->
+                <!-- Products Section -->
                 <section class="py-5">
                     <div class="container">
-                        <div class="row g-4">
-                            <t t-foreach="products" t-as="product">
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px !important; transition: var(--taller-transition);">
-                                        <!-- Badge de Calidad -->
-                                        <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
-                                            <span class="badge bg-primary px-3 py-2 rounded-pill shadow-sm" style="font-size: 0.7rem; letter-spacing: 1px;">ORIGINAL</span>
-                                        </div>
-                                        
-                                        <!-- Image Container -->
-                                        <div class="bg-white p-4 text-center d-flex align-items-center justify-content-center" style="height: 220px; border-bottom: 1px solid #f1f5f9;">
-                                            <img t-att-src="website.image_url(product, 'image_1920')" 
-                                                 class="img-fluid" 
-                                                 t-att-alt="product.name" 
-                                                 style="max-height: 100%; object-fit: contain;"/>
-                                        </div>
-                                        
-                                        <!-- Content -->
-                                        <div class="card-body p-4 d-flex flex-column">
-                                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                                <small class="text-uppercase fw-bold text-muted" style="font-size: 0.65rem; letter-spacing: 1.5px;">Repuesto</small>
-                                                <!-- Indicador de Stock -->
-                                                <t t-if="product.qty_available &gt; 0">
-                                                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success border-0 px-2 py-1" style="font-size: 0.65rem;">
-                                                        <i class="fa fa-check-circle me-1"/> <t t-esc="int(product.qty_available)"/> disponibles
-                                                    </span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border-0 px-2 py-1" style="font-size: 0.65rem;">
-                                                        <i class="fa fa-times-circle me-1"/> Agotado
-                                                    </span>
-                                                </t>
-                                            </div>
-                                            <h5 class="fw-bold mb-3 text-truncate-2" t-field="product.name" style="min-height: 2.8rem; font-size: 1.1rem;"/>
-                                            
-                                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top">
-                                                <span class="h5 fw-bold text-primary mb-0" 
-                                                      t-field="product.list_price" 
-                                                      t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
-                                                
-                                                <button t-att-class="'btn rounded-circle p-0 js_add_to_cart d-flex align-items-center justify-content-center shadow ' + ('btn-primary' if product.qty_available &gt; 0 else 'btn-secondary opacity-50')" 
-                                                        t-att-data-product-id="product.product_variant_id.id"
-                                                        t-att-disabled="'disabled' if product.qty_available &lt;= 0 else None"
-                                                        style="width: 42px; height: 42px;"
-                                                        t-att-title="'Agregar al carrito' if product.qty_available &gt; 0 else 'Producto agotado'">
-                                                    <i t-att-class="'fa ' + ('fa-plus' if product.qty_available &gt; 0 else 'fa-ban')"/>
-                                                </button>
-                                            </div>
+                        <div class="row">
+                            <!-- Sidebar (Categorías y Búsqueda) -->
+                            <div class="col-lg-3 mb-4">
+                                <div class="card border-0 shadow-sm rounded-3 mb-4">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold mb-3 text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">Buscar Repuesto</h6>
+                                        <form action="/taller/productos" method="get" class="d-flex">
+                                            <input type="search" name="search" class="form-control rounded-start" placeholder="Ej: Filtro de aceite..." t-att-value="search"/>
+                                            <t t-if="current_category">
+                                                <input type="hidden" name="category" t-att-value="current_category.id"/>
+                                            </t>
+                                            <button type="submit" class="btn btn-primary rounded-end"><i class="fa fa-search"/></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                
+                                <div class="card border-0 shadow-sm rounded-3">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold mb-3 text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">Categorías</h6>
+                                        <div class="list-group list-group-flush" style="font-size: 0.9rem;">
+                                            <a t-attf-href="/taller/productos?search={{ search }}" t-att-class="'list-group-item list-group-item-action border-0 px-0 ' + ('fw-bold text-primary' if not current_category else 'text-muted')">
+                                                Todas las Categorías
+                                            </a>
+                                            <t t-foreach="categories" t-as="cat">
+                                                <a t-attf-href="/taller/productos/categoria/{{ slug(cat) }}?search={{ search }}" 
+                                                   t-att-class="'list-group-item list-group-item-action border-0 px-0 ' + ('fw-bold text-primary' if current_category and current_category.id == cat.id else 'text-muted')">
+                                                    <t t-esc="cat.name"/>
+                                                </a>
+                                            </t>
                                         </div>
                                     </div>
                                 </div>
-                            </t>
+                            </div>
+                            
+                            <!-- Products Grid -->
+                            <div class="col-lg-9">
+                                <t t-if="not products">
+                                    <div class="alert alert-info text-center mt-4">
+                                        No se encontraron repuestos para tu búsqueda.
+                                    </div>
+                                </t>
+                                <div class="row g-4">
+                                    <t t-foreach="products" t-as="product">
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px !important; transition: var(--taller-transition);">
+                                                <!-- Badge de Calidad -->
+                                                <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                                                    <span class="badge bg-primary px-3 py-2 rounded-pill shadow-sm" style="font-size: 0.7rem; letter-spacing: 1px;">ORIGINAL</span>
+                                                </div>
+                                                
+                                                <!-- Clickable Area (Redirects to website_sale official product page) -->
+                                                <a t-att-href="product.website_url" class="text-decoration-none text-dark d-flex flex-column" style="flex: 1;">
+                                                    <!-- Image Container -->
+                                                    <div class="bg-white p-4 text-center d-flex align-items-center justify-content-center" style="height: 200px; border-bottom: 1px solid #f1f5f9;">
+                                                        <img t-att-src="website.image_url(product, 'image_1920')" 
+                                                             class="img-fluid" 
+                                                             t-att-alt="product.name" 
+                                                             style="max-height: 100%; object-fit: contain;"/>
+                                                    </div>
+                                                    
+                                                    <!-- Content -->
+                                                    <div class="card-body p-4 pb-0 d-flex flex-column">
+                                                        <div class="mb-2 d-flex justify-content-between align-items-center">
+                                                            <small class="text-uppercase fw-bold text-muted" style="font-size: 0.65rem; letter-spacing: 1.5px;">Repuesto</small>
+                                                            <t t-if="product.qty_available &gt; 0">
+                                                                <span class="badge rounded-pill bg-success bg-opacity-10 text-success border-0 px-2 py-1" style="font-size: 0.65rem;">
+                                                                    <i class="fa fa-check-circle me-1"/> <t t-esc="int(product.qty_available)"/> en stock
+                                                                </span>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border-0 px-2 py-1" style="font-size: 0.65rem;">
+                                                                    <i class="fa fa-times-circle me-1"/> Agotado
+                                                                </span>
+                                                            </t>
+                                                        </div>
+                                                        <h5 class="fw-bold mb-3 text-truncate-2" t-field="product.name" style="min-height: 2.8rem; font-size: 1.1rem;"/>
+                                                    </div>
+                                                </a>
+                                                
+                                                <!-- Action Area (Add to Cart) -->
+                                                <div class="card-footer bg-white border-0 px-4 pb-4 pt-0 mt-auto">
+                                                    <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                                                        <span class="h5 fw-bold text-primary mb-0" 
+                                                              t-field="product.list_price" 
+                                                              t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                                        
+                                                        <button t-att-class="'btn rounded-circle p-0 js_add_to_cart d-flex align-items-center justify-content-center shadow ' + ('btn-primary' if product.qty_available &gt; 0 else 'btn-secondary opacity-50')" 
+                                                                t-att-data-product-id="product.id"
+                                                                t-att-disabled="'disabled' if product.qty_available &lt;= 0 else None"
+                                                                style="width: 42px; height: 42px;"
+                                                                t-att-title="'Agregar al carrito' if product.qty_available &gt; 0 else 'Producto agotado'">
+                                                            <i t-att-class="'fa ' + ('fa-plus' if product.qty_available &gt; 0 else 'fa-ban')"/>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

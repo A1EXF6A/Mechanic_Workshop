@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Cliente de prueba propio -->
+        <record id="demo_cliente_taller_nuevo" model="usuarios_taller.user_profile">
+            <field name="cedula">1234567890</field>
+            <field name="nombre">Juan</field>
+            <field name="apellido">Pérez</field>
+            <field name="email">juan.perez@example.com</field>
+            <field name="direccion">Av. Principal</field>
+            <field name="password">1234</field>
+            <field name="celular">0991234567</field>
+            <field name="edad">35</field>
+        </record>
+
+        <!-- Demo Marca y Modelo -->
+        <record id="demo_marca_toyota" model="taller.marca">
+            <field name="name">Toyota</field>
+        </record>
+        <record id="demo_modelo_corolla" model="taller.modelo">
+            <field name="name">Corolla</field>
+            <field name="marca_id" ref="demo_marca_toyota"/>
+        </record>
+
+        <!-- Demo Vehiculo -->
+        <record id="demo_vehiculo_1" model="taller.vehiculo">
+            <field name="placa">PBA-1234</field>
+            <field name="propietario_id" ref="demo_cliente_taller_nuevo"/>
+            <field name="marca_id" ref="demo_marca_toyota"/>
+            <field name="modelo_id" ref="demo_modelo_corolla"/>
+            <field name="anio">2018</field>
+            <field name="color">plata</field>
+            <field name="kilometraje">45000</field>
+            <field name="tipo_combustible">gasolina</field>
+        </record>
+
+        <!-- Demo Cita (la Orden de Trabajo se genera automaticamente) -->
+        <record id="demo_cita_1" model="taller.cita">
+            <field name="cliente_id" ref="demo_cliente_taller_nuevo"/>
+            <field name="vehiculo_id" ref="demo_vehiculo_1"/>
+            <field name="fecha_cita">2026-06-01 10:00:00</field>
+            <field name="motivo">mantenimiento</field>
+            <field name="descripcion">Mantenimiento preventivo 50k km</field>
+            <field name="estado">solicitada</field>
+        </record>
+    </data>
+</odoo>

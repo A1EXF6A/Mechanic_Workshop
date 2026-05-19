@@ -30,7 +30,7 @@ publicWidget.registry.TallerShop = publicWidget.Widget.extend({
         }).then((data) => {
             if (data && data.success) {
                 const originalHtml = $btn.html();
-                $btn.removeClass('btn-primary').addClass('btn-success').html('<i class="fa fa-check me-2"/> Agregado');
+                $btn.removeClass('btn-primary').addClass('btn-success').html('<i class="fa fa-check"/>');
                 
                 setTimeout(() => {
                     $btn.removeClass('btn-success').addClass('btn-primary').html(originalHtml);
