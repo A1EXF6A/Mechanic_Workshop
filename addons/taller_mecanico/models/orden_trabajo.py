@@ -58,13 +58,35 @@ class TallerOrdenTrabajo(models.Model):
 
     estado = fields.Selection([
         ('recibido', 'Recibido'),
-        ('proceso', 'En Proceso'),
         ('listo', 'Listo'),
         ('entregado', 'Entregado')
     ], string='Estado', default='recibido', tracking=True)
 
     factura_id = fields.Many2one('account.move', string='Factura', readonly=True, copy=False, tracking=True)
     factura_estado = fields.Selection(related='factura_id.state', string='Estado Factura', readonly=True)
+
+    kilometraje = fields.Integer(string='Kilometraje de Ingreso', default=0, tracking=True)
+    proximo_kilometraje_mto = fields.Integer(string='Mantenimiento Próximo (km)', compute='_compute_proximo_mantenimiento', store=True)
+    proxima_fecha_mto = fields.Date(string='Fecha Próximo Mantenimiento', compute='_compute_proximo_mantenimiento', store=True)
+
+    @api.depends('kilometraje', 'fecha_ingreso')
+    def _compute_proximo_mantenimiento(self):
+        from datetime import timedelta
+        for orden in self:
+            if orden.kilometraje:
+                orden.proximo_kilometraje_mto = orden.kilometraje + 5000
+            else:
+                orden.proximo_kilometraje_mto = 0
+            
+            if orden.fecha_ingreso:
+                orden.proxima_fecha_mto = (orden.fecha_ingreso + timedelta(days=180)).date()
+            else:
+                orden.proxima_fecha_mto = False
+
+    @api.onchange('vehiculo_id')
+    def _onchange_vehiculo_id_kilometraje(self):
+        if self.vehiculo_id:
+            self.kilometraje = self.vehiculo_id.kilometraje
 
     @api.depends('servicio_linea_ids.subtotal', 'repuesto_linea_ids.subtotal', 'costo_mano_obra')
     def _compute_totales(self):
@@ -77,19 +99,99 @@ class TallerOrdenTrabajo(models.Model):
     # Botones de Transición de Estado
     # ==========================================
 
-    def action_en_proceso(self):
-        """Recibido -> En Proceso. Requiere técnico asignado."""
-        for orden in self:
-            if not orden.tecnico_id:
-                raise UserError('Debe asignar un técnico antes de iniciar el trabajo.')
-            orden.estado = 'proceso'
-
     def action_listo(self):
-        """En Proceso -> Listo. Requiere al menos un servicio o repuesto."""
+        """Recibido -> Listo. Requiere al menos un servicio o repuesto."""
         for orden in self:
             if not orden.servicio_linea_ids and not orden.repuesto_linea_ids and not orden.costo_mano_obra:
                 raise UserError('Debe registrar al menos un servicio, repuesto o costo de mano de obra antes de marcar como listo.')
             orden.estado = 'listo'
+            if orden.vehiculo_id and orden.kilometraje > orden.vehiculo_id.kilometraje:
+                orden.vehiculo_id.kilometraje = orden.kilometraje
+            try:
+                orden._send_vehicle_ready_email()
+            except Exception as e:
+                # Registrar error pero no bloquear el estado operativo
+                orden.message_post(body=f"⚠️ Error al enviar correo de vehículo listo: {str(e)}")
+
+    def _send_vehicle_ready_email(self):
+        self.ensure_one()
+        propietario = self.vehiculo_id.propietario_id
+        partner = propietario.partner_id if propietario else False
+        if not partner or not partner.email:
+            return False
+
+        # Desglose de servicios y repuestos
+        servicios_html = ""
+        for line in self.servicio_linea_ids:
+            servicios_html += f"<tr><td style='padding: 6px 0; color: #334155;'>• {line.producto_id.name}</td><td style='padding: 6px 0; text-align: right; color: #0f172a; font-weight: 600;'>${line.subtotal:.2f}</td></tr>"
+        
+        repuestos_html = ""
+        for line in self.repuesto_linea_ids:
+            repuestos_html += f"<tr><td style='padding: 6px 0; color: #334155;'>• {line.producto_id.name} (x{int(line.cantidad)})</td><td style='padding: 6px 0; text-align: right; color: #0f172a; font-weight: 600;'>${line.subtotal:.2f}</td></tr>"
+
+        body_html = f"""
+        <div style="font-family: 'Inter', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);">
+            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 30px; text-align: center; color: white;">
+                <h1 style="margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.025em;">¡Su Vehículo está Listo!</h1>
+                <p style="margin: 6px 0 0 0; color: #d1fae5; font-size: 14px;">Los trabajos de reparación han concluido con éxito</p>
+            </div>
+            <div style="padding: 30px; background-color: white;">
+                <p style="font-size: 15px; color: #334155; line-height: 1.6; margin: 0 0 20px 0;">
+                    Estimado(a) <strong>{partner.name}</strong>,
+                </p>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin: 0 0 20px 0;">
+                    Nos complace informarle que los trabajos de mantenimiento y reparación de su vehículo han concluido. Su auto se encuentra en estado <strong>Listo para Retirar</strong>.
+                </p>
+                
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Resumen del Vehículo</h3>
+                    <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 3px 0; color: #64748b;">Vehículo:</td>
+                            <td style="padding: 3px 0; color: #0f172a; font-weight: 600; text-align: right;">{self.vehiculo_id.marca_id.name} {self.vehiculo_id.modelo_id.name}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 3px 0; color: #64748b;">Placa:</td>
+                            <td style="padding: 3px 0; color: #0f172a; font-weight: 600; text-align: right;">{self.vehiculo_id.placa}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 3px 0; color: #64748b;">Orden Nro:</td>
+                            <td style="padding: 3px 0; color: #0f172a; font-weight: 600; text-align: right;">{self.name}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #0f172a; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">Trabajos Realizados</h3>
+                    <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
+                        {servicios_html}
+                        {repuestos_html}
+                        <tr>
+                            <td style="padding: 8px 0; color: #0f172a; font-weight: 700; border-top: 1px solid #e2e8f0;">Total Acumulado:</td>
+                            <td style="padding: 8px 0; text-align: right; color: #10b981; font-weight: 700; font-size: 15px; border-top: 1px solid #e2e8f0;">${self.costo_total_general:.2f}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 16px; font-size: 13px; color: #065f46; line-height: 1.5; margin-bottom: 10px;">
+                    <strong>🕒 Horarios de Atención para Retiro:</strong><br/>
+                    Lunes a Viernes de 8:00 AM a 6:00 PM. Sábados de 8:00 AM a 1:00 PM.
+                </div>
+            </div>
+            <div style="border-top: 1px solid #f1f5f9; padding-top: 20px; font-size: 13px; color: #94a3b8; text-align: center; line-height: 1.5; padding-bottom: 20px; background-color: #fafafa;">
+                <p style="margin: 0 0 5px 0;">¡Que tenga un excelente viaje!</p>
+                <p style="margin: 0; font-weight: 600; color: #64748b;">{self.env.company.name}</p>
+            </div>
+        </div>
+        """
+        mail_values = {
+            'subject': f"¡Su vehículo {self.vehiculo_id.placa} está listo para ser retirado!",
+            'body_html': body_html,
+            'email_to': partner.email,
+        }
+        self.env['mail.mail'].create(mail_values).send()
+        self.message_post(body=f"📧 Correo de notificación de vehículo listo enviado con éxito a {partner.email}.")
+        return True
 
     def action_facturar(self):
         """Genera una factura de cliente (account.move) con las líneas de la orden."""

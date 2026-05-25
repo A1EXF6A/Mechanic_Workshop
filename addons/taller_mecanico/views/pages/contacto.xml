@@ -94,4 +94,12 @@
             </div>
         </t>
     </template>
+
+    <record id="contacto_page_record" model="website.page">
+        <field name="name">Contacto</field>
+        <field name="url">/taller/contacto</field>
+        <field name="view_id" ref="contacto_page"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="is_published">True</field>
+    </record>
 </odoo>

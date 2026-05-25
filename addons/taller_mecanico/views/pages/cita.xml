@@ -32,92 +32,117 @@
                                             </div>
                                         </div>
                                         
-                                        <!-- Formulario -->
-                                        <div class="col-md-8 p-4 p-lg-5 bg-white">
-                                            <form action="/taller/cita/submit" method="post">
+                                        <!-- Formulario Wizard -->
+                                        <div class="col-md-8 p-4 p-lg-5 bg-white position-relative">
+                                            
+                                            <!-- Progreso Visual -->
+                                            <div class="d-flex justify-content-between mb-4 position-relative">
+                                                <div class="progress position-absolute w-100" style="height: 4px; top: 50%; transform: translateY(-50%); z-index: 0;">
+                                                    <div id="wizard-progress" class="progress-bar bg-primary" role="progressbar" style="width: 0%;"></div>
+                                                </div>
+                                                <div class="step-indicator bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm" style="width: 32px; height: 32px;" id="ind-step1">1</div>
+                                                <div class="step-indicator bg-light text-muted rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm border" style="width: 32px; height: 32px;" id="ind-step2">2</div>
+                                                <div class="step-indicator bg-light text-muted rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm border" style="width: 32px; height: 32px;" id="ind-step3">3</div>
+                                            </div>
+
+                                            <form action="/taller/cita/submit" method="post" id="cita-wizard-form">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                                <!-- Sección 1: Cliente -->
-                                                <div class="mb-5 border-bottom pb-3">
-                                                    <h4 class="fw-bold"><i class="fa fa-user-circle me-2 text-primary"/>Información Personal</h4>
-                                                    <p class="text-muted small">Tus datos para contactarte sobre el estado de tu vehículo.</p>
-                                                </div>
+                                                
+                                                <!-- Mensaje de Error Global -->
+                                                <div id="error-message" class="alert alert-danger d-none fw-bold small text-center shadow-sm"></div>
 
-                                                <div class="row g-4 mb-4">
-                                                    <div class="col-md-6">
-                                                        <label for="cedula" class="form-label fw-bold small text-uppercase text-muted">Cédula / DNI</label>
-                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="cedula" name="cedula" required="1" placeholder="Ej. 1712345678"/>
+                                                <!-- PASO 1: Cliente -->
+                                                <div id="step1" class="wizard-step">
+                                                    <div class="mb-4 border-bottom pb-2">
+                                                        <h4 class="fw-bold"><i class="fa fa-user-circle me-2 text-primary"/>Información Personal</h4>
+                                                        <p class="text-muted small">Tus datos para contactarte sobre el estado de tu vehículo.</p>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="name" class="form-label fw-bold small text-uppercase text-muted">Nombre Completo</label>
-                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="name" name="name" required="1" placeholder="Ej. Juan Pérez"/>
+                                                    <div class="row g-3 mb-4">
+                                                        <div class="col-md-6">
+                                                            <label for="cedula" class="form-label fw-bold small text-uppercase text-muted">Cédula / DNI</label>
+                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step1" id="cedula" name="cedula" placeholder="Ej. 1712345678"/>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="name" class="form-label fw-bold small text-uppercase text-muted">Nombre Completo</label>
+                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step1" id="name" name="name" placeholder="Ej. Juan Pérez"/>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="email" class="form-label fw-bold small text-uppercase text-muted">Correo Electrónico</label>
+                                                            <input type="email" class="form-control form-control-lg bg-light border-0 required-step1" id="email" name="email" placeholder="Ej. correo@ejemplo.com"/>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="phone" class="form-label fw-bold small text-uppercase text-muted">Teléfono Móvil</label>
+                                                            <input type="tel" class="form-control form-control-lg bg-light border-0 required-step1" id="phone" name="phone" placeholder="Ej. 0987654321"/>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="email" class="form-label fw-bold small text-uppercase text-muted">Correo Electrónico</label>
-                                                        <input type="email" class="form-control form-control-lg bg-light border-0" id="email" name="email" required="1" placeholder="Ej. correo@ejemplo.com"/>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="phone" class="form-label fw-bold small text-uppercase text-muted">Teléfono Móvil</label>
-                                                        <input type="tel" class="form-control form-control-lg bg-light border-0" id="phone" name="phone" required="1" placeholder="Ej. 0987654321"/>
-                                                    </div>
-                                                </div>
-                                                <!-- Sección 2: Vehículo -->
-                                                <div class="mb-5 border-bottom pb-3 mt-5">
-                                                    <h4 class="fw-bold"><i class="fa fa-car me-2 text-primary"/>Detalles del Vehículo</h4>
-                                                    <p class="text-muted small">Información técnica necesaria para el diagnóstico previo.</p>
-                                                </div>
-
-                                                <div class="row g-4 mb-4">
-                                                    <div class="col-md-6">
-                                                        <label for="marca_id" class="form-label fw-bold small text-uppercase text-muted">Marca</label>
-                                                        <select class="form-select form-control-lg bg-light border-0" id="marca_id" name="marca_id" required="1">
-                                                            <option value="">Seleccione una marca...</option>
-                                                            <t t-foreach="marcas" t-as="m">
-                                                                <option t-att-value="m.id"><t t-esc="m.name"/></option>
-                                                            </t>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="modelo" class="form-label fw-bold small text-uppercase text-muted">Modelo</label>
-                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="modelo" name="modelo" required="1" placeholder="Ej. Corolla, Yaris..."/>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="plate" class="form-label fw-bold small text-uppercase text-muted">Placa / Matrícula</label>
-                                                        <input type="text" class="form-control form-control-lg bg-light border-0" id="plate" name="plate" required="1" placeholder="Ej. ABC-1234"/>
+                                                    <div class="text-end pt-3">
+                                                        <button type="button" class="btn btn-primary btn-lg shadow-sm fw-bold px-5 btn-next" data-step="1">Siguiente <i class="fa fa-arrow-right ms-2"/></button>
                                                     </div>
                                                 </div>
 
-                                                <!-- Sección 3: Cita -->
-                                                <div class="mb-5 border-bottom pb-3 mt-5">
-                                                    <h4 class="fw-bold"><i class="fa fa-cog me-2 text-primary"/>Servicio Requerido</h4>
-                                                    <p class="text-muted small">Selecciona la fecha y el tipo de especialidad.</p>
-                                                </div>
-
-                                                <div class="row g-4 mb-5">
-                                                    <div class="col-md-6">
-                                                        <label for="date" class="form-label fw-bold small text-uppercase text-muted">Fecha Preferida</label>
-                                                        <input type="date" class="form-control form-control-lg bg-light border-0" id="date" name="date" required="1"/>
+                                                <!-- PASO 2: Vehículo -->
+                                                <div id="step2" class="wizard-step d-none">
+                                                    <div class="mb-4 border-bottom pb-2">
+                                                        <h4 class="fw-bold"><i class="fa fa-car me-2 text-primary"/>Detalles del Vehículo</h4>
+                                                        <p class="text-muted small">Información técnica necesaria para el diagnóstico.</p>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="repair_type" class="form-label fw-bold small text-uppercase text-muted">Especialidad</label>
-                                                        <select class="form-select form-control-lg bg-light border-0" id="repair_type" name="repair_type">
-                                                            <option value="mantenimiento">Mantenimiento Preventivo</option>
-                                                            <option value="motor">Reparación de Motor</option>
-                                                            <option value="frenos">Sistema de Frenos</option>
-                                                            <option value="diagnostico">Escaneo Computarizado</option>
-                                                            <option value="otro">Otro Servicio Especializado</option>
-                                                        </select>
+                                                    <div class="row g-3 mb-4">
+                                                        <div class="col-md-6">
+                                                            <label for="marca_id" class="form-label fw-bold small text-uppercase text-muted">Marca</label>
+                                                            <select class="form-select form-control-lg bg-light border-0 required-step2" id="marca_id" name="marca_id">
+                                                                <option value="">Seleccione una marca...</option>
+                                                                <t t-foreach="marcas" t-as="m">
+                                                                    <option t-att-value="m.id"><t t-esc="m.name"/></option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="modelo" class="form-label fw-bold small text-uppercase text-muted">Modelo</label>
+                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step2" id="modelo" name="modelo" placeholder="Ej. Corolla"/>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label for="plate" class="form-label fw-bold small text-uppercase text-muted">Placa / Matrícula</label>
+                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step2" id="plate" name="plate" placeholder="Ej. ABC-1234"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between pt-3">
+                                                        <button type="button" class="btn btn-light btn-lg border fw-bold text-muted btn-prev" data-step="2"><i class="fa fa-arrow-left me-2"/> Atrás</button>
+                                                        <button type="button" class="btn btn-primary btn-lg shadow-sm fw-bold px-5 btn-next" data-step="2">Siguiente <i class="fa fa-arrow-right ms-2"/></button>
                                                     </div>
                                                 </div>
 
-                                                <div class="mb-4">
-                                                    <label for="observations" class="form-label fw-bold small text-uppercase text-muted">Notas Adicionales</label>
-                                                    <textarea class="form-control bg-light border-0" id="observations" name="observations" rows="3" placeholder="Describe brevemente lo que necesita tu vehículo..."></textarea>
-                                                </div>
-
-                                                <div class="pt-3">
-                                                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 shadow-lg fw-bold">
-                                                        SOLICITAR CITA AHORA
-                                                    </button>
+                                                <!-- PASO 3: Cita -->
+                                                <div id="step3" class="wizard-step d-none">
+                                                    <div class="mb-4 border-bottom pb-2">
+                                                        <h4 class="fw-bold"><i class="fa fa-cog me-2 text-primary"/>Servicio y Horario</h4>
+                                                        <p class="text-muted small">Selecciona la fecha, hora exacta y especialidad.</p>
+                                                    </div>
+                                                    <div class="row g-3 mb-4">
+                                                        <div class="col-md-6">
+                                                            <label for="date" class="form-label fw-bold small text-uppercase text-muted">Fecha y Hora</label>
+                                                            <input type="datetime-local" class="form-control form-control-lg bg-light border-0 required-step3" id="date" name="date"/>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="repair_type" class="form-label fw-bold small text-uppercase text-muted">Especialidad</label>
+                                                            <select class="form-select form-control-lg bg-light border-0" id="repair_type" name="repair_type">
+                                                                <option value="mantenimiento">Mantenimiento Preventivo</option>
+                                                                <option value="motor">Reparación de Motor</option>
+                                                                <option value="frenos">Sistema de Frenos</option>
+                                                                <option value="diagnostico">Escaneo Computarizado</option>
+                                                                <option value="otro">Otro Servicio Especializado</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label for="observations" class="form-label fw-bold small text-uppercase text-muted">Notas Adicionales</label>
+                                                            <textarea class="form-control bg-light border-0" id="observations" name="observations" rows="3" placeholder="Describe brevemente lo que necesita tu vehículo..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between pt-3">
+                                                        <button type="button" class="btn btn-light btn-lg border fw-bold text-muted btn-prev" data-step="3"><i class="fa fa-arrow-left me-2"/> Atrás</button>
+                                                        <button type="button" class="btn btn-success btn-lg shadow-lg fw-bold px-4" id="btn-submit-wizard">
+                                                            <i class="fa fa-check-circle me-2"/> SOLICITAR CITA
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -128,13 +153,138 @@
                     </div>
                 </section>
                 
-                <!-- Help Section -->
                 <section class="py-5 text-center">
                     <div class="container">
                         <p class="text-muted mb-0">¿Tienes una emergencia mecánica? Llámanos directamente al <span class="text-primary fw-bold">+1 234 567 8900</span></p>
                     </div>
                 </section>
             </div>
+
+            <!-- Wizard Logic -->
+            <script type="text/javascript">
+//<![CDATA[
+                document.addEventListener('DOMContentLoaded', function() {
+                    const steps = [
+                        document.getElementById('step1'),
+                        document.getElementById('step2'),
+                        document.getElementById('step3')
+                    ];
+                    const indicators = [
+                        document.getElementById('ind-step1'),
+                        document.getElementById('ind-step2'),
+                        document.getElementById('ind-step3')
+                    ];
+                    const progress = document.getElementById('wizard-progress');
+                    const errorBox = document.getElementById('error-message');
+                    
+                    function updateUI(stepIndex) {
+                        // Ocultar todos
+                        steps.forEach(s => s.classList.add('d-none'));
+                        // Mostrar actual
+                        steps[stepIndex - 1].classList.remove('d-none');
+                        
+                        // Actualizar indicadores
+                        indicators.forEach((ind, i) => {
+                            if(i < stepIndex) {
+                                ind.classList.replace('bg-light', 'bg-primary');
+                                ind.classList.replace('text-muted', 'text-white');
+                                ind.classList.remove('border');
+                            } else {
+                                ind.classList.replace('bg-primary', 'bg-light');
+                                ind.classList.replace('text-white', 'text-muted');
+                                ind.classList.add('border');
+                            }
+                        });
+                        
+                        // Barra de progreso (0%, 50%, 100%)
+                        progress.style.width = ((stepIndex - 1) * 50) + '%';
+                        errorBox.classList.add('d-none');
+                    }
+
+                    function validateStep(stepIndex) {
+                        let isValid = true;
+                        const fields = document.querySelectorAll('.required-step' + stepIndex);
+                        fields.forEach(f => {
+                            if(!f.value.trim()) {
+                                isValid = false;
+                                f.classList.add('is-invalid');
+                            } else {
+                                f.classList.remove('is-invalid');
+                            }
+                        });
+                        return isValid;
+                    }
+
+                    // Botones Siguiente
+                    document.querySelectorAll('.btn-next').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            let currentStep = parseInt(this.getAttribute('data-step'));
+                            if(validateStep(currentStep)) {
+                                updateUI(currentStep + 1);
+                            } else {
+                                errorBox.textContent = 'Por favor, completa todos los campos requeridos marcados en rojo.';
+                                errorBox.classList.remove('d-none');
+                            }
+                        });
+                    });
+
+                    // Botones Atrás
+                    document.querySelectorAll('.btn-prev').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            let currentStep = parseInt(this.getAttribute('data-step'));
+                            updateUI(currentStep - 1);
+                        });
+                    });
+                    
+                    // Enviar form y Validar AJAX
+                    const btnSubmit = document.getElementById('btn-submit-wizard');
+                    btnSubmit.addEventListener('click', async function() {
+                        if(!validateStep(3)) {
+                            errorBox.textContent = 'Por favor, selecciona una fecha y hora.';
+                            errorBox.classList.remove('d-none');
+                            return;
+                        }
+                        
+                        btnSubmit.disabled = true;
+                        btnSubmit.innerHTML = '<i class="fa fa-spinner fa-spin me-2"></i> Verificando...';
+                        
+                        const dateVal = document.getElementById('date').value;
+                        
+                        try {
+                            const response = await fetch('/taller/cita/check_availability', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    jsonrpc: "2.0",
+                                    method: "call",
+                                    params: { date: dateVal }
+                                })
+                            });
+                            
+                            const data = await response.json();
+                            const result = data.result;
+                            
+                            if (result && result.available) {
+                                document.getElementById('cita-wizard-form').submit();
+                            } else {
+                                errorBox.textContent = result ? result.message : 'Error al verificar disponibilidad.';
+                                errorBox.classList.remove('d-none');
+                                btnSubmit.disabled = false;
+                                btnSubmit.innerHTML = '<i class="fa fa-check-circle me-2"></i> SOLICITAR CITA';
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            errorBox.textContent = 'Error de conexión. Intente nuevamente.';
+                            errorBox.classList.remove('d-none');
+                            btnSubmit.disabled = false;
+                            btnSubmit.innerHTML = '<i class="fa fa-check-circle me-2"></i> SOLICITAR CITA';
+                        }
+                    });
+                });
+//]]>
+            </script>
         </t>
     </template>
 </odoo>

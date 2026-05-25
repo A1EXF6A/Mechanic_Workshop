@@ -15,6 +15,13 @@
         <field name="sequence" type="int">20</field>
     </record>
 
+    <record id="menu_taller_nosotros" model="website.menu">
+        <field name="name">Nosotros</field>
+        <field name="url">/taller/nosotros</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">25</field>
+    </record>
+
     <record id="menu_taller_contacto" model="website.menu">
         <field name="name">Contacto</field>
         <field name="url">/taller/contacto</field>
@@ -22,11 +29,25 @@
         <field name="sequence" type="int">30</field>
     </record>
 
+    <record id="menu_taller_faq" model="website.menu">
+        <field name="name">FAQ</field>
+        <field name="url">/taller/faq</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">35</field>
+    </record>
+
     <record id="menu_taller_cita" model="website.menu">
         <field name="name">Agendar Cita</field>
         <field name="url">/taller/cita</field>
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">40</field>
+    </record>
+
+    <record id="menu_taller_consulta" model="website.menu">
+        <field name="name">🔍 Trazabilidad</field>
+        <field name="url">/taller/consulta</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">45</field>
     </record>
 
     <record id="menu_taller_productos" model="website.menu">
@@ -79,9 +100,12 @@
                                 <h4 class="text-white mb-4">Enlaces Rápidos</h4>
                                 <ul class="list-unstyled">
                                     <li class="mb-3"><a href="/" class="text-white-50 text-decoration-none">Inicio</a></li>
+                                    <li class="mb-3"><a href="/taller/nosotros" class="text-white-50 text-decoration-none">Nosotros</a></li>
                                     <li class="mb-3"><a href="/taller/servicios" class="text-white-50 text-decoration-none">Servicios</a></li>
                                     <li class="mb-3"><a href="/taller/contacto" class="text-white-50 text-decoration-none">Contacto</a></li>
+                                    <li class="mb-3"><a href="/taller/faq" class="text-white-50 text-decoration-none">Preguntas Frecuentes</a></li>
                                     <li class="mb-3"><a href="/taller/cita" class="text-white-50 text-decoration-none">Agendar Cita</a></li>
+                                    <li class="mb-3"><a href="/taller/consulta" class="text-white-50 text-decoration-none">Trazabilidad de Orden</a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-4 mb-4 mt-3">

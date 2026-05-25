@@ -18,10 +18,17 @@
         <field name="name">taller.cita.calendar</field>
         <field name="model">taller.cita</field>
         <field name="arch" type="xml">
-            <calendar string="Citas de Revisión" date_start="fecha_cita" color="estado" mode="week">
-                <field name="vehiculo_id"/>
-                <field name="cliente_id"/>
-                <field name="prioridad"/>
+            <calendar string="Calendario de Citas" 
+                      date_start="fecha_cita" 
+                      date_stop="fecha_fin" 
+                      color="prioridad" 
+                      mode="week" 
+                      quick_create="false">
+                <field name="vehiculo_id" string="Vehículo"/>
+                <field name="cliente_id" string="Cliente"/>
+                <field name="motivo" string="Motivo"/>
+                <field name="prioridad" string="Prioridad"/>
+                <field name="estado" string="Estado"/>
             </calendar>
         </field>
     </record>
@@ -60,7 +67,19 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="estado" widget="statusbar" statusbar_visible="solicitada,confirmada,cancelada"/>
+                    <button name="action_confirmar" 
+                            string="Confirmar Cita" 
+                            type="object" 
+                            class="oe_highlight" 
+                            invisible="estado != 'solicitada'"/>
+                    <button name="action_cancelar" 
+                            string="Cancelar Cita" 
+                            type="object" 
+                            invisible="estado == 'cancelada'"/>
+                    <field name="estado" 
+                           widget="statusbar" 
+                           statusbar_visible="solicitada,confirmada,cancelada" 
+                           options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <group>

@@ -1,0 +1,201 @@
+/* @odoo-module */
+
+/* Global Reset & Typography */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    background-color: var(--taller-bg-light);
+    color: var(--taller-text-main);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    color: var(--taller-primary);
+}
+
+/* Premium Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+/* Modern Sticky Navbar - FORCE DARK */
+header#top, 
+header#top .navbar, 
+header#top .navbar-collapse,
+header#top .container {
+    background-color: var(--taller-primary) !important;
+    background: var(--taller-primary) !important;
+    transition: var(--taller-transition);
+}
+
+header#top {
+    position: sticky !important;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+header#top .navbar {
+    padding: 0.75rem 0;
+    border: none !important;
+}
+
+header#top .navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--taller-white) !important;
+}
+
+header#top .nav-link {
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: var(--taller-transition);
+    position: relative;
+}
+
+header#top .nav-link:hover {
+    color: var(--taller-white) !important;
+}
+
+/* Iconos de Barra de Navegación (Búsqueda, Carrito, Usuario) */
+header#top i.fa {
+    color: rgba(255, 255, 255, 0.85) !important;
+    transition: var(--taller-transition);
+}
+
+header#top a:hover i.fa,
+header#top .btn:hover i.fa {
+    color: var(--taller-white) !important;
+}
+
+/* Badge de cantidad del Carrito */
+header#top .my_cart_quantity {
+    background-color: var(--taller-accent) !important;
+    color: var(--taller-white) !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    border: 2px solid var(--taller-primary) !important;
+}
+
+header#top .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--taller-accent);
+    transition: var(--taller-transition);
+    transform: translateX(-50%);
+    border-radius: 10px 10px 0 0;
+}
+
+header#top .nav-link:hover::after {
+    width: 50%;
+}
+
+/* Elegant Buttons */
+.btn {
+    border-radius: var(--taller-radius) !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 500 !important;
+    transition: var(--taller-transition) !important;
+}
+
+.btn-primary {
+    background-color: var(--taller-accent) !important;
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--taller-accent-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+/* Modern Cards */
+.card {
+    border: none !important;
+    border-radius: var(--taller-radius) !important;
+    background: var(--taller-white) !important;
+    box-shadow: var(--taller-shadow-md) !important;
+    transition: var(--taller-transition) !important;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--taller-shadow-lg) !important;
+}
+
+/* Modern Form Controls */
+.form-control {
+    border-radius: var(--taller-radius) !important;
+    border: 1px solid #E2E8F0 !important;
+    padding: 0.75rem 1rem !important;
+    transition: var(--taller-transition) !important;
+}
+
+.form-control:focus {
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Base utility for premium text effects */
+.taller-text-glow {
+    text-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+}
+
+/* Premium Product Cards in Store */
+.taller-product-card {
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.taller-product-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(37, 99, 235, 0.2) !important;
+}
+
+.taller-product-img-container {
+    transition: all 0.4s ease-in-out !important;
+    overflow: hidden;
+}
+
+.taller-product-card:hover .taller-product-img-container img {
+    transform: scale(1.06) !important;
+}
+
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Micro-animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

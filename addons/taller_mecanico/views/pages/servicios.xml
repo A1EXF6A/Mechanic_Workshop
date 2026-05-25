@@ -109,4 +109,12 @@
             </div>
         </t>
     </template>
+
+    <record id="servicios_page_record" model="website.page">
+        <field name="name">Servicios</field>
+        <field name="url">/taller/servicios</field>
+        <field name="view_id" ref="servicios_page"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="is_published">True</field>
+    </record>
 </odoo>

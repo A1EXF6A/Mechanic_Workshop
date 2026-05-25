@@ -4,8 +4,8 @@ from odoo.http import request
 
 class TallerShopController(http.Controller):
 
-    @http.route(['/taller/productos', '/taller/productos/categoria/<model("product.public.category"):category>'], type='http', auth="public", website=True)
-    def productos(self, category=None, search='', **kw):
+    @http.route(['/taller/productos', '/taller/productos/categoria/<model("product.category"):category>'], type='http', auth="public", website=True)
+    def productos(self, category=None, search='', sortby=None, filter_new=None, filter_promo=None, **kw):
         domain = [
             ('sale_ok', '=', True),
             ('type', 'in', ['product', 'consu']),
@@ -15,19 +15,58 @@ class TallerShopController(http.Controller):
         if search:
             domain += [('name', 'ilike', search)]
             
-        # Filtro de Categoría
+        # Filtro de Categoría de Inventario
         if category:
-            domain += [('public_categ_ids', 'child_of', int(category.id))]
+            domain += [('categ_id', 'child_of', int(category.id))]
             
-        # Obtenemos productos y todas las categorías para el sidebar
-        products = request.env['product.product'].sudo().search(domain)
-        categories = request.env['product.public.category'].sudo().search([])
+        # Filtro de Productos Nuevos (creados en los últimos 30 días)
+        if filter_new == '1':
+            from datetime import datetime, timedelta
+            limit_date = datetime.now() - timedelta(days=30)
+            domain += [('create_date', '>=', limit_date.strftime('%Y-%m-%d %H:%M:%S'))]
+            
+        # Filtro de Promociones (que tienen compare_list_price > 0.0)
+        if filter_promo == '1':
+            domain += [('compare_list_price', '>', 0.0)]
+            
+        # Lógica de Ordenamiento
+        order = 'sequence, id desc'
+        if sortby == 'price_asc':
+            order = 'list_price asc'
+        elif sortby == 'price_desc':
+            order = 'list_price desc'
+        elif sortby == 'newest':
+            order = 'create_date desc'
+            
+        # Obtenemos productos filtrados y ordenados
+        products = request.env['product.product'].sudo().search(domain, order=order)
+        
+        # Obtenemos todas las categorías internas de Inventario para el sidebar
+        # Excluimos las categorías internas del sistema por sus IDs de creación base (1=All, 2=Saleable, 3=Expenses, etc.)
+        all_categories = request.env['product.category'].sudo().search([('id', 'not in', [1, 2, 3, 4, 5])])
+        
+        # Calculamos conteos de productos reales activos por categoría
+        categories_data = []
+        for cat in all_categories:
+            count = request.env['product.product'].sudo().search_count([
+                ('sale_ok', '=', True),
+                ('type', 'in', ['product', 'consu']),
+                ('categ_id', 'child_of', cat.id)
+            ])
+            if count > 0:
+                categories_data.append({
+                    'category': cat,
+                    'count': count
+                })
         
         return request.render('taller_mecanico.productos_page', {
             'products': products,
-            'categories': categories,
+            'categories': categories_data,
             'current_category': category,
             'search': search,
+            'sortby': sortby,
+            'filter_new': filter_new,
+            'filter_promo': filter_promo,
         })
 
     @http.route(['/taller/carrito'], type='http', auth="public", website=True)

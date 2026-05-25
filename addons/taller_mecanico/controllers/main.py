@@ -9,13 +9,24 @@ class TallerMecanicoController(http.Controller):
     def taller_home(self, **kw):
         return request.redirect('/')
 
-    @http.route(['/taller/servicios'], type='http', auth="public", website=True)
-    def taller_servicios(self, **kw):
-        return request.render('taller_mecanico.servicios_page', {})
 
-    @http.route(['/taller/contacto'], type='http', auth="public", website=True)
-    def taller_contacto(self, **kw):
-        return request.render('taller_mecanico.contacto_page', {})
+    @http.route(['/taller/consulta'], type='http', auth="public", website=True, methods=['GET', 'POST'])
+    def taller_consulta(self, **post):
+        placa = (post.get('placa') or '').strip().upper()
+        if request.httprequest.method == 'POST' and placa:
+            ordenes = request.env['taller.orden.trabajo'].sudo().search([
+                ('vehiculo_id.placa', '=', placa)
+            ], order='fecha_ingreso desc')
+            return request.render('taller_mecanico.consulta_orden_page', {
+                'searched': True,
+                'ordenes': ordenes,
+                'placa': placa
+            })
+        return request.render('taller_mecanico.consulta_orden_page', {
+            'searched': False,
+            'ordenes': [],
+            'placa': ''
+        })
 
     @http.route(['/taller/cita'], type='http', auth="public", website=True)
     def taller_cita(self, **kw):
@@ -77,7 +88,37 @@ class TallerMecanicoController(http.Controller):
             })
 
         # 3. Procesar Cita
-        fecha_cita = post.get('date')
+        fecha_cita_raw = post.get('date')
+        if not fecha_cita_raw:
+            return request.redirect('/taller/cita?error=fecha_requerida')
+            
+        # Convertir formato HTML5 (YYYY-MM-DDTHH:MM) a Odoo format (YYYY-MM-DD HH:MM:SS)
+        fecha_cita = fecha_cita_raw.replace('T', ' ')
+        if len(fecha_cita) == 16:
+            fecha_cita += ':00'
+
+        # Validación backend de choques de horario (margen de 1 hora)
+        from datetime import datetime, timedelta
+        try:
+            dt_cita = datetime.strptime(fecha_cita, '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            return request.redirect('/taller/cita?error=formato_invalido')
+
+        # Buscar citas que solapen (inicio_existente < fin_nuevo AND fin_existente > inicio_nuevo)
+        # Como cada cita dura 1 hora, buscamos citas en el rango (dt_cita - 1h, dt_cita + 1h)
+        dt_inicio_margen = dt_cita - timedelta(minutes=59)
+        dt_fin_margen = dt_cita + timedelta(minutes=59)
+        
+        choques = env['taller.cita'].sudo().search([
+            ('estado', 'in', ['solicitada', 'confirmada']),
+            ('fecha_cita', '>', dt_inicio_margen.strftime('%Y-%m-%d %H:%M:%S')),
+            ('fecha_cita', '<', dt_fin_margen.strftime('%Y-%m-%d %H:%M:%S'))
+        ])
+
+        if choques:
+            # Choque detectado en el servidor!
+            return request.redirect('/taller/cita?error=horario_ocupado')
+
         repair_type = post.get('repair_type')
         observaciones = post.get('observations', '')
 
@@ -101,6 +142,36 @@ class TallerMecanicoController(http.Controller):
         })
 
         return request.redirect('/taller/cita/confirmacion')
+
+    @http.route(['/taller/cita/check_availability'], type='json', auth="public", website=True)
+    def taller_cita_check_availability(self, date=None, **kw):
+        if not date:
+            return {'available': False, 'message': 'Fecha requerida'}
+            
+        fecha_cita = date.replace('T', ' ')
+        if len(fecha_cita) == 16:
+            fecha_cita += ':00'
+            
+        from datetime import datetime, timedelta
+        try:
+            dt_cita = datetime.strptime(fecha_cita, '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            return {'available': False, 'message': 'Formato inválido'}
+            
+        dt_inicio_margen = dt_cita - timedelta(minutes=59)
+        dt_fin_margen = dt_cita + timedelta(minutes=59)
+        
+        choques = request.env['taller.cita'].sudo().search([
+            ('estado', 'in', ['solicitada', 'confirmada']),
+            ('fecha_cita', '>', dt_inicio_margen.strftime('%Y-%m-%d %H:%M:%S')),
+            ('fecha_cita', '<', dt_fin_margen.strftime('%Y-%m-%d %H:%M:%S'))
+        ])
+        
+        if choques:
+            return {'available': False, 'message': 'Horario no disponible. Por favor, selecciona otra hora o día.'}
+            
+        return {'available': True, 'message': 'Horario disponible.'}
+
 
     @http.route(['/taller/cita/confirmacion'], type='http', auth="public", website=True)
     def taller_cita_confirmacion(self, **kw):

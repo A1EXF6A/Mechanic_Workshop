@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faq_page" name="Preguntas Frecuentes - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                
+                <!-- Hero Section Premium -->
+                <section class="taller-hero-section py-5 text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--taller-primary) 0%, #1E293B 100%); border-bottom: 4px solid var(--taller-accent);">
+                    <div class="container text-center py-5 position-relative z-index-1">
+                        <h6 class="text-uppercase fw-bold mb-2 animate-fade-in" style="color: #60A5FA; letter-spacing: 2px; font-size: 0.75rem;">SOPORTE</h6>
+                        <h1 class="display-4 fw-bold mb-3 text-white taller-text-glow animate-fade-in">Preguntas Frecuentes</h1>
+                        <p class="mx-auto text-white opacity-75 animate-fade-in" style="max-width: 650px; font-size: 1.15rem;">
+                            ¿Tienes alguna duda sobre nuestros procesos, garantías o citas? Encuentra respuestas rápidas aquí.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Acordeón FAQ -->
+                <section class="py-5 bg-white">
+                    <div class="container py-4">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                
+                                <div class="accordion accordion-flush shadow-sm rounded-4 overflow-hidden border border-1" id="faqAccordion">
+                                    
+                                    <!-- Pregunta 1 -->
+                                    <div class="accordion-item border-bottom">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button fw-bold py-4 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="color: var(--taller-primary);">
+                                                <i class="fa fa-calendar-check-o me-3 text-primary"/> ¿Necesito agendar una cita previa o puedo ir directo?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body text-muted py-4 lh-base" style="font-size: 1.02rem;">
+                                                Recomendamos **siempre agendar una cita previa** en nuestra web o por WhatsApp para asegurarte la atención inmediata de un técnico y reducir al mínimo tu tiempo de espera. No obstante, si tienes una emergencia mecánica, puedes acudir directo y nuestro asesor evaluará el tiempo de ingreso según la disponibilidad del taller.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Pregunta 2 -->
+                                    <div class="accordion-item border-bottom">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed fw-bold py-4 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="color: var(--taller-primary);">
+                                                <i class="fa fa-money me-3 text-primary"/> ¿Cuánto cuesta el diagnóstico computarizado de mi vehículo?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body text-muted py-4 lh-base" style="font-size: 1.02rem;">
+                                                El costo del escaneo y diagnóstico completo con equipos profesionales varía según la complejidad, pero tiene un precio estándar base de $30. Lo mejor de todo es que **si realizas la reparación recomendada con nosotros, el costo del diagnóstico se deduce al 100% de tu factura final**.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pregunta 3 -->
+                                    <div class="accordion-item border-bottom">
+                                        <h2 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed fw-bold py-4 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="color: var(--taller-primary);">
+                                                <i class="fa fa-shield me-3 text-primary"/> ¿Qué tipo de garantía ofrecen en sus reparaciones?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body text-muted py-4 lh-base" style="font-size: 1.02rem;">
+                                                Todos nuestros trabajos de mano de obra cuentan con una **garantía de 6 meses o 10,000 kilómetros** (lo que ocurra primero). Respecto a las piezas y repuestos instalados, la garantía depende directamente del fabricante (generalmente de 1 a 2 años en repuestos OEM originales).
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pregunta 4 -->
+                                    <div class="accordion-item border-bottom">
+                                        <h2 class="accordion-header" id="headingFour">
+                                            <button class="accordion-button collapsed fw-bold py-4 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="color: var(--taller-primary);">
+                                                <i class="fa fa-cogs me-3 text-primary"/> ¿Puedo llevar mis propios repuestos para la reparación?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body text-muted py-4 lh-base" style="font-size: 1.02rem;">
+                                                Por políticas estrictas de seguridad vial y control de calidad, **únicamente instalamos repuestos provistos por nuestro taller**. De este modo, nos aseguramos de que cumplan con la procedencia, especificaciones técnicas exactas de fábrica y podemos extender la garantía oficial de reparación sobre toda la intervención.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pregunta 5 -->
+                                    <div class="accordion-item border-bottom">
+                                        <h2 class="accordion-header" id="headingFive">
+                                            <button class="accordion-button collapsed fw-bold py-4 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="color: var(--taller-primary);">
+                                                <i class="fa fa-mobile me-3 text-primary"/> ¿Cómo puedo revisar el estado de mi coche en el taller?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body text-muted py-4 lh-base" style="font-size: 1.02rem;">
+                                                ¡Es facilísimo! En nuestra web contamos con una sección de **[Consulta Rápida de Orden](/taller/consulta)**. Solo necesitas ingresar la **Placa de tu Vehículo** para ver en tiempo real en qué estado se encuentra (Recibido, Listo, Entregado) sin necesidad de contraseñas. Además, nuestros asesores te enviarán videos e informes detallados por WhatsApp.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pregunta 6 -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingSix">
+                                            <button class="accordion-button collapsed fw-bold py-4 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" style="color: var(--taller-primary);">
+                                                <i class="fa fa-truck me-3 text-primary"/> ¿Tienen servicio de remolque o grúa en caso de avería?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body text-muted py-4 lh-base" style="font-size: 1.02rem;">
+                                                Sí, contamos con alianzas estratégicas de grúas de confianza. Si te has quedado accidentado en la vía, puedes comunicarte de inmediato con nuestro teléfono de soporte general y coordinaremos el traslado seguro de tu vehículo directamente hacia nuestras instalaciones.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="text-center mt-5">
+                                    <h4 class="fw-bold mb-3" style="color: var(--taller-primary);">¿Aún tienes dudas?</h4>
+                                    <p class="text-muted mb-4">Nuestro equipo de soporte técnico está disponible para asesorarte de manera personalizada en todo lo que necesites.</p>
+                                    <div class="d-flex justify-content-center gap-3">
+                                        <a href="/taller/contacto" class="btn btn-primary px-4 py-2">Escríbenos un Mensaje</a>
+                                        <a href="tel:+593999999999" class="btn btn-outline-primary px-4 py-2"><i class="fa fa-phone me-2"/> Soporte Telefónico</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </t>
+    </template>
+
+    <record id="faq_page_record" model="website.page">
+        <field name="name">Preguntas Frecuentes</field>
+        <field name="url">/taller/faq</field>
+        <field name="view_id" ref="faq_page"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="is_published">True</field>
+    </record>
+</odoo>

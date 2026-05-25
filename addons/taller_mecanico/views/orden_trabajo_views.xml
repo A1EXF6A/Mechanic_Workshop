@@ -64,15 +64,13 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_en_proceso" string="▶ Iniciar Trabajo" type="object" 
-                            class="oe_highlight" invisible="estado != 'recibido'"/>
                     <button name="action_listo" string="✓ Marcar como Listo" type="object" 
-                            class="oe_highlight" invisible="estado != 'proceso'"/>
+                            class="oe_highlight" invisible="estado != 'recibido'"/>
                     <button name="action_facturar" string="💰 Generar Factura" type="object" 
                             class="btn-primary" invisible="estado != 'listo' or factura_id != False"/>
                     <button name="action_entregado" string="🚗 Entregar Vehículo" type="object" 
                             class="oe_highlight" invisible="estado != 'listo'"/>
-                    <field name="estado" widget="statusbar" statusbar_visible="recibido,proceso,listo,entregado"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="recibido,listo,entregado"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -95,11 +93,14 @@
                             <field name="cita_id"/>
                             <field name="prioridad"/>
                             <field name="fecha_ingreso"/>
+                            <field name="kilometraje" string="Kilometraje de Ingreso"/>
                         </group>
                         <group>
                             <field name="tecnico_id"/>
                             <field name="tecnico_cargo"/>
                             <field name="costo_mano_obra" widget="monetary"/>
+                            <field name="proximo_kilometraje_mto" string="Próximo Mantenimiento (km)"/>
+                            <field name="proxima_fecha_mto" string="Próxima Fecha Mantenimiento"/>
                             <field name="factura_id" invisible="not factura_id"/>
                             <field name="factura_estado" invisible="not factura_id" widget="badge" 
                                    decoration-success="factura_estado == 'posted'" 
