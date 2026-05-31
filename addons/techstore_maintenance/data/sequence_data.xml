@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+        <!-- Sequence for Equipment -->
+        <record id="seq_techstore_equipment" model="ir.sequence">
+            <field name="name">TechStore Equipment Sequence</field>
+            <field name="code">techstore.equipment</field>
+            <field name="prefix">EQUIP/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequence for Maintenance -->
+        <record id="seq_techstore_maintenance" model="ir.sequence">
+            <field name="name">TechStore Maintenance Sequence</field>
+            <field name="code">techstore.maintenance</field>
+            <field name="prefix">MAINT/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+</odoo>

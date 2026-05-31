@@ -1,0 +1,31 @@
+﻿name;is_company;company_name;country_id;state_id;zip;city;street;street2;phone;mobile;email;vat;bank_ids/bank;bank_ids/acc_number
+AndesTech Solutions S.A.;1;;EC;Pichincha;170101;Quito;Av. Principal 101;;22900001;999000001;cliente01@terrabyteec.com;990000001;PICHINCHA;100100101
+Pacífico Logística S.A.;1;;EC;Guayas;90101;Guayaquil;Calle 10 #202;;42800002;999000002;cliente02@terrabyteec.com;990000002;GUAYAQUIL;100100102
+Costa Verde Trading S.A.;1;;EC;Azuay;10101;Cuenca;Av. Central 303;;72700003;999000003;cliente03@terrabyteec.com;990000003;AUSTRO;100100103
+SierraNova Industria S.A.;1;;EC;Manabi;130101;Manta;Calle Norte 404;;52600004;999000004;cliente04@terrabyteec.com;990000004;MANABI;100100104
+InnovaMercado S.A.;1;;EC;Tungurahua;180101;Ambato;Av. Sur 505;;32500005;999000005;cliente05@terrabyteec.com;990000005;AMBATO;100100105
+Andina Servicios Integrales S.A.;1;;EC;Pichincha;170102;Quito;Av. Sierra 606;;22900006;999000006;cliente06@terrabyteec.com;990000006;PICHINCHA;100100106
+QuitoPro Proyectos S.A.;1;;EC;Guayas;90102;Guayaquil;Calle Costa 707;;42800007;999000007;cliente07@terrabyteec.com;990000007;GUAYAQUIL;100100107
+Azuay Business Group S.A.;1;;EC;Azuay;10102;Cuenca;Av. Andes 808;;72700008;999000008;cliente08@terrabyteec.com;990000008;AUSTRO;100100108
+Manabí Comercial S.A.;1;;EC;Manabi;130102;Portoviejo;Calle 9 #909;;52600009;999000009;cliente09@terrabyteec.com;990000009;MANABI;100100109
+Litoral Agroindustrial S.A.;1;;EC;Pichincha;170103;Quito;Av. Taller 1010;;22900010;999000010;cliente10@terrabyteec.com;990000010;PICHINCHA;100100110
+Tungurahua Soluciones S.A.;1;;EC;Guayas;90103;Guayaquil;Calle 11 #1111;;42800011;999000011;cliente11@terrabyteec.com;990000011;GUAYAQUIL;100100111
+Ecuasan Distribuciones S.A.;1;;EC;Azuay;10103;Cuenca;Av. 12 1212;;72700012;999000012;cliente12@terrabyteec.com;990000012;AUSTRO;100100112
+AndesNet Telecom S.A.;1;;EC;Manabi;130103;Manta;Calle 13 #1313;;52600013;999000013;cliente13@terrabyteec.com;990000013;MANABI;100100113
+Primera Línea Importaciones S.A.;1;;EC;Tungurahua;180102;Ambato;Av. 14 1414;;32500014;999000014;cliente14@terrabyteec.com;990000014;AMBATO;100100114
+Aurora Técnica S.A.;1;;EC;Pichincha;170104;Quito;Calle 15 #1515;;22900015;999000015;cliente15@terrabyteec.com;990000015;PICHINCHA;100100115
+Génesis Industrial S.A.;1;;EC;Guayas;90104;Guayaquil;Av. 16 1616;;42800016;999000016;cliente16@terrabyteec.com;990000016;GUAYAQUIL;100100116
+Delta Centro Comercial S.A.;1;;EC;Azuay;10104;Cuenca;Calle 17 #1717;;72700017;999000017;cliente17@terrabyteec.com;990000017;AUSTRO;100100117
+Pacífica Exportaciones S.A.;1;;EC;Manabi;130104;Manta;Av. 18 1818;;52600018;999000018;cliente18@terrabyteec.com;990000018;MANABI;100100118
+SumaCorp Ecuador S.A.;1;;EC;Tungurahua;180103;Ambato;Calle 19 #1919;;32500019;999000019;cliente19@terrabyteec.com;990000019;AMBATO;100100119
+Oriente Suministros S.A.;1;;EC;Pichincha;170105;Quito;Av. 20 2020;;22900020;999000020;cliente20@terrabyteec.com;990000020;PICHINCHA;100100120
+Nexo Productivo S.A.;1;;EC;Guayas;90105;Guayaquil;Calle 21 #2121;;42800021;999000021;cliente21@terrabyteec.com;990000021;GUAYAQUIL;100100121
+Río Verde Equipos S.A.;1;;EC;Azuay;10105;Cuenca;Av. 22 2222;;72700022;999000022;cliente22@terrabyteec.com;990000022;AUSTRO;100100122
+Altamira Servicios S.A.;1;;EC;Manabi;130105;Manta;Calle 23 #2323;;52600023;999000023;cliente23@terrabyteec.com;990000023;MANABI;100100123
+NovaCrest S.A.;1;;EC;Tungurahua;180104;Ambato;Av. 24 2424;;32500024;999000024;cliente24@terrabyteec.com;990000024;AMBATO;100100124
+Capital Norte S.A.;1;;EC;Pichincha;170106;Quito;Calle 25 #2525;;22900025;999000025;cliente25@terrabyteec.com;990000025;PICHINCHA;100100125
+Mareas del Sur S.A.;1;;EC;Guayas;90106;Guayaquil;Av. 26 2626;;42800026;999000026;cliente26@terrabyteec.com;990000026;GUAYAQUIL;100100126
+PuntoUno Tecnología S.A.;1;;EC;Azuay;10106;Cuenca;Calle 27 #2727;;72700027;999000027;cliente27@terrabyteec.com;990000027;AUSTRO;100100127
+Eje Andino S.A.;1;;EC;Manabi;130106;Manta;Av. 28 2828;;52600028;999000028;cliente28@terrabyteec.com;990000028;MANABI;100100128
+Horizonte Comercial S.A.;1;;EC;Tungurahua;180105;Ambato;Calle 29 #2929;;32500029;999000029;cliente29@terrabyteec.com;990000029;AMBATO;100100129
+Vértice Empresarial S.A.;1;;EC;Pichincha;170107;Quito;Av. 30 3030;;22900030;999000030;cliente30@terrabyteec.com;990000030;PICHINCHA;100100130

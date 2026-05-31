@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Graph View -->
+    <record id="view_techstore_maintenance_metrics_graph" model="ir.ui.view">
+        <field name="name">techstore.maintenance.metrics.graph</field>
+        <field name="model">techstore.maintenance.metrics</field>
+        <field name="arch" type="xml">
+            <graph string="Maintenance Metrics" type="bar">
+                <field name="technician_id"/>
+                <field name="resolution_time" type="measure"/>
+                <field name="quality_indicator" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="view_techstore_maintenance_metrics_pivot" model="ir.ui.view">
+        <field name="name">techstore.maintenance.metrics.pivot</field>
+        <field name="model">techstore.maintenance.metrics</field>
+        <field name="arch" type="xml">
+            <pivot string="Maintenance Metrics Analysis">
+                <field name="technician_id" type="row"/>
+                <field name="attention_time" type="measure"/>
+                <field name="resolution_time" type="measure"/>
+                <field name="technician_efficiency" type="measure"/>
+                <field name="quality_indicator" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Metrics Action -->
+    <record id="action_techstore_maintenance_metrics" model="ir.actions.act_window">
+        <field name="name">Maintenance Metrics</field>
+        <field name="res_model">techstore.maintenance.metrics</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No metrics data available yet.
+            </p>
+        </field>
+    </record>
+</odoo>
