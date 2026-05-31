@@ -1,4 +1,4 @@
-# Código de Conducta de Terrabyte EC (Odoo 18 Project)
+# 📜 Código de Conducta de Terrabyte EC (Odoo 18 Project)
 
 ## 1. Nuestro Compromiso
 

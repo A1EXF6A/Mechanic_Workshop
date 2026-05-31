@@ -1,10 +1,10 @@
-# Documentación técnica de arquitectura - Terrabyte EC
+# 🏗️ Documentación técnica de arquitectura - Terrabyte EC
 
 Esta documentación técnica describe en profundidad la arquitectura del **Sistema de Gestión de Taller Mecánico** para **Terrabyte EC**, detallando el diseño de componentes, flujos lógicos, dependencias de software e integraciones con servicios externos sobre Odoo 18.
 
 ---
 
-## 1. Arquitectura funcional
+## 1. Arquitectura funcional ⚙️
 
 La arquitectura funcional organiza las capacidades del sistema en base a los procesos del negocio y los flujos de información requeridos para operar el taller mecánico de manera integral:
 ```mermaid

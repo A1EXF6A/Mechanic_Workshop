@@ -1,10 +1,10 @@
-# Esquema de base de datos y diagrama entidad-relación - Terrabyte EC
+# 🗄️ Esquema de base de datos y diagrama entidad-relación - Terrabyte EC
 
 Esta documentación describe la estructura de persistencia de datos (base de datos relacional) para el **Sistema de Gestión de Taller Mecánico** de **Terrabyte EC**, detallando las tablas principales, tipos de datos, llaves primarias, llaves foráneas y restricciones lógicas en Odoo 18.
 
 ---
 
-## 1. Diagrama entidad-relación
+## 1. Diagrama entidad-relación 🧭
 
 El siguiente diagrama de modelo entidad-relación (ER) ilustra la estructura lógica de los datos de la solución automotriz y contable:
 

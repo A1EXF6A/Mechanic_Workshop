@@ -1,4 +1,4 @@
-# Políticas y Prácticas de Seguridad - Terrabyte EC
+# 🔒 Políticas y Prácticas de Seguridad - Terrabyte EC
 
 En **Terrabyte EC**, consideramos que la seguridad de los datos de nuestros clientes, los registros de vehículos y la integridad de las transacciones financieras y contables son una prioridad absoluta.
 
@@ -6,7 +6,7 @@ Este documento establece las políticas de seguridad del proyecto, los canales p
 
 ---
 
-## 1. Política de seguridad
+## 1. Política de seguridad 🛡️
 
 Nuestra política de seguridad de software se enfoca en proteger activamente la confidencialidad, disponibilidad e integridad de los datos de Terrabyte EC.
 

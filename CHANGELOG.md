@@ -1,4 +1,4 @@
-# Changelog - Terrabyte EC (Odoo 18 Mechanic Workshop)
+# 📝 Changelog - Terrabyte EC (Odoo 18 Mechanic Workshop)
 
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
@@ -10,7 +10,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 Este es el lanzamiento inicial del **Sistema de Gestión de Taller Mecánico Automotriz** para **Terrabyte EC**, consolidando toda la suite operativa y la integración fiscal con el SRI de Ecuador en Odoo 18.
 
-### Added
+### Added ➕
 - **Core de Taller Mecánico (`taller_mecanico`):**
   - Modelo `taller.vehiculo` para el registro técnico de autos (placas únicas, combustible, año de fabricación y kilometraje).
   - Modelo `taller.cita` para la agenda y control de turnos en el taller con alertas de solapamiento de horarios en backend.

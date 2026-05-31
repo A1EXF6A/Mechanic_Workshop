@@ -1,10 +1,10 @@
-# Terrabyte EC - Sistema de Gestión de Taller Mecánico Automotriz en Odoo 18
+# 🛠️ Terrabyte EC - Sistema de Gestión de Taller Mecánico Automotriz en Odoo 18
 
 Este repositorio contiene el código fuente, la configuración del entorno y los módulos personalizados para el **Sistema de Gestión de Taller Mecánico Automotriz** de la empresa **Terrabyte EC**, desarrollado sobre la plataforma ERP **Odoo 18**.
 
 ---
 
-## 1. Descripción general
+## 1. Descripción general 🔎
 
 ### El Problema
 La gestión operativa de los talleres mecánicos tradicionales suele sufrir de una alarmante desconexión entre sus diferentes etapas: desde que un cliente solicita una cita, pasando por la recepción e inspección técnica del vehículo, el control de inventario de repuestos utilizados, hasta la facturación y el registro contable final. Esta falta de integración produce cuellos de botella administrativos, pérdida de trazabilidad en los historiales de mantenimiento y demoras críticas en el cumplimiento fiscal de la facturación electrónica.
@@ -17,7 +17,7 @@ Digitalizar y automatizar el flujo operativo end-to-end de Terrabyte EC mediante
 
 ---
 
-## 2. Objetivos del proyecto
+## 2. Objetivos del proyecto 🎯
 
 - **Centralización Operativa:** Unificar la gestión de clientes, vehículos, citas, órdenes de trabajo, inventarios y finanzas bajo una base de datos relacional única.
 - **Automatización de Recepción y Control:** Proveer listas de verificación (checklists) interactivas para recepcionar vehículos, registrar kilometraje, nivel de combustible y estado físico.

@@ -1,4 +1,4 @@
-# Guía de Contribución para Terrabyte EC (Odoo 18)
+# 🤝 Guía de Contribución para Terrabyte EC (Odoo 18)
 
 ¡Bienvenido al proyecto de desarrollo del **Sistema de Gestión de Taller Mecánico** para **Terrabyte EC**! Como equipo de ingeniería, nos regimos por los más altos estándares de calidad de software, diseño de arquitectura limpia y cumplimiento de estándares de desarrollo de Odoo.
 
@@ -6,7 +6,7 @@ Esta guía está diseñada para orientar a desarrolladores nuevos y experimentad
 
 ---
 
-## 1. Flujo de Git adoptado
+## 1. Flujo de Git adoptado 🔀
 
 Para asegurar la estabilidad en producción y la velocidad en la entrega de nuevas características, adoptamos el flujo de trabajo **Gitflow**:
 

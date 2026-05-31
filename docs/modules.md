@@ -1,10 +1,10 @@
-# Documentación de referencia de módulos personalizados - Terrabyte EC
+# 📦 Documentación de referencia de módulos personalizados - Terrabyte EC
 
 Esta documentación describe detalladamente cada uno de los módulos de Odoo personalizados que conforman el **Sistema de Gestión de Taller Mecánico** para **Terrabyte EC**.
 
 ---
 
-## 1. Módulo: `usuarios_taller`
+## 1. Módulo: `usuarios_taller` 📥
 
 ### Propósito
 Establecer un sistema seguro para el registro de clientes del taller en Ecuador, aplicando validaciones obligatorias que garantizan la integridad de la base de datos antes de transferir la información al directorio principal de contactos de Odoo.
