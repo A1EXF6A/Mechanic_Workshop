@@ -346,38 +346,18 @@ sequenceDiagram
 
 ---
 
-## 12. Required Screenshots
+## 12. Interfaz del sistema
 
 Para validar la correcta implementación visual y funcional de la plataforma de **Terrabyte EC**, el desarrollador deberá incorporar capturas de pantalla reales en los siguientes marcadores de posición:
 
-### Panel de Control SRI & Dashboard Administrativo
-![Dashboard SRI](https://placehold.co/800x450/1e293b/ffffff?text=Dashboard+SRI+Facturacion+Electronica+Terrabyte)
-*Mapeo sugerido:* Pantalla principal en `taller_mecanico_admin` mostrando estadísticas de facturas autorizadas, rechazadas y en proceso ante el SRI.
+### Orden de Trabajo
 
-### Ficha de Identificación del Vehículo
-![Ficha del Vehículo](https://placehold.co/800x450/10b981/ffffff?text=Ficha+del+Vehiculo+-+Modelo+Taller)
-*Mapeo sugerido:* Formulario de `taller.vehiculo` que muestra la marca, modelo sincronizado por API, propietario y su historial de órdenes.
+![Orden de Trabajo](images/orden_trabajo.png)
 
-### Reserva de Cita Automotriz en el Portal
-![Reserva de Citas](https://placehold.co/800x450/3b82f6/ffffff?text=Reserva+de+Citas+Online+-+Portal+Web)
-*Mapeo sugerido:* Interfaz de cliente en el portal web público (`taller/cita`) completando datos del auto y fecha con el validador dinámico de choques.
 
-### Orden de Trabajo en el Backend (Checklist y Líneas)
-![Orden de Trabajo](https://placehold.co/800x450/f59e0b/ffffff?text=Orden+de+Trabajo+-+Checklist+y+Insumos)
-*Mapeo sugerido:* Formulario `taller.orden.trabajo` mostrando el checklist de recepción física, servicios y repuestos ingresados por el mecánico.
+### Facturación Electrónica
 
-### Control de Inventarios de Repuestos
-![Inventario Odoo](https://placehold.co/800x450/6366f1/ffffff?text=Control+de+Inventario+-+Stock+Odoo)
-*Mapeo sugerido:* Lista de productos de tipo storable mostrando stock disponible (`qty_available`) posterior a la entrega del auto.
-
-### Representación de Factura Electrónica y Clave SRI
-![Facturación SRI](https://placehold.co/800x450/ec4899/ffffff?text=Factura+Contable+con+Clave+de+Acceso+SRI)
-*Mapeo sugerido:* Registro de factura en `account.move` mostrando el campo de Clave de Acceso de 49 dígitos y estado "autorizado" con el XML firmado adjunto.
-
-### Portal Web del Cliente (Mi Cuenta)
-![Portal Mi Cuenta](https://placehold.co/800x450/14b8a6/ffffff?text=Portal+Mi+Cuenta+-+Clientes+Terrabyte)
-*Mapeo sugerido:* Interfaz "Mi Cuenta" del portal mostrando la lista de autos registrados, citas programadas y facturas descargables en XML y PDF.
-
+![Factura Electrónica](images/factura_electronica.png)
 ---
 
 ## 13. Maintenance Guide
