@@ -10,54 +10,53 @@ El siguiente diagrama de modelo entidad-relación (ER) ilustra la estructura ló
 
 ```mermaid
 erDiagram
-    %% Entidades Custom del Proyecto
-    USER_PROFILE ||--o{ VEHICULO : owns : "propietario_id"
-    MARCA ||--o{ MODELO : classifies : "marca_id"
-    MODELO ||--o{ VEHICULO : describes : "modelo_id"
-    MARCA ||--o{ VEHICULO : references : "marca_id"
-    
-    VEHICULO ||--o{ CITA : schedules : "vehiculo_id"
-    USER_PROFILE ||--o{ CITA : requests : "cliente_id"
-    CITA ||--|| ORDEN_TRABAJO : initiates : "orden_trabajo_id / cita_id"
-    
-    VEHICULO ||--o{ ORDEN_TRABAJO : serviced : "vehiculo_id"
-    EMPLOYEE ||--o{ ORDEN_TRABAJO : performs : "tecnico_id"
-    
-    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_SERVICIO : logs : "orden_id"
-    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_REPUESTO : consumes : "orden_id"
-    
-    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_SERVICIO : defines : "producto_id"
-    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_REPUESTO : defines : "producto_id"
 
-    ORDEN_TRABAJO ||--o| ACCOUNT_MOVE : bills : "factura_id"
-    PARTNER ||--o{ ACCOUNT_MOVE : receives : "partner_id"
-    USER_PROFILE ||--|| PARTNER : synchronizes : "partner_id"
+    USER_PROFILE ||--o{ VEHICULO : owns
+    MARCA ||--o{ MODELO : classifies
+    MODELO ||--o{ VEHICULO : describes
+    MARCA ||--o{ VEHICULO : references
 
-    %% Odoo Core Entities (Extensiones)
+    VEHICULO ||--o{ CITA : schedules
+    USER_PROFILE ||--o{ CITA : requests
+    CITA ||--|| ORDEN_TRABAJO : initiates
+
+    VEHICULO ||--o{ ORDEN_TRABAJO : serviced
+    EMPLOYEE ||--o{ ORDEN_TRABAJO : performs
+
+    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_SERVICIO : logs
+    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_REPUESTO : consumes
+
+    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_SERVICIO : defines
+    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_REPUESTO : defines
+
+    ORDEN_TRABAJO ||--o| ACCOUNT_MOVE : bills
+    PARTNER ||--o{ ACCOUNT_MOVE : receives
+    USER_PROFILE ||--|| PARTNER : synchronizes
+
     USER_PROFILE {
         int id PK
-        varchar name
-        varchar apellido
-        varchar email
-        varchar cedula UK
-        varchar celular
+        string name
+        string apellido
+        string email
+        string cedula
+        string celular
         int edad
-        varchar direccion
-        varchar password
+        string direccion
+        string password
         int partner_id FK
     }
 
     VEHICULO {
         int id PK
-        varchar placa UK
+        string placa
         int propietario_id FK
         int marca_id FK
         int modelo_id FK
         int anio
-        varchar color
+        string color
         int kilometraje
-        varchar tipo_combustible
-        binary foto
+        string tipo_combustible
+        string foto
     }
 
     CITA {
@@ -66,32 +65,32 @@ erDiagram
         int cliente_id FK
         datetime fecha_cita
         datetime fecha_fin
-        varchar motivo
-        text descripcion
-        varchar prioridad
-        varchar estado
+        string motivo
+        string descripcion
+        string prioridad
+        string estado
         int orden_trabajo_id FK
     }
 
     ORDEN_TRABAJO {
         int id PK
-        varchar name UK
+        string name
         int vehiculo_id FK
         int cita_id FK
         int tecnico_id FK
         datetime fecha_ingreso
-        text diagnostico
+        string diagnostico
         float costo_mano_obra
         float costo_total_servicios
         float costo_total_repuestos
         float costo_total_general
-        varchar estado
-        varchar nivel_gasolina
+        string estado
+        string nivel_gasolina
         boolean llanta_repuesto
         boolean herramientas
         boolean gata
-        text rayones_golpes
-        text objetos_personales
+        string rayones_golpes
+        string objetos_personales
         int factura_id FK
         int kilometraje
         int proximo_kilometraje_mto
@@ -118,29 +117,27 @@ erDiagram
 
     MARCA {
         int id PK
-        varchar name
+        string name
         int nhtsa_id
     }
 
     MODELO {
         int id PK
-        varchar name
+        string name
         int marca_id FK
     }
 
     ACCOUNT_MOVE {
         int id PK
-        varchar name
+        string name
         int partner_id FK
-        varchar sri_clave_acceso
-        varchar sri_estado_autorizacion
+        string sri_clave_acceso
+        string sri_estado_autorizacion
         datetime sri_fecha_autorizacion
-        binary sri_xml_file
-        varchar sri_xml_filename
+        string sri_xml_file
+        string sri_xml_filename
     }
 ```
-
----
 
 ## 2. Data Dictionary (Diccionario de Datos y Tablas)
 
