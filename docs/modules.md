@@ -1,4 +1,4 @@
-# Custom Modules Reference Documentation - Terrabyte EC
+# Documentación de referencia de módulos personalizados - Terrabyte EC
 
 Esta documentación describe detalladamente cada uno de los módulos de Odoo personalizados que conforman el **Sistema de Gestión de Taller Mecánico** para **Terrabyte EC**.
 
