@@ -33,55 +33,53 @@ Digitalizar y automatizar el flujo operativo end-to-end de Terrabyte EC mediante
 La solución de software de **Terrabyte EC** adopta una arquitectura multicapa, apoyándose en la robustez modular de Odoo y su arquitectura Modelo-Vista-Controlador (MVC), combinada con servicios auxiliares externalizados.
 
 ```mermaid
-graph TD
-    subgraph Capa de Presentacion [Capa de Presentación & Acceso]
-        ClientBrowser[Navegador del Cliente / Portal Web]
-        AdminBrowser[Cliente Odoo Backend / Administrador]
-        NginxProxy[Proxy Inverso Nginx]
-    end
+graph LR
 
-    subgraph Capa de Negocio [Capa de Lógica de Negocio - Odoo 18]
-        OdooCore[Odoo ERP Core]
-        
-        subgraph Modulos Estandar [Módulos Estándar Utilizados]
-            ModWebsite[Website & E-Commerce]
-            ModInventory[Inventory & Stock]
-            ModPurchase[Purchase & Stock Intake]
-            ModSales[Sales & Quotations]
-            ModAccount[Accounting & Moves]
-            ModEmployees[HR Employees]
-            ModContacts[Contacts & Partners]
-        end
-        
-        subgraph Modulos Personalizados [Módulos Custom Terrabyte EC]
-            AddonUsers[usuarios_taller]
-            AddonCore[taller_mecanico]
-            AddonAdmin[taller_mecanico_admin]
-            AddonPortal[taller_mecanico_portal]
-            AddonTech[taller_mecanico_tecnico]
-        end
-    end
+    Cliente["Cliente Web"]
+    Admin["Administrador"]
 
-    subgraph Capa de Datos [Capa de Persistencia de Datos]
-        PostgreSQL[(PostgreSQL 15/18 Database)]
-    end
+    Nginx["Nginx"]
 
-    subgraph Integraciones [Integraciones Externas]
-        NHTSA_API[US NHTSA Vehicles API]
-        SRI_WS[Servicio de Rentas Internas SRI WS SOAP]
-    end
+    Odoo["Odoo 18"]
 
-    ClientBrowser -->|HTTP/HTTPS Puerto 8070| NginxProxy
-    AdminBrowser -->|HTTP/HTTPS Puerto 8070| NginxProxy
-    NginxProxy -->|Redirección Interna| OdooCore
-    
-    OdooCore --> Modulos Estandar
-    OdooCore --> Modulos Personalizados
-    
-    AddonCore -->|Sincronización de Autos| NHTSA_API
-    AddonCore -->|Envío de Facturas Firmadas| SRI_WS
-    
-    OdooCore -->|Conexión Contenedor DB| PostgreSQL
+    Website["Website"]
+    Inventory["Inventario"]
+    Purchase["Compras"]
+    Sales["Ventas"]
+    Accounting["Contabilidad"]
+    Employees["Empleados"]
+
+    Vehiculos["Gestión de Vehículos"]
+    Citas["Gestión de Citas"]
+    Ordenes["Órdenes de Trabajo"]
+    Portal["Portal Cliente"]
+
+    DB[("PostgreSQL")]
+
+    NHTSA["NHTSA API"]
+    SRI["SRI SOAP"]
+
+    Cliente --> Nginx
+    Admin --> Nginx
+
+    Nginx --> Odoo
+
+    Odoo --> Website
+    Odoo --> Inventory
+    Odoo --> Purchase
+    Odoo --> Sales
+    Odoo --> Accounting
+    Odoo --> Employees
+
+    Odoo --> Vehiculos
+    Odoo --> Citas
+    Odoo --> Ordenes
+    Odoo --> Portal
+
+    Odoo --> DB
+
+    Vehiculos --> NHTSA
+    Accounting --> SRI
 ```
 
 ### Componentes de la Arquitectura
