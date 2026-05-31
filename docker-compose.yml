@@ -25,7 +25,6 @@ services:
     mem_limit: ${PROXY_MEM_LIMIT:-256m}
     pids_limit: ${PROXY_PIDS_LIMIT:-100}
     networks:
-      - edge
       - app
 
   odoo:
