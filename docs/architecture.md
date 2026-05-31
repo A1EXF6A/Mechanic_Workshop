@@ -7,39 +7,38 @@ Esta documentación técnica describe en profundidad la arquitectura del **Siste
 ## 1. Functional Architecture (Arquitectura Funcional)
 
 La arquitectura funcional organiza las capacidades del sistema en base a los procesos del negocio y los flujos de información requeridos para operar el taller mecánico de manera integral:
-
 ```mermaid
-flowchart TB
-    subgraph PortalWeb [Portal Web Autoservicio (Clientes)]
-        F_Reg[Registro / Login Cliente]
-        F_Cita[Agenda de Citas Online]
-        F_Track[Consulta de Orden por Placa]
-        F_Shop[E-commerce Insumos y Repuestos]
+flowchart TD
+
+    subgraph PortalWeb
+        Registro["Registro Cliente"]
+        Citas["Citas Online"]
+        Consulta["Consulta por Placa"]
+        Ecommerce["Tienda Virtual"]
     end
 
-    subgraph BackendCore [Core Operativo Backend (Taller)]
-        F_Veh[Ficha de Vehículo & Historial]
-        F_CitaB[Aprobación de Citas Backend]
-        F_OT[Hojas de Trabajo & checklists]
-        F_Line[Mano de Obra & Consumo Repuestos]
+    subgraph Backend
+        Vehiculo["Vehículos"]
+        Aprobacion["Aprobación Citas"]
+        OrdenTrabajo["Ordenes de Trabajo"]
+        Repuestos["Consumo Repuestos"]
     end
 
-    subgraph FacturacionFiscal [Facturación & Cumplimiento SRI]
-        F_Inv[Generación de Factura Cliente]
-        F_XML[Construcción & Firma XML XAdES-BES]
-        F_SRI[Transmisión WS SOAP offline]
-        F_Mail[Despacho de Comprobante PDF/XML]
+    subgraph Facturacion
+        Factura["Factura"]
+        XML["XML Firmado"]
+        SRI["SRI"]
+        Correo["Envío Comprobante"]
     end
 
-    %% Flujos funcionales
-    F_Reg -->|Sincronización| F_Veh
-    F_Cita -->|Creación automática| F_OT
-    F_OT -->|Consumo de material| F_Shop
-    F_OT -->|Finalización de servicio| F_Inv
-    F_Inv -->|Cierre contable| F_XML
-    F_XML -->|Validación fiscal| F_SRI
-    F_SRI -->|Notificación legal| F_Mail
-    F_Track -->|Lectura de estado| F_OT
+    Registro --> Vehiculo
+    Citas --> OrdenTrabajo
+    OrdenTrabajo --> Repuestos
+    OrdenTrabajo --> Factura
+    Factura --> XML
+    XML --> SRI
+    SRI --> Correo
+    Consulta --> OrdenTrabajo
 ```
 
 ### Funcionalidades por Capas
