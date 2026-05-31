@@ -6,7 +6,7 @@ Este documento establece las políticas de seguridad del proyecto, los canales p
 
 ---
 
-## 1. Security Policy
+## 1. Política de seguridad
 
 Nuestra política de seguridad de software se enfoca en proteger activamente la confidencialidad, disponibilidad e integridad de los datos de Terrabyte EC.
 
@@ -21,7 +21,7 @@ Solo brindamos soporte de seguridad y parches activos a las ramas especificadas 
 
 ---
 
-## 2. Vulnerability Reporting (Reporte de Vulnerabilidades)
+## 2. Reporte de vulnerabilidades
 
 Si descubre una vulnerabilidad de seguridad en nuestro sistema, le agradecemos encarecidamente que **no la divulgue de manera pública**. Siga nuestro proceso de divulgación responsable:
 
@@ -37,7 +37,7 @@ Si descubre una vulnerabilidad de seguridad en nuestro sistema, le agradecemos e
 
 ---
 
-## 3. Dependency Management (Gestión de Dependencias)
+## 3. Gestión de dependencias
 
 Para evitar la introducción de vulnerabilidades a través de bibliotecas de terceros (ataques de cadena de suministro), adoptamos las siguientes medidas:
 
@@ -47,7 +47,7 @@ Para evitar la introducción de vulnerabilidades a través de bibliotecas de ter
 
 ---
 
-## 4. Odoo Security Best Practices
+## 4. Buenas prácticas de seguridad en Odoo
 
 El ORM de Odoo proporciona mecanismos de defensa nativos extremadamente fuertes. En el proyecto de **Terrabyte EC**, los implementamos de la siguiente forma:
 
@@ -62,7 +62,7 @@ El ORM de Odoo proporciona mecanismos de defensa nativos extremadamente fuertes.
 
 ---
 
-## 5. PostgreSQL Security
+## 5. Seguridad en PostgreSQL
 
 La base de datos PostgreSQL contiene toda la información de negocio crítica de Terrabyte EC. Su configuración de seguridad incluye:
 
@@ -74,7 +74,7 @@ La base de datos PostgreSQL contiene toda la información de negocio crítica de
 
 ---
 
-## 6. General Security Best Practices
+## 6. Buenas prácticas generales de seguridad
 
 1. **Gestión del Certificado de Firma SRI:**
    - La contraseña y el archivo `.p12` de la firma electrónica del SRI se guardan encriptados en base de datos a través de los campos estándar de Odoo. Evite a toda costa guardar la contraseña de la firma en código duro (`hardcoded`) dentro del módulo o en comentarios XML.

@@ -1,10 +1,10 @@
-# Database Schema & Entity Relationship Documentation - Terrabyte EC
+# Esquema de base de datos y diagrama entidad-relación - Terrabyte EC
 
 Esta documentación describe la estructura de persistencia de datos (base de datos relacional) para el **Sistema de Gestión de Taller Mecánico** de **Terrabyte EC**, detallando las tablas principales, tipos de datos, llaves primarias, llaves foráneas y restricciones lógicas en Odoo 18.
 
 ---
 
-## 1. Entity Relationship Diagram (Diagrama de Entidades y Relaciones)
+## 1. Diagrama entidad-relación
 
 El siguiente diagrama de modelo entidad-relación (ER) ilustra la estructura lógica de los datos de la solución automotriz y contable:
 
@@ -12,26 +12,26 @@ El siguiente diagrama de modelo entidad-relación (ER) ilustra la estructura ló
 erDiagram
 
     USER_PROFILE ||--o{ VEHICULO : owns
-    MARCA ||--o{ MODELO : classifies
-    MODELO ||--o{ VEHICULO : describes
+    MARCA ||--o{ MODELO : clasifica
+    MODELO ||--o{ VEHICULO : describe
     MARCA ||--o{ VEHICULO : references
 
-    VEHICULO ||--o{ CITA : schedules
-    USER_PROFILE ||--o{ CITA : requests
-    CITA ||--|| ORDEN_TRABAJO : initiates
+    VEHICULO ||--o{ CITA : programa
+    USER_PROFILE ||--o{ CITA : solicita
+    CITA ||--|| ORDEN_TRABAJO : inicia
 
-    VEHICULO ||--o{ ORDEN_TRABAJO : serviced
-    EMPLOYEE ||--o{ ORDEN_TRABAJO : performs
+    VEHICULO ||--o{ ORDEN_TRABAJO : repara
+    EMPLOYEE ||--o{ ORDEN_TRABAJO : realiza
 
-    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_SERVICIO : logs
-    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_REPUESTO : consumes
+    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_SERVICIO : registra
+    ORDEN_TRABAJO ||--o{ ORDEN_LINEA_REPUESTO : consume
 
-    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_SERVICIO : defines
-    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_REPUESTO : defines
+    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_SERVICIO : define
+    PRODUCT_PRODUCT ||--o{ ORDEN_LINEA_REPUESTO : define
 
-    ORDEN_TRABAJO ||--o| ACCOUNT_MOVE : bills
-    PARTNER ||--o{ ACCOUNT_MOVE : receives
-    USER_PROFILE ||--|| PARTNER : synchronizes
+    ORDEN_TRABAJO ||--o| ACCOUNT_MOVE : factura
+    PARTNER ||--o{ ACCOUNT_MOVE : recibe
+    USER_PROFILE ||--|| PARTNER : sincroniza
 
     USER_PROFILE {
         int id PK

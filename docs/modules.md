@@ -9,10 +9,10 @@ Esta documentación describe detalladamente cada uno de los módulos de Odoo per
 ### Propósito
 Establecer un sistema seguro para el registro de clientes del taller en Ecuador, aplicando validaciones obligatorias que garantizan la integridad de la base de datos antes de transferir la información al directorio principal de contactos de Odoo.
 
-### Dependencies
+### Dependencias
 - `base` (Módulo raíz de Odoo)
 
-### Models
+### Modelos
 - **`usuarios_taller.user_profile` (Ficha de Usuario Taller):**
   - Representa el perfil del usuario del portal del taller.
   - *Campos principales:*
@@ -27,14 +27,14 @@ Establecer un sistema seguro para el registro de clientes del taller en Ecuador,
     - `display_name_full` (Char, Computado): Concatenación del nombre y apellido.
     - `partner_id` (Many2one, res.partner, Readonly): Contacto vinculado automáticamente en Odoo.
 
-### Triggers y Automatizaciones
+### Triggers y automatizaciones
 - **Sincronización `create` / `write`:** Al crear o modificar un registro en `usuarios_taller.user_profile`, el sistema crea o actualiza automáticamente un registro coincidente en `res.partner` (sincronizando campos como `name`, `email`, `phone`, `street` y `vat`), asegurando compatibilidad nativa con la facturación y ventas de Odoo.
 
-### Permissions
+### Permisos
 - **ir.model.access.csv:**
   - El grupo `base.group_system` (Administradores del sistema) tiene control total CRUD sobre el modelo `usuarios_taller.user_profile`.
 
-### Views
+### Vistas
 - **`views/user_profile_views.xml`:** Define la vista lista y el formulario backend para auditar los perfiles registrados desde la web.
 
 ---
@@ -44,7 +44,7 @@ Establecer un sistema seguro para el registro de clientes del taller en Ecuador,
 ### Propósito
 Encapsular toda la lógica de negocio central del taller. Administra la flota de vehículos de clientes, controla la asignación e historial de citas, gestiona las hojas de ruta y checklists de reparación, y coordina la integración externa con la NHTSA (EE. UU.) y la facturación electrónica del SRI (Ecuador).
 
-### Dependencies
+### Dependencias
 - `stock`, `sale`, `account`, `usuarios_taller`, `contacts`, `hr`, `mail`, `payment_stripe`, `payment_paypal`
 
 ### Models
@@ -93,7 +93,7 @@ Encapsular toda la lógica de negocio central del taller. Administra la flota de
 ### Propósito
 Facilitar la operación cotidiana de los mecánicos de Terrabyte EC proporcionándoles vistas simplificadas y automatizando la creación de sus usuarios del sistema en Odoo cuando se registra su ingreso laboral en recursos humanos.
 
-### Dependencies
+### Dependencias
 - `taller_mecanico`, `hr`
 
 ### Models
@@ -114,7 +114,7 @@ Facilitar la operación cotidiana de los mecánicos de Terrabyte EC proporcioná
 ### Propósito
 Centralizar las tareas contables, de facturación y cumplimiento tributario ante el SRI de Ecuador.
 
-### Dependencies
+### Dependencias
 - `taller_mecanico`
 
 ### Views

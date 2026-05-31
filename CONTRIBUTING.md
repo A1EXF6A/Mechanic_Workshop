@@ -6,7 +6,7 @@ Esta guía está diseñada para orientar a desarrolladores nuevos y experimentad
 
 ---
 
-## 1. Adopted Git Workflow
+## 1. Flujo de Git adoptado
 
 Para asegurar la estabilidad en producción y la velocidad en la entrega de nuevas características, adoptamos el flujo de trabajo **Gitflow**:
 
@@ -24,7 +24,7 @@ Para asegurar la estabilidad en producción y la velocidad en la entrega de nuev
   feature/    [feature/api-nhtsa-sync]     [feature/sri-zip-download]
 ```
 
-### Ramas Principales
+### Ramas principales
 - **`main`:** Contiene únicamente código estable en producción. Cada cambio en esta rama debe estar exhaustivamente probado y etiquetado con una versión semántica (ej. `v1.0.0`, `v1.0.1`).
 - **`develop`:** Línea de integración principal para el desarrollo. Es la rama base donde se unen las características terminadas. Debe compilar y pasar todas las pruebas automáticas en todo momento.
 
@@ -34,7 +34,7 @@ Para asegurar la estabilidad en producción y la velocidad en la entrega de nuev
 
 ---
 
-## 2. Branch Naming Convention
+## 2. Convención de nombres de ramas
 
 Las ramas deben nombrarse siguiendo un patrón claro y autodescriptivo que permita asociarlas inmediatamente a una tarea o issue:
 
@@ -56,7 +56,7 @@ Las ramas deben nombrarse siguiendo un patrón claro y autodescriptivo que permi
 
 ---
 
-## 3. Commit Convention
+## 3. Convención de commits
 
 Adoptamos estrictamente la especificación de **Conventional Commits** para mantener un historial de cambios legible y facilitar la generación automatizada del archivo `CHANGELOG.md`.
 
@@ -69,23 +69,23 @@ Adoptamos estrictamente la especificación de **Conventional Commits** para mant
 [Pie del commit para indicar el ID del Ticket o cambios disruptivos]
 ```
 
-### Tipos de Commit Aceptados
+### Tipos de commit aceptados
 - **`feat`:** Incorporación de una nueva funcionalidad.
-  - *Ejemplo:* `feat(portal): add automatic validation for Ecuadorian ID cards`
+  - *Ejemplo:* `feat(portal): agregar validación automática para cédulas ecuatorianas`
 - **`fix`:** Solución a un error o bug del sistema.
-  - *Ejemplo:* `fix(core): correct datetime timezone calculation for workshop appointments`
+  - *Ejemplo:* `fix(core): corregir cálculo de zona horaria para citas del taller`
 - **`docs`:** Modificaciones en documentación técnica, comentarios de código o docstrings.
-  - *Ejemplo:* `docs(readme): update deployment instructions for Windows host`
+  - *Ejemplo:* `docs(readme): actualizar instrucciones de despliegue para host Windows`
 - **`refactor`:** Cambios en el código que no corrigen errores ni añaden funcionalidades.
-  - *Ejemplo:* `refactor(sri): modularize XML soap envelope construction in sri_utils`
+  - *Ejemplo:* `refactor(sri): modularizar construcción del sobre SOAP XML en sri_utils`
 - **`test`:** Creación, corrección o actualización de pruebas unitarias.
-  - *Ejemplo:* `test(portal): add test suite for workshop availability controllers`
+  - *Ejemplo:* `test(portal): añadir suite de pruebas para controladores de disponibilidad del taller`
 - **`chore`:** Tareas auxiliares de mantenimiento de dependencias, scripts de construcción, etc.
-  - *Ejemplo:* `chore(docker): bump Nginx alpine image version in compose`
+  - *Ejemplo:* `chore(docker): actualizar versión de la imagen Nginx alpine en compose`
 
 ---
 
-## 4. Pull Requests (PR) Process
+## 4. Proceso de Pull Requests (PR)
 
 El paso de cambios de una rama auxiliar a una rama principal se realiza exclusivamente mediante Pull Requests controlados. Siga este proceso metódico:
 
@@ -100,7 +100,7 @@ El paso de cambios de una rama auxiliar a una rama principal se realiza exclusiv
 
 ---
 
-## 5. Code Review Checklist
+## 5. Checklist de revisión de código
 
 Al revisar el código de un compañero de equipo, siga esta lista de verificación exhaustiva:
 
@@ -114,11 +114,11 @@ Al revisar el código de un compañero de equipo, siga esta lista de verificaci�
 
 ---
 
-## 6. Odoo Development Standards
+## 6. Estándares de desarrollo en Odoo
 
 Para conservar la coherencia y mantenibilidad de la suite de software de **Terrabyte EC**, todo desarrollo debe seguir estos estándares estrictos de diseño de Odoo 18:
 
-### Models (Python)
+### Modelos (Python)
 - **Nombres de Modelos:** Use siempre minúsculas y punto como separador jerárquico. Anteponga el prefijo de taller.
   - *Correcto:* `taller.orden.trabajo`
   - *Incorrecto:* `TallerOrdenTrabajo` o `taller_orden_trabajo`
@@ -126,17 +126,17 @@ Para conservar la coherencia y mantenibilidad de la suite de software de **Terra
   - *Correcto:* `class TallerOrdenTrabajo(models.Model):`
 - **Estructuración:** Los atributos del modelo deben colocarse al inicio del archivo, seguidos por campos computados (`compute`), restricciones SQL (`_sql_constraints`), restricciones Python (`@api.constrains`), onchanges (`@api.onchange`) y finalmente métodos de negocio.
 
-### Views (XML)
+### Vistas (XML)
 - **Nombres de Archivos:** Deben ser descriptivos y seguir la nomenclatura `<modelo>_views.xml` (ej: `vehiculo_views.xml`).
 - **Nombres de IDs:** Use siempre nombres descriptivos que eviten colisiones de namespaces de Odoo.
   - *Correcto:* `<record id="view_taller_vehiculo_form" model="ir.ui.view">`
 - **Etiquetas Semánticas:** En Odoo 18, use `<list>` en lugar de `<tree>` para listados de datos convencionales (conforme a los estándares modernos de Odoo 18, aunque sea retrocompatible).
 
-### Security (Seguridad y Permisos)
+### Seguridad (Seguridad y permisos)
 - **Regla del Menor Privilegio:** Ningún modelo personalizado debe crearse sin su respectiva declaración en `ir.model.access.csv`.
 - **Reglas de Registro (Record Rules):** Defina dominios precisos para segmentar datos multi-compañía o multi-rol (como se implementó en `taller_security.xml` para separar la visibilidad de técnicos y clientes en el portal).
 
-### Naming Conventions (Nomenclatura General)
+### Convenciones de nomenclatura (Nomenclatura general)
 - **Campos Relacionales:**
   - `Many2one` debe terminar en `_id` (ej. `vehiculo_id`).
   - `One2many` y `Many2many` deben terminar en `_ids` (ej. `servicio_linea_ids`).
@@ -145,7 +145,7 @@ Para conservar la coherencia y mantenibilidad de la suite de software de **Terra
 
 ---
 
-## 7. Issue Management
+## 7. Gestión de issues
 
 - **Creación de Issues:** Describa con precisión el problema técnico o la mejora requerida. Agregue capturas, logs de Odoo y pasos de reproducción detallados si se trata de un bug.
 - **Asignación de Labels:** Use etiquetas semánticas de color para categorizar el issue:
@@ -156,7 +156,7 @@ Para conservar la coherencia y mantenibilidad de la suite de software de **Terra
 
 ---
 
-## 8. Best Practices
+## 8. Buenas prácticas
 
 1. **Uso Exclusivo del ORM:** Evite modificar directamente registros a nivel de base de datos usando consultas SQL (`self.env.cr.execute`). El ORM de Odoo gestiona la invalidación de caché y triggers de seguridad automáticamente.
 2. **Comentarios de Código Limpios:** Escriba código descriptivo por sí mismo. Use comentarios de código solo para documentar el por qué de una decisión no obvia o la especificación técnica de una API externa.

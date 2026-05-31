@@ -4,7 +4,7 @@ Este repositorio contiene el código fuente, la configuración del entorno y los
 
 ---
 
-## 1. General Description
+## 1. Descripción general
 
 ### El Problema
 La gestión operativa de los talleres mecánicos tradicionales suele sufrir de una alarmante desconexión entre sus diferentes etapas: desde que un cliente solicita una cita, pasando por la recepción e inspección técnica del vehículo, el control de inventario de repuestos utilizados, hasta la facturación y el registro contable final. Esta falta de integración produce cuellos de botella administrativos, pérdida de trazabilidad en los historiales de mantenimiento y demoras críticas en el cumplimiento fiscal de la facturación electrónica.
@@ -17,7 +17,7 @@ Digitalizar y automatizar el flujo operativo end-to-end de Terrabyte EC mediante
 
 ---
 
-## 2. Project Objectives
+## 2. Objetivos del proyecto
 
 - **Centralización Operativa:** Unificar la gestión de clientes, vehículos, citas, órdenes de trabajo, inventarios y finanzas bajo una base de datos relacional única.
 - **Automatización de Recepción y Control:** Proveer listas de verificación (checklists) interactivas para recepcionar vehículos, registrar kilometraje, nivel de combustible y estado físico.
@@ -28,7 +28,7 @@ Digitalizar y automatizar el flujo operativo end-to-end de Terrabyte EC mediante
 
 ---
 
-## 3. General Architecture
+## 3. Arquitectura general
 
 La solución de software de **Terrabyte EC** adopta una arquitectura multicapa, apoyándose en la robustez modular de Odoo y su arquitectura Modelo-Vista-Controlador (MVC), combinada con servicios auxiliares externalizados.
 
@@ -92,7 +92,7 @@ graph LR
 
 ---
 
-## 4. Main Functionalities
+## 4. Funcionalidades principales
 
 A continuación, se detallan las funcionalidades principales del sistema y los usuarios asociados a cada una:
 
@@ -108,7 +108,7 @@ A continuación, se detallan las funcionalidades principales del sistema y los u
 
 ---
 
-## 5. Prerequisites
+## 5. Requisitos previos
 
 Para desplegar la aplicación de forma local o en producción, es necesario contar con los siguientes componentes en el host:
 
@@ -123,7 +123,7 @@ Para desplegar la aplicación de forma local o en producción, es necesario cont
 
 ---
 
-## 6. Installation & Deployment
+## 6. Instalación y despliegue
 
 Siga estos pasos estructurados para instalar y poner en marcha la solución de **Terrabyte EC** desde cero:
 
@@ -170,7 +170,7 @@ Este comando levantará tres servicios clave de red:
 
 ---
 
-## 7. Environment Configuration
+## 7. Configuración del entorno
 
 ### Estructura de Redes y Seguridad
 La infraestructura de red de Terrabyte EC está dividida en dos segmentos lógicos:
@@ -183,7 +183,7 @@ La infraestructura de red de Terrabyte EC está dividida en dos segmentos lógic
 
 ---
 
-## 8. Dependencies Table
+## 8. Tabla de dependencias
 
 El ecosistema de módulos personalizados de **Terrabyte EC** está fuertemente estructurado bajo una jerarquía estricta de dependencias:
 
@@ -197,7 +197,7 @@ El ecosistema de módulos personalizados de **Terrabyte EC** está fuertemente e
 
 ---
 
-## 9. Repository Structure
+## 9. Estructura del repositorio
 
 La organización del código fuente del proyecto se estructura de la siguiente manera:
 
@@ -264,7 +264,7 @@ Mechanic_Workshop/
 
 ---
 
-## 10. Running the Project
+## 10. Ejecutar el proyecto
 
 Para iniciar, detener o depurar el sistema de **Terrabyte EC**, utilice los siguientes comandos estandarizados en su terminal de control:
 
@@ -297,7 +297,7 @@ docker-compose ps
 
 ---
 
-## 11. System Workflow
+## 11. Flujo del sistema
 
 El flujo operativo integrado de **Terrabyte EC** modela el viaje completo del cliente y la intervención técnica hasta el cobro final:
 
@@ -360,7 +360,7 @@ Para validar la correcta implementación visual y funcional de la plataforma de 
 ![Factura Electrónica](images/factura_electronica.png)
 ---
 
-## 13. Maintenance Guide
+## 13. Guía de mantenimiento
 
 Para desarrolladores que asuman el mantenimiento futuro del sistema de **Terrabyte EC**, se definen los siguientes estándares de oro:
 
@@ -372,7 +372,7 @@ Para desarrolladores que asuman el mantenimiento futuro del sistema de **Terraby
 
 ---
 
-## 14. Common Issues & Solutions
+## 14. Problemas comunes y soluciones
 
 A continuación se listan las fallas operativas más comunes y sus respectivas contramedidas técnicas:
 
