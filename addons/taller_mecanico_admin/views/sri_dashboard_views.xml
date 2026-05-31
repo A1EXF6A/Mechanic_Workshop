@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de Lista Especializada de Facturas del SRI -->
+    <record id="view_move_sri_list" model="ir.ui.view">
+        <field name="name">account.move.sri.list</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <list decoration-info="sri_estado_autorizacion == 'enviado'"
+                  decoration-success="sri_estado_autorizacion == 'autorizado'"
+                  decoration-danger="sri_estado_autorizacion == 'rechazado'"
+                  decoration-muted="sri_estado_autorizacion == 'borrador'"
+                  create="false" edit="false">
+                <field name="name" string="Número Factura"/>
+                <field name="partner_id" string="Cliente"/>
+                <field name="invoice_date" string="Fecha Emisión"/>
+                <field name="sri_clave_acceso" string="Clave de Acceso SRI"/>
+                <field name="sri_estado_autorizacion" string="Estado SRI" widget="badge" 
+                       decoration-success="sri_estado_autorizacion == 'autorizado'"
+                       decoration-danger="sri_estado_autorizacion == 'rechazado'"
+                       decoration-info="sri_estado_autorizacion == 'enviado'"/>
+                <field name="sri_fecha_autorizacion" string="Fecha Autorización"/>
+                <field name="amount_untaxed" string="Base Imponible" sum="Total Base"/>
+                <field name="amount_tax" string="Impuestos" sum="Total Impuestos"/>
+                <field name="amount_total" string="Total Factura" sum="Total General"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista Gráfica del SRI -->
+    <record id="view_move_sri_graph" model="ir.ui.view">
+        <field name="name">account.move.sri.graph</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <graph string="Análisis del SRI" type="bar" sample="1">
+                <field name="sri_estado_autorizacion" string="Estado SRI"/>
+                <field name="amount_total" type="measure" string="Monto Total"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Vista Pivote Interactiva del SRI -->
+    <record id="view_move_sri_pivot" model="ir.ui.view">
+        <field name="name">account.move.sri.pivot</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Matriz de Análisis SRI" sample="1">
+                <field name="invoice_date" interval="month" type="row" string="Mes de Emisión"/>
+                <field name="sri_estado_autorizacion" type="col" string="Estado SRI"/>
+                <field name="amount_total" type="measure" string="Monto Total"/>
+                <field name="amount_untaxed" type="measure" string="Base Imponible"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Acción de Ventana para el Dashboard (Gráficos/Pivote por defecto) -->
+    <record id="action_sri_dashboard" model="ir.actions.act_window">
+        <field name="name">Tablero de Control SRI</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="domain">[('move_type', '=', 'out_invoice')]</field>
+        <field name="context">{'search_default_posted': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay facturas registradas para mostrar estadísticas en el tablero.
+            </p>
+            <p>
+                Las facturas que confirmes y envíes al SRI aparecerán aquí analizadas de forma gráfica y matricial.
+            </p>
+        </field>
+    </record>
+
+    <!-- Enlazar vistas específicas para la acción del Dashboard -->
+    <record id="action_sri_dashboard_view_graph" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_move_sri_graph"/>
+        <field name="act_window_id" ref="action_sri_dashboard"/>
+    </record>
+
+    <record id="action_sri_dashboard_view_pivot" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_move_sri_pivot"/>
+        <field name="act_window_id" ref="action_sri_dashboard"/>
+    </record>
+
+    <!-- Acción de Ventana para el Listado de Facturas SRI -->
+    <record id="action_sri_invoice_list" model="ir.actions.act_window">
+        <field name="name">Facturas Transmitidas</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type', '=', 'out_invoice')]</field>
+        <field name="context">{'search_default_posted': 1}</field>
+        <field name="view_id" ref="view_move_sri_list"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No se encontraron facturas transmitidas.
+            </p>
+            <p>
+                Crea y confirma una factura de cliente para iniciar el proceso de firmado y autorización electrónica ante el SRI.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_sri_invoice_list_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_move_sri_list"/>
+        <field name="act_window_id" ref="action_sri_invoice_list"/>
+    </record>
+
+    <!-- ==================== MENÚS EN APP FACTURACIÓN ==================== -->
+    
+    <!-- Menú Categoría Padre en Facturación -->
+    <menuitem id="menu_sri_root" 
+              name="Facturación SRI" 
+              parent="account.menu_finance" 
+              sequence="3"/>
+
+    <!-- Submenús de la Categoría -->
+    <menuitem id="menu_sri_dashboard" 
+              name="📊 Tablero de Control" 
+              parent="menu_sri_root" 
+              action="action_sri_dashboard" 
+              sequence="10"/>
+
+    <menuitem id="menu_sri_invoices" 
+              name="🧾 Facturas Transmitidas" 
+              parent="menu_sri_root" 
+              action="action_sri_invoice_list" 
+              sequence="20"/>
+
+    <!-- ==================== ACCIÓN DE SERVIDOR (DESCARGA MASIVA) ==================== -->
+    <record id="action_server_descargar_xml_sri_zip" model="ir.actions.server">
+        <field name="name">Descargar XMLs Masivo (ZIP)</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_descargar_xml_masivo()
+        </field>
+    </record>
+</odoo>

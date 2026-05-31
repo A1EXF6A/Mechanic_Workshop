@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_inherit_taller" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.taller</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_view_ordenes_trabajo" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-wrench" 
+                        groups="base.group_user">
+                    <field name="orden_trabajo_count" widget="statinfo" string="Órdenes de Trabajo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <!-- Acción para que el técnico vea su propio perfil -->
+    <record id="action_taller_mi_perfil" model="ir.actions.act_window">
+        <field name="name">Mi Perfil</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+    <menuitem id="menu_taller_mi_perfil" parent="taller_mecanico.menu_taller_operaciones" action="action_taller_mi_perfil" sequence="50"/>
+</odoo>

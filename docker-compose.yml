@@ -1,8 +1,8 @@
-version: '3.8'
+version: "3.8"
 
 services:
   proxy:
-    image: ${PROXY_IMAGE:-docker.io/library/nginx:1.27-alpine}
+    image: ${PROXY_IMAGE:-nginx:1.27-alpine}
     container_name: ${PROXY_CONTAINER_NAME:-odoo-proxy}
     depends_on:
       odoo:
@@ -28,7 +28,7 @@ services:
       - app
 
   odoo:
-    image: ${ODOO_IMAGE:-docker.io/library/odoo:18}
+    image: ${ODOO_IMAGE:-odoo:18}
     container_name: ${ODOO_CONTAINER_NAME:-odoo18}
     depends_on:
       db:
@@ -36,7 +36,7 @@ services:
     volumes:
       # Datos persistentes de Odoo
       - odoo-data:/var/lib/odoo
-      
+
       # Configuración
       - ./config:/etc/odoo${BIND_MOUNT_SUFFIX:-}
 
@@ -65,8 +65,8 @@ services:
       - app
 
   db:
-    image: ${DB_IMAGE:-docker.io/library/postgres:15}
-    container_name: ${DB_CONTAINER_NAME:-odoo-db}
+    image: postgres:18-alpine
+    container_name: odoo-db-das
     environment:
       - POSTGRES_DB=${DB_NAME:-postgres}
       - POSTGRES_USER=${DB_USER:-odoo}
@@ -95,4 +95,6 @@ volumes:
   postgres-data:
 
 networks:
+  edge:
   app:
+    internal: true

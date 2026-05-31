@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="usuarios_taller_user_profile_list" model="ir.ui.view">
+        <field name="name">usuarios_taller.user_profile.list</field>
+        <field name="model">usuarios_taller.user_profile</field>
+        <field name="arch" type="xml">
+            <list string="Usuarios Taller">
+                <field name="cedula"/>
+                <field name="nombre"/>
+                <field name="apellido"/>
+                <field name="email"/>
+                <field name="celular"/>
+                <field name="edad"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="usuarios_taller_user_profile_form" model="ir.ui.view">
+        <field name="name">usuarios_taller.user_profile.form</field>
+        <field name="model">usuarios_taller.user_profile</field>
+        <field name="arch" type="xml">
+            <form string="Usuario Taller">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="cedula"/>
+                            <field name="nombre"/>
+                            <field name="apellido"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="direccion"/>
+                            <field name="celular"/>
+                            <field name="edad"/>
+                            <field name="password" password="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="usuarios_taller_user_profile_kanban" model="ir.ui.view">
+        <field name="name">usuarios_taller.user_profile.kanban</field>
+        <field name="model">usuarios_taller.user_profile</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="id"/>
+                <field name="nombre"/>
+                <field name="apellido"/>
+                <field name="cedula"/>
+                <field name="email"/>
+                <field name="celular"/>
+                <field name="edad"/>
+                <field name="partner_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click d-flex align-items-center p-3 border-0 shadow-sm rounded-3 bg-white" style="border-radius: 12px !important; margin-bottom: 8px;">
+                            <!-- Avatar / Imagen del Usuario -->
+                            <div class="o_kanban_image me-3" style="width: 50px; height: 50px;">
+                                <t t-if="record.partner_id.raw_value">
+                                    <img t-att-src="kanban_image('res.partner', 'avatar_128', record.partner_id.raw_value)" class="rounded-circle border" style="width: 100%; height: 100%; object-fit: cover;" alt="Avatar"/>
+                                </t>
+                                <t t-else="">
+                                    <img src="/web/static/img/placeholder.png" class="rounded-circle border" style="width: 100%; height: 100%; object-fit: cover;" alt="Placeholder"/>
+                                </t>
+                            </div>
+                            <!-- Detalles -->
+                            <div class="flex-grow-1 min-w-0">
+                                <div class="mb-1">
+                                    <strong class="o_kanban_record_title text-truncate fw-bold text-dark d-block" style="font-size: 1.05rem; line-height: 1.2;">
+                                        <field name="nombre"/> <field name="apellido"/>
+                                    </strong>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="badge rounded-pill bg-light border px-2 py-0.5" style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; border-color: #ced4da !important; color: #1e293b !important;">
+                                        C.I. <field name="cedula"/>
+                                    </span>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.825rem;">
+                                    <div class="d-flex align-items-center mb-0.5">
+                                        <i class="fa fa-envelope me-1.5 text-muted" style="font-size: 0.75rem; width: 14px;"></i>
+                                        <span class="text-truncate"><field name="email"/></span>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa fa-phone me-1.5 text-muted" style="font-size: 0.75rem; width: 14px;"></i>
+                                            <span><field name="celular"/></span>
+                                        </div>
+                                        <span class="text-muted" style="font-size: 0.75rem;">
+                                            <field name="edad"/> años
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="usuarios_taller_user_profile_action" model="ir.actions.act_window">
+        <field name="name">Usuarios Taller</field>
+        <field name="res_model">usuarios_taller.user_profile</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <!-- Los menús se han movido a taller_mecanico para estar integrados -->
+</odoo>

@@ -1,0 +1,308 @@
+/* @odoo-module */
+
+/* Global Reset & Typography */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    background-color: var(--taller-bg-light);
+    color: var(--taller-text-main);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    color: var(--taller-primary);
+}
+
+/* Premium Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+/* Modern Sticky Navbar - FORCE DARK */
+header#top, 
+header#top .navbar, 
+header#top .navbar-collapse,
+header#top .container {
+    background-color: var(--taller-primary) !important;
+    background: var(--taller-primary) !important;
+    transition: var(--taller-transition);
+}
+
+header#top {
+    position: sticky !important;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+header#top .navbar {
+    padding: 0.75rem 0;
+    border: none !important;
+}
+
+header#top .navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--taller-white) !important;
+}
+
+header#top .nav-link {
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: var(--taller-transition);
+    position: relative;
+}
+
+header#top .nav-link:hover {
+    color: var(--taller-white) !important;
+}
+
+/* Iconos de Barra de Navegación (Búsqueda, Carrito, Usuario) */
+header#top i.fa {
+    color: rgba(255, 255, 255, 0.85) !important;
+    transition: var(--taller-transition);
+}
+
+header#top a:hover i.fa,
+header#top .btn:hover i.fa {
+    color: var(--taller-white) !important;
+}
+
+/* Badge de cantidad del Carrito */
+header#top .my_cart_quantity {
+    background-color: var(--taller-accent) !important;
+    color: var(--taller-white) !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    border: 2px solid var(--taller-primary) !important;
+}
+
+header#top .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--taller-accent);
+    transition: var(--taller-transition);
+    transform: translateX(-50%);
+    border-radius: 10px 10px 0 0;
+}
+
+header#top .nav-link:hover::after {
+    width: 50%;
+}
+
+/* Elegant Buttons */
+.btn {
+    border-radius: var(--taller-radius) !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 500 !important;
+    transition: var(--taller-transition) !important;
+}
+
+.btn-primary {
+    background-color: var(--taller-accent) !important;
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--taller-accent-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+/* Modern Cards */
+.card {
+    border: none !important;
+    border-radius: var(--taller-radius) !important;
+    background: var(--taller-white) !important;
+    box-shadow: var(--taller-shadow-md) !important;
+    transition: var(--taller-transition) !important;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--taller-shadow-lg) !important;
+}
+
+/* Modern Form Controls */
+.form-control {
+    border-radius: var(--taller-radius) !important;
+    border: 1px solid #E2E8F0 !important;
+    padding: 0.75rem 1rem !important;
+    transition: var(--taller-transition) !important;
+}
+
+.form-control:focus {
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Base utility for premium text effects */
+.taller-text-glow {
+    text-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+}
+
+/* Premium Product Cards in Store */
+.taller-product-card {
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.taller-product-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(37, 99, 235, 0.2) !important;
+}
+
+.taller-product-img-container {
+    transition: all 0.4s ease-in-out !important;
+    overflow: hidden;
+}
+
+.taller-product-card:hover .taller-product-img-container img {
+    transform: scale(1.06) !important;
+}
+
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Micro-animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   VISIBILITY & COLOR ENHANCEMENTS FOR PREMIUM DESIGN
+   ========================================================================== */
+
+/* 1. Header Global Override fixes: Allow text-white to prevail */
+h1.text-white, h2.text-white, h3.text-white, h4.text-white, h5.text-white, h6.text-white,
+.text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6 {
+    color: var(--taller-white) !important;
+}
+
+/* 2. Announcement Bar / Topbar Visibility */
+.s_header_announcement_bar,
+.o_header_announcement_bar,
+.s_header_announcement_bar *,
+.o_header_announcement_bar *,
+.o_header_meta,
+.o_header_meta *,
+.o_header_meta span,
+.o_header_meta a,
+.s_header_announcement_bar span,
+.s_header_announcement_bar a,
+.o_header_announcement_bar span,
+.o_header_announcement_bar a,
+.o_header_search_left_col,
+.o_header_search_left_col * {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 0.85rem !important;
+}
+
+
+/* 3. User Dropdown & Cart Icon Legibility in Navbar */
+header#top .dropdown-toggle,
+header#top .dropdown-toggle *,
+header#top .o_nav_user_name,
+header#top .o_nav_user_name *,
+header#top .o_wsale_my_cart,
+header#top .o_wsale_my_cart *,
+header .o_wsale_my_cart,
+header .o_wsale_my_cart * {
+    color: var(--taller-white) !important;
+}
+
+
+/* 4. Services Page - Promo Card Title Legibility */
+.bg-primary h2.h1,
+.bg-primary h2.h1 * {
+    color: var(--taller-white) !important;
+}
+
+/* 5. Nosotros Page - Custom Vivid Icon Colors */
+.bg-success.bg-opacity-10 i.fa-check-circle {
+    color: #10B981 !important; /* Premium Emerald Green */
+}
+.bg-warning.bg-opacity-10 i.fa-shield {
+    color: #F59E0B !important; /* Premium Golden Amber */
+}
+.bg-primary.bg-opacity-10 i.fa-cogs {
+    color: #2563EB !important; /* Premium Electric Blue */
+}
+
+/* 6. Modern Premium Search Bar in Navbar */
+header input[type="search"],
+header .search-query,
+.o_searchbar_input {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: var(--taller-white) !important;
+    border-radius: 50px 0 0 50px !important;
+    padding: 0.5rem 1.2rem !important;
+    font-size: 0.9rem !important;
+    transition: var(--taller-transition);
+}
+
+header input[type="search"]::placeholder,
+header .search-query::placeholder,
+.o_searchbar_input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+header input[type="search"]:focus,
+header .search-query:focus,
+.o_searchbar_input:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25) !important;
+    color: var(--taller-white) !important;
+}
+
+/* Botón de lupa de búsqueda */
+header .btn.oe_search_button,
+header button[type="submit"],
+header .o_searchbar_button {
+    background: var(--taller-accent) !important;
+    border: 1px solid var(--taller-accent) !important;
+    color: var(--taller-white) !important;
+    border-radius: 0 50px 50px 0 !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: var(--taller-transition);
+}
+
+header .btn.oe_search_button:hover,
+header button[type="submit"]:hover,
+header .o_searchbar_button:hover {
+    background: var(--taller-accent-hover) !important;
+    border-color: var(--taller-accent-hover) !important;
+}

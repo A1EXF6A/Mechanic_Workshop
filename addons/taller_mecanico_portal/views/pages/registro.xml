@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="registro_page" name="Registro - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                <section class="py-5 taller-auth">
+                    <div class="container py-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="card border-0 shadow-lg taller-auth-card">
+                                    <div class="card-body p-4 p-lg-5">
+                                        <h2 class="fw-bold mb-2 taller-auth-title">Registro de Usuario</h2>
+                                        <p class="text-muted mb-4 taller-auth-subtitle">Crea tu cuenta para gestionar tus servicios.</p>
+                                        <form action="/taller/registro/submit" method="post">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Cedula</label>
+                                                    <input type="text" name="cedula" class="form-control form-control-lg" required="1" placeholder="0102030405"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Edad</label>
+                                                    <input type="number" name="edad" class="form-control form-control-lg" min="18" required="1" placeholder="18"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Nombre</label>
+                                                    <input type="text" name="nombre" class="form-control form-control-lg" required="1" placeholder="Juan"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Apellido</label>
+                                                    <input type="text" name="apellido" class="form-control form-control-lg" required="1" placeholder="Perez"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Direccion de correo</label>
+                                                    <input type="email" name="email" class="form-control form-control-lg" required="1" placeholder="tu@email.com"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Celular</label>
+                                                    <input type="text" name="celular" class="form-control form-control-lg" required="1" placeholder="0987654321"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Direccion donde vive</label>
+                                                    <input type="text" name="direccion" class="form-control form-control-lg" required="1" placeholder="Av. Principal 123"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-bold">Password</label>
+                                                    <div class="input-group">
+                                                        <input type="password" name="password" id="password_registro" class="form-control form-control-lg" required="1" placeholder="********" style="border-right: none !important; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;"/>
+                                                        <button class="btn btn-outline-secondary bg-white border-start-0 text-muted" type="button" onclick="togglePasswordVisibility('password_registro', 'toggle_registro_icon')" style="border-color: #dee2e6; border-left: none !important; border-top-right-radius: 8px !important; border-bottom-right-radius: 8px !important;">
+                                                            <i class="fa fa-eye" id="toggle_registro_icon"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                function togglePasswordVisibility(inputId, iconId) {
+                                                    var passwordInput = document.getElementById(inputId);
+                                                    var toggleIcon = document.getElementById(iconId);
+                                                    if (passwordInput.type === 'password') {
+                                                        passwordInput.type = 'text';
+                                                        toggleIcon.classList.remove('fa-eye');
+                                                        toggleIcon.classList.add('fa-eye-slash');
+                                                    } else {
+                                                        passwordInput.type = 'password';
+                                                        toggleIcon.classList.remove('fa-eye-slash');
+                                                        toggleIcon.classList.add('fa-eye');
+                                                    }
+                                                }
+                                            </script>
+                                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-4">Crear Cuenta</button>
+                                        </form>
+                                        <p class="text-muted small mt-4 mb-0">Ya tienes cuenta? <a href="/taller/login">Ingresa</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

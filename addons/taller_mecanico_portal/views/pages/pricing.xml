@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pricing_page" name="Precios - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure bg-light">
+                
+                <!-- Hero Section: Clean, Balanced, Professional -->
+                <section class="py-5" style="background-color: var(--taller-primary);">
+                    <div class="container text-center py-5">
+                        <h1 class="text-white fw-bold mb-3">Nuestros Planes de Servicio</h1>
+                        <p class="text-white-50 lead mx-auto" style="max-width: 700px;">
+                            Selecciona el nivel de mantenimiento adecuado para tu vehículo. Estructuras de precios claras, sin sorpresas, y con la mejor garantía automotriz.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Pricing Cards Section -->
+                <section class="py-5 position-relative" style="margin-top: -60px;">
+                    <div class="container">
+                        <div class="row g-4 justify-content-center align-items-stretch">
+                            
+                            <!-- Plan Express -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden text-center transition-all">
+                                    <!-- Card Header -->
+                                    <div class="bg-white p-4 border-bottom">
+                                        <h4 class="fw-bold text-dark mb-1">Plan Express</h4>
+                                        <p class="text-muted small mb-3">Mantenimiento preventivo básico</p>
+                                        <div class="display-5 fw-bold text-primary mb-1">$45</div>
+                                        <span class="text-muted small">Por servicio</span>
+                                    </div>
+                                    
+                                    <!-- Card Body (Features) -->
+                                    <div class="card-body p-4 d-flex flex-column text-start bg-white">
+                                        <ul class="list-unstyled mb-4 flex-grow-1 text-muted">
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Aceite mineral/semisintético (4L)
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Filtro de aceite original
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Escaneo de motor básico
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Revisión de 15 puntos de seguridad
+                                            </li>
+                                            <li class="mb-3 pb-2 text-danger opacity-75">
+                                                <i class="fa fa-times me-2"/> Sin alineación 3D ni balanceo
+                                            </li>
+                                        </ul>
+                                        <!-- Button at bottom -->
+                                        <div class="mt-auto pt-3">
+                                            <a href="/taller/cita" class="btn btn-outline-primary w-100 py-2 fw-bold rounded-pill">AGENDAR EXPRESS</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Plan Premium Pro -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 border-primary border-2 shadow-lg rounded-4 overflow-hidden text-center position-relative" style="transform: scale(1.02); z-index: 2;">
+                                    <!-- Recommended Badge -->
+                                    <div class="bg-primary text-white py-1 small fw-bold text-uppercase tracking-wider">
+                                        Recomendado
+                                    </div>
+                                    
+                                    <!-- Card Header -->
+                                    <div class="bg-white p-4 border-bottom">
+                                        <h4 class="fw-bold text-dark mb-1">Premium Pro</h4>
+                                        <p class="text-muted small mb-3">Máximo rendimiento y durabilidad</p>
+                                        <div class="display-5 fw-bold text-primary mb-1">$89</div>
+                                        <span class="text-muted small">Por servicio</span>
+                                    </div>
+                                    
+                                    <!-- Card Body (Features) -->
+                                    <div class="card-body p-4 d-flex flex-column text-start bg-white">
+                                        <ul class="list-unstyled mb-4 flex-grow-1 text-dark">
+                                            <li class="mb-3 border-bottom pb-2 fw-bold">
+                                                <i class="fa fa-check text-success me-2"/> Aceite 100% Sintético (Mobil 1)
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Filtros de aceite, aire y cabina
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2 fw-bold">
+                                                <i class="fa fa-check text-success me-2"/> Alineación 3D y balanceo (4 ruedas)
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Limpieza de inyectores
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Revisión de 35 puntos de seguridad
+                                            </li>
+                                            <li class="mb-3 pb-2 text-primary">
+                                                <i class="fa fa-star me-2"/> Desinfección con ozono incluida
+                                            </li>
+                                        </ul>
+                                        <!-- Button at bottom -->
+                                        <div class="mt-auto pt-3">
+                                            <a href="/taller/cita" class="btn btn-primary w-100 py-2 fw-bold rounded-pill shadow">AGENDAR PREMIUM PRO</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Plan Especialista -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden text-center transition-all">
+                                    <!-- Card Header -->
+                                    <div class="bg-white p-4 border-bottom">
+                                        <h4 class="fw-bold text-dark mb-1">Especialista</h4>
+                                        <p class="text-muted small mb-3">Diagnóstico avanzado y pre-compra</p>
+                                        <div class="display-5 fw-bold text-primary mb-1">$120</div>
+                                        <span class="text-muted small">Por servicio</span>
+                                    </div>
+                                    
+                                    <!-- Card Body (Features) -->
+                                    <div class="card-body p-4 d-flex flex-column text-start bg-white">
+                                        <ul class="list-unstyled mb-4 flex-grow-1 text-muted">
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Escaneo ECU nivel fabricante
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Prueba de compresión de cilindros
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Inspección con videoscopio digital
+                                            </li>
+                                            <li class="mb-3 border-bottom pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Verificación de kilometraje real
+                                            </li>
+                                            <li class="mb-3 pb-2">
+                                                <i class="fa fa-check text-success me-2"/> Informe técnico certificado
+                                            </li>
+                                        </ul>
+                                        <!-- Button at bottom -->
+                                        <div class="mt-auto pt-3">
+                                            <a href="/taller/cita" class="btn btn-outline-dark w-100 py-2 fw-bold rounded-pill">AGENDAR DIAGNÓSTICO</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Clean Footer Features -->
+                <section class="py-5 bg-white border-top">
+                    <div class="container">
+                        <div class="row text-center g-4">
+                            <div class="col-md-4">
+                                <div class="p-3">
+                                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 70px; height: 70px;">
+                                        <i class="fa fa-shield text-primary fa-2x"/>
+                                    </div>
+                                    <h5 class="fw-bold">Garantía Extendida</h5>
+                                    <p class="text-muted small mb-0">6 meses o 10,000 km de respaldo.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3">
+                                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 70px; height: 70px;">
+                                        <i class="fa fa-cogs text-primary fa-2x"/>
+                                    </div>
+                                    <h5 class="fw-bold">Piezas Originales</h5>
+                                    <p class="text-muted small mb-0">Solo marcas certificadas mundialmente.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3">
+                                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 70px; height: 70px;">
+                                        <i class="fa fa-clock-o text-primary fa-2x"/>
+                                    </div>
+                                    <h5 class="fw-bold">Tiempo Exacto</h5>
+                                    <p class="text-muted small mb-0">Atención rápida y sin demoras molestas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </t>
+    </template>
+
+    <record id="pricing_page_record" model="website.page">
+        <field name="name">Precios</field>
+        <field name="url">/pricing</field>
+        <field name="view_id" ref="pricing_page"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="is_published">True</field>
+    </record>
+</odoo>

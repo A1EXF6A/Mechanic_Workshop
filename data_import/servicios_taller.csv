@@ -1,0 +1,16 @@
+name;detailed_type;list_price;uom_id/name;description_sale
+Cambio de Aceite de Motor y Filtro (Mano de Obra);service;15.00;Unidades;Servicio express de cambio de aceite y filtro de motor. Incluye revisión de niveles básicos.
+Alineación y Balanceo Computarizado;service;25.00;Unidades;Servicio integral de alineación de dirección y balanceo de las 4 ruedas.
+Servicio de Mecánica General (Por Hora);service;35.00;Horas;Tarifa horaria por trabajos de mecánica compleja (motor, transmisión, suspensión).
+Diagnóstico y Lectura de Códigos por Escáner;service;30.00;Unidades;Escaneo computarizado de la ECU del vehículo, lectura y borrado de códigos de error.
+Mantenimiento Integral de Frenos;service;40.00;Unidades;Desmontaje, limpieza, lubricación y cambio de pastillas/discos de freno en las 4 ruedas.
+Carga de Gas Refrigerante y Mantenimiento de A/C;service;45.00;Unidades;Vacío del sistema de aire acondicionado, recarga de gas refrigerante R134a y aceite.
+Limpieza de Inyectores por Ultrasonido;service;50.00;Unidades;Desmontaje, calibración, prueba de flujo y limpieza por tina de ultrasonido de inyectores de gasolina.
+Servicio de Mantenimiento de Suspensión;service;60.00;Unidades;Mano de obra para cambio de amortiguadores, bases, terminales y rótulas de suspensión.
+Lavado y Desengrasado Ecológico de Motor;service;20.00;Unidades;Lavado al detalle con desengrasante dieléctrico y abrillantador protector para componentes eléctricos.
+Afinamiento y ABC de Motor Completo;service;75.00;Unidades;Servicio premium que incluye cambio de bujías, filtros, limpieza de cuerpo de aceleración y puesta a punto.
+Mantenimiento del Sistema de Embrague (Clutch);service;90.00;Unidades;Mano de obra especializada para el desmontaje de caja y reemplazo de kit de embrague.
+ABC de Frenos y Cambio de Líquido;service;30.00;Unidades;Inspección visual de desgaste, purga y cambio completo del líquido de frenos DOT4.
+Mano de Obra - Electricidad Automotriz;service;30.00;Horas;Diagnóstico y reparación de fallas eléctricas, cableados, sensores y alternadores.
+Lavado e Higienización de Interiores;service;45.00;Unidades;Limpieza profunda de tapicería, desinfección con ozono de ductos de A/C y plásticos.
+Chequeo Preventivo Pre-Viaje (Seguridad);service;25.00;Unidades;Inspección multipunto de 25 elementos vitales del auto (luces, frenos, llantas, niveles).

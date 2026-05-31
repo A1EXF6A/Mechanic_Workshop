@@ -1,0 +1,60 @@
+/* @odoo-module */
+
+/* Premium Home Hero Section */
+.s_cover {
+    position: relative;
+    border-bottom: 4px solid var(--taller-accent);
+    
+    /* Overlay for text legibility */
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+        z-index: 1;
+    }
+    
+    .container {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+/* Feature Blocks on Homepage */
+.bg-primary.bg-opacity-10 {
+    background-color: rgba(37, 99, 235, 0.08) !important;
+    transition: var(--taller-transition);
+}
+
+.col-md-4:hover {
+    .bg-primary.bg-opacity-10 {
+        background-color: var(--taller-accent) !important;
+        transform: scale(1.1);
+        
+        i {
+            color: var(--taller-white) !important;
+        }
+    }
+}
+
+.border-start.border-end {
+    border-color: #E2E8F0 !important;
+}
+
+/* Services Preview Elements */
+.card-service-preview {
+    border-left: 4px solid transparent !important;
+    
+    &:hover {
+        border-left-color: var(--taller-accent) !important;
+        
+        .fa {
+            transform: scale(1.1);
+            color: var(--taller-accent-hover) !important;
+        }
+    }
+    
+    .fa {
+        transition: var(--taller-transition);
+    }
+}

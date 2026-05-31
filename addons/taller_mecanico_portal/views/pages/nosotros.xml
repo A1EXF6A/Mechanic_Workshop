@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="nosotros_page" name="Sobre Nosotros - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                
+                <!-- Hero Section Premium -->
+                <section class="taller-hero-section py-5 text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--taller-primary) 0%, #1E293B 100%); border-bottom: 4px solid var(--taller-accent);">
+                    <div class="container text-center py-5 position-relative z-index-1">
+                        <h6 class="text-uppercase fw-bold mb-2 animate-fade-in" style="color: #60A5FA; letter-spacing: 2px; font-size: 0.75rem;">CONÓCENOS</h6>
+                        <h1 class="display-4 fw-bold mb-3 text-white taller-text-glow animate-fade-in">Ingeniería y Pasión Desde el Primer Día</h1>
+                        <p class="mx-auto text-white opacity-75 animate-fade-in" style="max-width: 700px; font-size: 1.15rem;">
+                            Somos un equipo de profesionales apasionados por el rendimiento automotriz y dedicados a brindar la mayor seguridad y transparencia en el mantenimiento de tu vehículo.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Historia y Filosofía -->
+                <section class="py-5 bg-white">
+                    <div class="container py-4">
+                        <div class="row align-items-center g-5">
+                            <div class="col-lg-6">
+                                <h6 class="text-primary text-uppercase fw-bold mb-2" style="font-size: 0.75rem;">NUESTRA TRAYECTORIA</h6>
+                                <h2 class="fw-bold mb-4" style="color: var(--taller-primary);">Más de 15 años cuidando tu motor</h2>
+                                <p class="text-muted mb-3" style="font-size: 1.05rem; line-height: 1.7;">
+                                    Fundado en 2011, nuestro taller nació con la convicción de dignificar y elevar los estándares de servicio en la industria automotriz local. Hoy en día contamos con tecnología avanzada y técnicos de primer nivel capacitados internacionalmente.
+                                </p>
+                                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.7;">
+                                    Trabajamos bajo un modelo transparente de cotizaciones previas, diagnóstico computarizado completo y entrega en los tiempos acordados, eliminando las sorpresas desagradables al pagar.
+                                </p>
+                                <div class="row g-3 text-center">
+                                    <div class="col-4">
+                                        <div class="p-3 bg-light rounded-3">
+                                            <h3 class="fw-bold text-primary mb-1">+10k</h3>
+                                            <small class="text-muted fw-semibold">Carros Reparados</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-3 bg-light rounded-3">
+                                            <h3 class="fw-bold text-primary mb-1">100%</h3>
+                                            <small class="text-muted fw-semibold">Garantizado</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-3 bg-light rounded-3">
+                                            <h3 class="fw-bold text-primary mb-1">15+</h3>
+                                            <small class="text-muted fw-semibold">Años de Exp.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-4 bg-light rounded-4 border border-1 shadow-sm h-100">
+                                    <div class="card-body p-2">
+                                        <div class="mb-4">
+                                            <span class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3" style="width: 50px; height: 50px;">
+                                                <i class="fa fa-bullseye fa-lg"/>
+                                            </span>
+                                            <h3 class="fw-bold h4 mb-2">Misión</h3>
+                                            <p class="text-muted mb-0 small">Garantizar la movilidad confiable de nuestros clientes con un servicio honesto y preciso, utilizando equipos originales y personal certificado.</p>
+                                        </div>
+                                        <hr class="my-4 opacity-50"/>
+                                        <div>
+                                            <span class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3" style="width: 50px; height: 50px;">
+                                                <i class="fa fa-eye fa-lg"/>
+                                            </span>
+                                            <h3 class="fw-bold h4 mb-2">Visión</h3>
+                                            <p class="text-muted mb-0 small">Ser reconocidos como el taller automotriz de referencia en el país, destacando por nuestra transparencia, innovación tecnológica y excelencia en atención.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Certificaciones y Compromiso -->
+                <section class="py-5 bg-light">
+                    <div class="container py-4 text-center">
+                        <h6 class="text-primary text-uppercase fw-bold mb-2">NUESTROS PILARES</h6>
+                        <h2 class="fw-bold mb-5">¿Por qué confiar en nosotros?</h2>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="card h-100 p-4 border-0 shadow-sm custom-card-glow text-center bg-white">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 rounded-circle text-success" style="width: 70px; height: 70px; margin: 0 auto;">
+                                        <i class="fa fa-check-circle fa-2x"/>
+                                    </div>
+                                    <h3 class="fw-bold h5 mb-3">Técnicos Certificados</h3>
+                                    <p class="text-muted small mb-0">Nuestros mecánicos pasan por entrenamientos periódicos y cuentan con certificaciones oficiales de las marcas líderes del mercado.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 p-4 border-0 shadow-sm custom-card-glow text-center bg-white">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle text-primary" style="width: 70px; height: 70px; margin: 0 auto;">
+                                        <i class="fa fa-cogs fa-2x"/>
+                                    </div>
+                                    <h3 class="fw-bold h5 mb-3">Piezas de Calidad OEM</h3>
+                                    <p class="text-muted small mb-0">Solo instalamos repuestos originales o alternos homologados bajo normas de alta calidad para prolongar la vida útil del coche.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 p-4 border-0 shadow-sm custom-card-glow text-center bg-white">
+                                    <div class="mb-4 d-inline-flex align-items-center justify-content-center bg-warning bg-opacity-10 rounded-circle text-warning" style="width: 70px; height: 70px; margin: 0 auto;">
+                                        <i class="fa fa-shield fa-2x"/>
+                                    </div>
+                                    <h3 class="fw-bold h5 mb-3">Transparencia Total</h3>
+                                    <p class="text-muted small mb-0">Te informamos mediante fotos y diagnósticos por computadora antes de proceder. Tú apruebas cada centavo antes de la reparación.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA Agendar -->
+                <section class="py-5 bg-white">
+                    <div class="container py-4">
+                        <div class="card bg-primary p-5 text-white border-0 shadow-lg position-relative overflow-hidden" style="border-radius: 20px !important;">
+                            <div class="row align-items-center position-relative z-index-1">
+                                <div class="col-lg-8">
+                                    <h2 class="h1 fw-bold mb-3">¿Tu vehículo necesita mantenimiento?</h2>
+                                    <p class="lead text-white-50 mb-0">Agenda tu cita en línea hoy mismo y experimenta un servicio de primer nivel en nuestro taller.</p>
+                                </div>
+                                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                                    <a href="/taller/cita" class="btn btn-light btn-lg px-5 py-3 fw-bold shadow">
+                                        AGENDAR MI CITA <i class="fa fa-calendar ms-2"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </t>
+    </template>
+
+    <record id="nosotros_page_record" model="website.page">
+        <field name="name">Sobre Nosotros</field>
+        <field name="url">/taller/nosotros</field>
+        <field name="view_id" ref="nosotros_page"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="is_published">True</field>
+    </record>
+</odoo>

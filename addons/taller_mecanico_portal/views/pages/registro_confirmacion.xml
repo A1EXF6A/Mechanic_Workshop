@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="registro_confirmacion_page" name="Registro Confirmado - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                <section class="py-5 taller-auth">
+                    <div class="container py-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card border-0 shadow-lg taller-auth-card">
+                                    <div class="card-body p-4 p-lg-5 text-center">
+                                        <div class="mb-4">
+                                            <i class="fa fa-check-circle fa-3x text-primary"/>
+                                        </div>
+                                        <h2 class="fw-bold mb-2">Registro completado</h2>
+                                        <p class="text-muted mb-4">Tus datos se guardaron correctamente.</p>
+                                        <div class="d-grid gap-2">
+                                            <a href="/taller/login" class="btn btn-primary btn-lg">Ingresar</a>
+                                            <a href="/" class="btn btn-outline-primary btn-lg">Volver al inicio</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

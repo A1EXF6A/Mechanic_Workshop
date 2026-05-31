@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="carrito_page" name="Carrito - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure bg-light">
+                <!-- Header Optimizado (Consistente con la tienda) -->
+                <section class="pt48 pb48 text-center text-white" style="background-color: var(--taller-primary);">
+                    <div class="container py-2">
+                        <h2 class="fw-bold mb-3" style="color: var(--taller-white);">Tu Carrito de Compras</h2>
+                        <p class="mx-auto text-white opacity-75" style="max-width: 650px; font-size: 1.05rem;">
+                            Revisa los repuestos seleccionados antes de procesar el pago seguro.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="py-5">
+                    <div class="container py-2">
+                        <!-- Breadcrumb minimalista -->
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <a href="/taller/productos" class="text-muted text-decoration-none small hover-primary"><i class="fa fa-home me-1"/> Tienda</a>
+                            <i class="fa fa-chevron-right text-muted small" style="font-size: 0.6rem;"/>
+                            <span class="fw-bold small text-primary">Carrito</span>
+                        </div>
+
+                        <div class="row g-5">
+                            <!-- Lista de Productos -->
+                            <div class="col-lg-8">
+                                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border-0 mb-4" style="border-radius: 20px !important;">
+                                    <h3 class="fw-bold mb-5 text-dark border-bottom pb-3">Resumen de Artículos</h3>
+                                    
+                                    <t t-if="not cart_items">
+                                        <div class="text-center py-5 my-5">
+                                            <div class="mb-4 text-muted opacity-25">
+                                                <i class="fa fa-shopping-basket fa-5x"/>
+                                            </div>
+                                            <h4 class="fw-bold">Tu carrito está vacío</h4>
+                                            <p class="text-muted mb-4">Parece que aún no has seleccionado ningún repuesto para tu vehículo.</p>
+                                            <a href="/taller/productos" class="btn btn-primary px-5 py-3 fw-bold rounded-pill shadow">VOLVER A LA TIENDA</a>
+                                        </div>
+                                    </t>
+                                    
+                                    <t t-foreach="cart_items" t-as="item">
+                                        <div class="row align-items-center mb-4 pb-4 border-bottom g-3">
+                                            <!-- Imagen -->
+                                            <div class="col-4 col-md-2 col-lg-1">
+                                                <div class="bg-light p-2 rounded-3 text-center d-flex align-items-center justify-content-center" style="height: 80px; border: 1px solid #f1f5f9;">
+                                                    <img t-att-src="website.image_url(item['product'], 'image_128')" 
+                                                         class="img-fluid" t-att-alt="item['product'].name" 
+                                                         style="max-height: 100%; object-fit: contain;"/>
+                                                </div>
+                                            </div>
+                                            <!-- Detalles -->
+                                            <div class="col-8 col-md-4 col-lg-4">
+                                                <h6 class="fw-bold mb-1"><a t-att-href="item['product'].website_url" class="text-dark text-decoration-none"><t t-esc="item['product'].name"/></a></h6>
+                                                <small class="text-muted d-block mb-2">SKU: <t t-esc="item['product'].default_code or 'AUT-MOD-001'"/></small>
+                                                <span class="d-md-none fw-bold text-primary" t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                            </div>
+                                            <!-- Precio Unitario (Solo Desktop) -->
+                                            <div class="d-none d-md-block col-md-2 col-lg-2 text-center">
+                                                <span class="fw-bold text-muted" t-field="item['product'].list_price" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                            </div>
+                                            <!-- Cantidad (Controles Modernos) -->
+                                            <div class="col-6 col-md-2 col-lg-2 mt-3 mt-md-0 d-flex justify-content-center">
+                                                <div class="input-group input-group-sm border rounded-pill overflow-hidden bg-light" style="max-width: 90px;">
+                                                    <input type="number" class="form-control js_update_qty border-0 bg-transparent text-center fw-bold px-1" 
+                                                           t-att-value="item['qty']" t-att-data-product-id="item['product'].id" min="1"/>
+                                                </div>
+                                            </div>
+                                            <!-- Subtotal y Eliminar -->
+                                            <div class="col-6 col-md-2 col-lg-3 mt-3 mt-md-0 text-end d-flex align-items-center justify-content-end gap-3">
+                                                <span class="fw-bold h6 mb-0 text-primary" t-esc="item['subtotal']" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                                <button class="btn btn-link text-danger p-0 js_remove_item" t-att-data-product-id="item['product'].id" title="Eliminar">
+                                                    <i class="fa fa-trash-o fa-lg"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center px-2">
+                                    <a href="/taller/productos" class="text-decoration-none text-muted hover-primary small fw-bold">
+                                        <i class="fa fa-arrow-left me-2"/> SEGUIR COMPRANDO
+                                    </a>
+                                </div>
+                            </div>
+
+                             <!-- Resumen de Pago (Sticky) -->
+                             <div class="col-lg-4 position-sticky align-self-start" style="top: 100px; z-index: 1;">
+                                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden" style="border-radius: 20px !important;">
+                                     <div class="card-body p-4 p-md-5">
+                                        <h4 class="fw-bold mb-4">Resumen de Pago</h4>
+                                        
+                                        <div class="d-flex justify-content-between mb-3 text-muted">
+                                            <span>Subtotal</span>
+                                            <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3 text-muted">
+                                            <span>Envío / Instalación</span>
+                                            <span class="text-success fw-bold">GRATIS</span>
+                                        </div>
+                                        
+                                        <hr class="my-4 opacity-50"/>
+                                        
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <span class="h5 fw-bold">Total Final</span>
+                                            <span class="h4 fw-bold text-primary" t-esc="total" t-options="{'widget': 'monetary', 'display_currency': website.company_id.currency_id}"/>
+                                        </div>
+                                        
+                                        <form action="/taller/confirmar-compra" method="POST">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <button type="submit" class="btn btn-primary btn-lg w-100 py-3 shadow-lg fw-bold rounded-pill">
+                                                CONFIRMAR Y PAGAR <i class="fa fa-chevron-right ms-2 small"/>
+                                            </button>
+                                        </form>
+                                        
+                                        <div class="mt-5 text-center pt-3 border-top">
+                                            <p class="small text-muted mb-3"><i class="fa fa-shield me-2 text-success"/> Compra 100% Protegida</p>
+                                            <div class="d-flex justify-content-center gap-3 opacity-50 grayscale" style="filter: grayscale(1);">
+                                                <i class="fa fa-cc-visa fa-2x"/>
+                                                <i class="fa fa-cc-mastercard fa-2x"/>
+                                                <i class="fa fa-cc-paypal fa-2x"/>
+                                                <i class="fa fa-cc-stripe fa-2x"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

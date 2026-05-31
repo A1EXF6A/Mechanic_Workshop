@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="consulta_orden_page" name="Trazabilidad de Orden - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                
+                <!-- Hero Section Premium -->
+                <section class="taller-hero-section py-5 text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--taller-primary) 0%, #1E293B 100%); border-bottom: 4px solid var(--taller-accent);">
+                    <div class="container text-center py-5 position-relative z-index-1 animate-fade-in">
+                        <h6 class="text-uppercase fw-bold mb-2" style="color: #60A5FA; letter-spacing: 2px; font-size: 0.75rem;">SEGUIMIENTO EN VIVO</h6>
+                        <h1 class="display-4 fw-bold mb-3 text-white taller-text-glow">Trazabilidad de tu Vehículo</h1>
+                        <p class="mx-auto text-white opacity-75" style="max-width: 600px; font-size: 1.15rem;">
+                            Consulta el estado actual de tu coche en el taller, cotizaciones aprobadas y trabajos realizados en tiempo real.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Formulario de Consulta -->
+                <section class="py-5">
+                    <div class="container mt-n5 position-relative z-index-2">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="card p-4 border-0 shadow-lg" style="border-radius: 20px !important;">
+                                    <form action="/taller/consulta" method="post" class="needs-validation">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="row align-items-center g-3">
+                                            <div class="col-md-8">
+                                                <div class="input-group input-group-lg">
+                                                    <span class="input-group-text"><i class="fa fa-car text-primary"/></span>
+                                                    <input type="text" name="placa" class="form-control text-uppercase" placeholder="INGRESA TU PLACA (Ej: ABC-1234)" t-att-value="placa" required="required" style="font-weight: 600; letter-spacing: 1px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold py-3"><i class="fa fa-search me-2"/> CONSULTAR</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resultados de Consulta -->
+                        <div class="row mt-5">
+                            <div class="col-lg-9 mx-auto">
+                                
+                                <!-- Caso 1: Búsqueda no realizada aún -->
+                                <t t-if="not searched">
+                                    <div class="text-center py-5">
+                                        <div class="mb-4 text-muted opacity-50"><i class="fa fa-clock-o fa-5x"/></div>
+                                        <h4 class="fw-bold" style="color: var(--taller-primary);">Esperando Consulta</h4>
+                                        <p class="text-muted mx-auto" style="max-width: 480px;">Introduce la placa de tu vehículo arriba para revisar de inmediato la orden de trabajo, técnico a cargo e historial del carro en el taller.</p>
+                                    </div>
+                                </t>
+
+                                <!-- Caso 2: Búsqueda realizada con éxito -->
+                                <t t-if="searched and ordenes">
+                                    <h3 class="fw-bold mb-4 text-center text-md-start" style="color: var(--taller-primary);"><i class="fa fa-check-circle text-success me-2"/> Órdenes encontradas para: <span class="text-primary text-uppercase"><t t-esc="placa"/></span></h3>
+                                    
+                                    <t t-foreach="ordenes" t-as="orden">
+                                        <div class="card border-0 shadow-sm p-4 mb-4 bg-white" style="border-radius: 16px !important;">
+                                            <!-- Encabezado de la Orden -->
+                                            <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-4">
+                                                <div>
+                                                    <span class="badge bg-primary px-3 py-2 rounded-pill fs-7 mb-2 d-inline-block">Orden: <t t-esc="orden.name"/></span>
+                                                    <h4 class="fw-bold mb-0" style="color: var(--taller-primary);"><t t-esc="orden.vehiculo_id.marca_id.name"/> <t t-esc="orden.vehiculo_id.modelo_id.name"/></h4>
+                                                    <small class="text-muted">Fecha de Ingreso: <t t-esc="orden.fecha_ingreso" t-options="{'widget': 'datetime'}"/></small>
+                                                </div>
+                                                <div class="text-md-end mt-3 mt-md-0">
+                                                    <small class="text-muted d-block">Mano de Obra + Repuestos</small>
+                                                    <span class="fs-4 fw-bold text-primary">$<t t-esc="'%.2f' % orden.costo_total_general"/></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Línea de Tiempo Interactiva -->
+                                            <div class="taller-timeline">
+                                                <!-- Barra de Progreso Dinámica -->
+                                                <t t-set="progress_width" t-value="'5%'"/>
+                                                <t t-if="orden.estado == 'recibido'" t-set="progress_width" t-value="'5%'"/>
+                                                <t t-if="orden.estado == 'listo'" t-set="progress_width" t-value="'50%'"/>
+                                                <t t-if="orden.estado == 'entregado'" t-set="progress_width" t-value="'95%'"/>
+                                                <div class="taller-timeline-progress" t-attf-style="width: #{progress_width};"/>
+
+                                                <!-- Paso 1: Recibido -->
+                                                <div t-attf-class="taller-timeline-step #{'completed' if orden.estado in ['listo', 'entregado'] else 'active'}">
+                                                    <div class="step-icon">
+                                                        <i class="fa fa-wrench"/>
+                                                    </div>
+                                                    <span class="step-label">Recibido</span>
+                                                </div>
+
+                                                <!-- Paso 2: Listo -->
+                                                <div t-attf-class="taller-timeline-step #{'completed' if orden.estado == 'entregado' else ('active' if orden.estado == 'listo' else '')}">
+                                                    <div class="step-icon">
+                                                        <i class="fa fa-check"/>
+                                                    </div>
+                                                    <span class="step-label">Listo</span>
+                                                </div>
+
+                                                <!-- Paso 3: Entregado -->
+                                                <div t-attf-class="taller-timeline-step #{'active' if orden.estado == 'entregado' else ''}">
+                                                    <div class="step-icon">
+                                                        <i class="fa fa-key"/>
+                                                    </div>
+                                                    <span class="step-label">Entregado</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Detalles / Diagnóstico / Técnico -->
+                                            <div class="row g-4 mt-2">
+                                                <div class="col-md-6">
+                                                    <div class="p-3 bg-light rounded-3 h-100">
+                                                        <h6 class="fw-bold text-primary mb-2"><i class="fa fa-stethoscope me-2"/> Diagnóstico del Técnico</h6>
+                                                        <p class="text-muted mb-0 small"><t t-esc="orden.diagnostico or 'Evaluando detalles mecánicos en el elevador...'"/></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="p-3 bg-light rounded-3 h-100">
+                                                        <h6 class="fw-bold text-primary mb-2"><i class="fa fa-user-circle me-2"/> Técnico Asignado</h6>
+                                                        <p class="text-muted mb-0 small">
+                                                            <t t-if="orden.tecnico_id">
+                                                                <strong><t t-esc="orden.tecnico_id.name"/></strong><br/>
+                                                                <span class="text-uppercase" style="font-size: 0.75rem;"><t t-esc="orden.tecnico_cargo or 'Técnico Especialista'"/></span>
+                                                            </t>
+                                                            <t t-if="not orden.tecnico_id">
+                                                                Asignando el técnico especialista más adecuado para tu coche...
+                                                            </t>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Acordeón para ver detalle completo de cotización y líneas -->
+                                            <div class="accordion accordion-flush mt-4 border border-1 rounded-3 overflow-hidden" t-attf-id="accordionDetail_#{orden.id}">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" t-attf-id="headDetail_#{orden.id}">
+                                                        <button class="accordion-button collapsed fw-bold py-3 text-primary bg-light" type="button" data-bs-toggle="collapse" t-attf-data-bs-target="#collapseDetail_#{orden.id}" aria-expanded="false" t-attf-aria-controls="collapseDetail_#{orden.id}">
+                                                            <i class="fa fa-list-alt me-2"/> VER DETALLE DE TRABAJOS Y RESPUESTOS
+                                                        </button>
+                                                    </h2>
+                                                    <div t-attf-id="collapseDetail_#{orden.id}" class="accordion-collapse collapse" t-attf-aria-labelledby="headDetail_#{orden.id}" t-attf-data-bs-parent="#accordionDetail_#{orden.id}">
+                                                        <div class="accordion-body p-0">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover mb-0 text-muted small">
+                                                                    <thead class="bg-light text-primary fw-bold">
+                                                                        <tr>
+                                                                            <th class="ps-3 py-3">DESCRIPCIÓN</th>
+                                                                            <th class="text-center py-3">CANTIDAD</th>
+                                                                            <th class="text-end py-3">P. UNITARIO</th>
+                                                                            <th class="text-end pe-3 py-3">SUBTOTAL</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <!-- Líneas de Servicios -->
+                                                                        <t t-foreach="orden.servicio_linea_ids" t-as="l_serv">
+                                                                            <tr>
+                                                                                <td class="ps-3 py-3"><i class="fa fa-wrench text-muted me-2"/> <t t-esc="l_serv.producto_id.name"/></td>
+                                                                                <td class="text-center py-3"><t t-esc="int(l_serv.cantidad)"/></td>
+                                                                                <td class="text-end py-3">$<t t-esc="'%.2f' % l_serv.precio_unitario"/></td>
+                                                                                <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % l_serv.subtotal"/></td>
+                                                                            </tr>
+                                                                        </t>
+                                                                        <!-- Líneas de Repuestos -->
+                                                                        <t t-foreach="orden.repuesto_linea_ids" t-as="l_rep">
+                                                                            <tr>
+                                                                                <td class="ps-3 py-3"><i class="fa fa-cogs text-muted me-2"/> <t t-esc="l_rep.producto_id.name"/></td>
+                                                                                <td class="text-center py-3"><t t-esc="int(l_rep.cantidad)"/></td>
+                                                                                <td class="text-end py-3">$<t t-esc="'%.2f' % l_rep.precio_unitario"/></td>
+                                                                                <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % l_rep.subtotal"/></td>
+                                                                            </tr>
+                                                                        </t>
+                                                                        <!-- Mano de obra fija si aplica -->
+                                                                        <t t-if="orden.costo_mano_obra > 0">
+                                                                            <tr>
+                                                                                <td class="ps-3 py-3"><i class="fa fa-user-circle text-muted me-2"/> Mano de obra / Diagnóstico Técnico Fijo</td>
+                                                                                <td class="text-center py-3">1</td>
+                                                                                <td class="text-end py-3">$<t t-esc="'%.2f' % orden.costo_mano_obra"/></td>
+                                                                                <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % orden.costo_mano_obra"/></td>
+                                                                            </tr>
+                                                                        </t>
+                                                                        <!-- Subtotales y Totales finales -->
+                                                                        <tr class="bg-light fw-bold text-dark">
+                                                                            <td colspan="3" class="text-end py-3">Total Servicios:</td>
+                                                                            <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % orden.costo_total_servicios"/></td>
+                                                                        </tr>
+                                                                        <tr class="bg-light fw-bold text-dark">
+                                                                            <td colspan="3" class="text-end py-3">Total Repuestos:</td>
+                                                                            <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % orden.costo_total_repuestos"/></td>
+                                                                        </tr>
+                                                                        <tr class="bg-light fw-bold text-primary fs-6">
+                                                                            <td colspan="3" class="text-end py-3">Gran Total a Pagar:</td>
+                                                                            <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % orden.costo_total_general"/></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </t>
+                                </t>
+
+                                <!-- Caso 3: Búsqueda realizada sin éxito -->
+                                <t t-if="searched and not ordenes">
+                                    <div class="card border-0 shadow-lg text-center p-5 bg-white" style="border-radius: 20px !important;">
+                                        <div class="mb-4 text-warning"><i class="fa fa-exclamation-triangle fa-5x"/></div>
+                                        <h4 class="fw-bold mb-2" style="color: var(--taller-primary);">Sin Órdenes Activas</h4>
+                                        <p class="text-muted mx-auto mb-4" style="max-width: 480px;">No se encontraron órdenes de trabajo vigentes para la placa <strong class="text-uppercase"><t t-esc="placa"/></strong>. Por favor, verifica que la placa sea la correcta o comunícate con el taller para coordinar el ingreso.</p>
+                                        <div>
+                                            <a href="/taller/consulta" class="btn btn-primary px-4 py-2"><i class="fa fa-refresh me-2"/> REINTENTAR</a>
+                                        </div>
+                                    </div>
+                                </t>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                
+            </div>
+        </t>
+    </template>
+
+</odoo>

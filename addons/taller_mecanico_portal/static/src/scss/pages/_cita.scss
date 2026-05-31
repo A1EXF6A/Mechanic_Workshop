@@ -1,0 +1,63 @@
+/* @odoo-module */
+
+/* Scheduling Form Layout */
+.taller-booking-card {
+    background: var(--taller-white) !important;
+    border-radius: 20px !important;
+    border: 1px solid #F1F5F9 !important;
+    box-shadow: var(--taller-shadow-lg) !important;
+}
+
+/* Form Headings with accents */
+.taller-booking-title {
+    position: relative;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--taller-accent);
+        border-radius: 10px;
+    }
+}
+
+/* Elegant Form Icons inside Input Groups */
+.input-group-text {
+    background-color: #F8FAFC !important;
+    border-color: #E2E8F0 !important;
+    color: var(--taller-text-muted) !important;
+    border-radius: var(--taller-radius) 0 0 var(--taller-radius) !important;
+}
+
+.input-group > .form-control {
+    border-radius: 0 var(--taller-radius) var(--taller-radius) 0 !important;
+}
+
+/* Custom Checkbox/Radio Styling */
+.form-check-input {
+    cursor: pointer;
+    
+    &:checked {
+        background-color: var(--taller-accent) !important;
+        border-color: var(--taller-accent) !important;
+    }
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Select element styling styling override */
+select.form-control {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem center !important;
+    background-size: 16px 12px !important;
+    appearance: none !important;
+}

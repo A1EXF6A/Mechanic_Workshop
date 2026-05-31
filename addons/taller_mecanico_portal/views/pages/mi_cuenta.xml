@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mi_cuenta_page" name="Mi Cuenta - Taller Mecánico">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty bg-light">
+                <section class="py-5">
+                    <div class="container py-4">
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-lg-8">
+                                <h2 class="fw-bold mb-1 text-primary">Mi Cuenta</h2>
+                                <p class="text-muted">Bienvenido de nuevo, <t t-esc="user.nombre"/> <t t-esc="user.apellido"/></p>
+                            </div>
+                            <div class="col-lg-4 text-lg-end">
+                                <a href="/taller/cita" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                                    <i class="fa fa-plus me-2"/> Agendar Nueva Cita
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Sidebar: Perfil -->
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                    <div class="card-body p-4 text-center">
+                                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 80px; height: 80px; font-size: 32px;">
+                                            <i class="fa fa-user"/>
+                                        </div>
+                                        <h5 class="fw-bold mb-1"><t t-esc="user.nombre"/> <t t-esc="user.apellido"/></h5>
+                                        <p class="text-muted mb-4 small"><t t-esc="user.email"/></p>
+                                        <ul class="list-unstyled text-start mb-0">
+                                            <li class="mb-3 d-flex align-items-center text-muted">
+                                                <i class="fa fa-id-card text-primary me-3 w-15px text-center"/> <t t-esc="user.cedula"/>
+                                            </li>
+                                            <li class="mb-3 d-flex align-items-center text-muted">
+                                                <i class="fa fa-phone text-primary me-3 w-15px text-center"/> <t t-esc="user.celular"/>
+                                            </li>
+                                            <li class="d-flex align-items-center text-muted">
+                                                <i class="fa fa-map-marker text-primary me-3 w-15px text-center"/> <t t-esc="user.direccion"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contenido Principal -->
+                            <div class="col-lg-8">
+                                <!-- Mis Vehículos -->
+                                <h4 class="fw-bold mb-3">Mis Vehículos</h4>
+                                <div class="row g-3 mb-5">
+                                    <t t-if="not vehiculos">
+                                        <div class="col-12">
+                                            <div class="alert alert-info border-0 shadow-sm bg-white text-muted">
+                                                No tienes vehículos registrados aún.
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-foreach="vehiculos" t-as="vehiculo">
+                                        <div class="col-md-6">
+                                            <div class="card border-0 shadow-sm rounded-4 h-100">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                                        <div>
+                                                            <h5 class="fw-bold mb-0 text-dark"><t t-esc="vehiculo.marca_id.name"/> <t t-esc="vehiculo.modelo_id.name"/></h5>
+                                                            <span class="badge bg-light text-dark border mt-2 px-2 py-1"><t t-esc="vehiculo.placa"/></span>
+                                                        </div>
+                                                        <i class="fa fa-car text-primary fs-3 opacity-50"/>
+                                                    </div>
+                                                    <ul class="list-unstyled text-muted small mb-0">
+                                                        <li class="mb-2"><strong>Año:</strong> <t t-esc="vehiculo.anio"/></li>
+                                                        <li class="mb-2"><strong>Color:</strong> <t t-esc="vehiculo.color"/></li>
+                                                        <li><strong>Kilometraje:</strong> <t t-esc="vehiculo.kilometraje"/> km</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <!-- Historial de Órdenes de Trabajo -->
+                                <h4 class="fw-bold mb-3">Historial de Trabajos</h4>
+                                <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden">
+                                    <t t-if="not ordenes">
+                                        <div class="card-body p-4 text-center text-muted">
+                                            No hay historial de trabajos para mostrar.
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover align-middle mb-0">
+                                                <thead class="bg-light text-muted small text-uppercase">
+                                                    <tr>
+                                                        <th class="ps-4 py-3 fw-medium">Código</th>
+                                                        <th class="py-3 fw-medium">Vehículo</th>
+                                                        <th class="py-3 fw-medium">Ingreso</th>
+                                                        <th class="py-3 fw-medium">Estado</th>
+                                                        <th class="pe-4 py-3 fw-medium text-end">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="ordenes" t-as="orden">
+                                                        <tr>
+                                                            <td class="ps-4 py-3 fw-bold text-primary"><t t-esc="orden.name"/></td>
+                                                            <td class="py-3"><t t-esc="orden.vehiculo_id.placa"/></td>
+                                                            <td class="py-3 text-muted small">
+                                                                <t t-esc="orden.fecha_ingreso" t-options="{'widget': 'date'}"/>
+                                                            </td>
+                                                            <td class="py-3">
+                                                                <span t-attf-class="badge rounded-pill px-3 py-2 fw-medium #{'bg-warning text-dark' if orden.estado == 'recibido' else 'bg-success text-white' if orden.estado == 'listo' else 'bg-secondary text-white'}">
+                                                                    <t t-esc="dict(orden.fields_get(allfields=['estado'])['estado']['selection'])[orden.estado]"/>
+                                                                </span>
+                                                            </td>
+                                                            <td class="pe-4 py-3 fw-bold text-end">$<t t-esc="'%.2f' % orden.costo_total_general"/></td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <!-- Mis Citas -->
+                                <h4 class="fw-bold mb-3">Mis Citas</h4>
+                                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                                    <t t-if="not citas">
+                                        <div class="card-body p-4 text-center text-muted">
+                                            No tienes citas programadas.
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover align-middle mb-0">
+                                                <thead class="bg-light text-muted small text-uppercase">
+                                                    <tr>
+                                                        <th class="ps-4 py-3 fw-medium">Fecha Programada</th>
+                                                        <th class="py-3 fw-medium">Vehículo</th>
+                                                        <th class="py-3 fw-medium">Motivo</th>
+                                                        <th class="pe-4 py-3 fw-medium">Estado</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="citas" t-as="cita">
+                                                        <tr>
+                                                            <td class="ps-4 py-3 fw-bold text-dark">
+                                                                <t t-esc="cita.fecha_cita" t-options="{'widget': 'datetime'}"/>
+                                                            </td>
+                                                            <td class="py-3"><t t-esc="cita.vehiculo_id.placa"/></td>
+                                                            <td class="py-3 text-muted small">
+                                                                <t t-esc="dict(cita.fields_get(allfields=['motivo'])['motivo']['selection'])[cita.motivo]"/>
+                                                            </td>
+                                                            <td class="pe-4 py-3">
+                                                                <span t-attf-class="badge rounded-pill px-3 py-2 fw-medium #{'bg-info text-dark' if cita.estado == 'solicitada' else 'bg-success text-white' if cita.estado == 'confirmada' else 'bg-danger text-white'}">
+                                                                    <t t-esc="dict(cita.fields_get(allfields=['estado'])['estado']['selection'])[cita.estado]"/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <!-- Mis Facturas -->
+                                <h4 class="fw-bold mb-3 mt-5">Mis Facturas</h4>
+                                <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden">
+                                    <t t-if="not facturas">
+                                        <div class="card-body p-4 text-center text-muted">
+                                            No tienes facturas emitidas.
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover align-middle mb-0">
+                                                <thead class="bg-light text-muted small text-uppercase">
+                                                    <tr>
+                                                        <th class="ps-4 py-3 fw-medium">Número</th>
+                                                        <th class="py-3 fw-medium">Fecha</th>
+                                                        <th class="py-3 fw-medium">Estado SRI</th>
+                                                        <th class="py-3 fw-medium text-end">Total</th>
+                                                        <th class="pe-4 py-3 fw-medium text-center">Descargas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="facturas" t-as="factura">
+                                                        <tr>
+                                                            <td class="ps-4 py-3 fw-bold text-primary"><t t-esc="factura.name"/></td>
+                                                            <td class="py-3 text-muted small">
+                                                                <t t-esc="factura.invoice_date"/>
+                                                            </td>
+                                                            <td class="py-3">
+                                                                <span t-attf-class="badge rounded-pill px-3 py-2 fw-medium #{'bg-success text-white' if factura.sri_estado_autorizacion == 'autorizado' else 'bg-warning text-dark' if factura.sri_estado_autorizacion == 'enviado' else 'bg-secondary text-white'}">
+                                                                    <t t-esc="factura.sri_estado_autorizacion.capitalize() if factura.sri_estado_autorizacion else 'Local'"/>
+                                                                </span>
+                                                            </td>
+                                                            <td class="py-3 fw-bold text-end">$<t t-esc="'%.2f' % factura.amount_total"/></td>
+                                                            <td class="pe-4 py-3 text-center">
+                                                                <div class="btn-group btn-group-sm">
+                                                                    <a t-attf-href="/taller/factura/#{factura.id}/pdf" class="btn btn-outline-danger" title="Descargar PDF">
+                                                                        <i class="fa fa-file-pdf-o"/> PDF
+                                                                    </a>
+                                                                    <t t-if="factura.sri_xml_file">
+                                                                        <a t-attf-href="/taller/factura/#{factura.id}/xml" class="btn btn-outline-success" title="Descargar XML">
+                                                                            <i class="fa fa-code"/> XML
+                                                                        </a>
+                                                                    </t>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </t>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

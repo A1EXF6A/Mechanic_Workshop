@@ -1,0 +1,79 @@
+/* @odoo-module */
+
+/* Product Grid Cards */
+.taller-product-card {
+    border-radius: var(--taller-radius) !important;
+    overflow: hidden;
+    background: var(--taller-white) !important;
+    box-shadow: var(--taller-shadow-sm) !important;
+    transition: var(--taller-transition) !important;
+    border: 1px solid #F1F5F9 !important;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--taller-shadow-lg) !important;
+        border-color: rgba(37, 99, 235, 0.15) !important;
+        
+        .product-image-zoom {
+            transform: scale(1.06);
+        }
+    }
+}
+
+.product-image-container {
+    position: relative;
+    overflow: hidden;
+    background-color: #F8FAFC;
+    height: 220px;
+    
+    img {
+        transition: var(--taller-transition);
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Stock Badges */
+.badge-stock {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35em 0.8em;
+    border-radius: 20px;
+}
+
+/* Shopping Cart Overlap Prevention & Clean Structure */
+.taller-cart-table {
+    border-collapse: separate !important;
+    border-spacing: 0 10px !important;
+    
+    tr {
+        background-color: var(--taller-white) !important;
+        box-shadow: var(--taller-shadow-sm);
+        border-radius: var(--taller-radius);
+        
+        td {
+            border: none !important;
+            padding: 1.25rem 1rem !important;
+            vertical-align: middle !important;
+            
+            &:first-child {
+                border-top-left-radius: var(--taller-radius) !important;
+                border-bottom-left-radius: var(--taller-radius) !important;
+            }
+            
+            &:last-child {
+                border-top-right-radius: var(--taller-radius) !important;
+                border-bottom-right-radius: var(--taller-radius) !important;
+            }
+        }
+    }
+}
+
+/* Order Summary Box */
+.taller-summary-box {
+    background: #F8FAFC !important;
+    border-radius: var(--taller-radius) !important;
+    border: 1px solid #E2E8F0 !important;
+    padding: 2rem !important;
+}

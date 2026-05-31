@@ -1,0 +1,37 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_taller_mecanico_guest,taller_mecanico.guest,base.model_res_partner,base.group_public,1,0,0,0
+
+# ==================================
+# Access for Managers
+# ==================================
+access_taller_marca_manager,taller.marca.manager,model_taller_marca,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_modelo_manager,taller.modelo.manager,model_taller_modelo,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_vehiculo_manager,taller.vehiculo.manager,model_taller_vehiculo,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_orden_trabajo_manager,taller.orden.trabajo.manager,model_taller_orden_trabajo,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_cita_manager,taller.cita.manager,model_taller_cita,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_orden_linea_servicio_manager,taller.orden.linea.servicio.manager,model_taller_orden_linea_servicio,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_orden_linea_repuesto_manager,taller.orden.linea.repuesto.manager,model_taller_orden_linea_repuesto,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_marca_buscar_wizard_manager,taller.marca.buscar.wizard.manager,model_taller_marca_buscar_wizard,taller_mecanico.group_taller_manager,1,1,1,1
+access_taller_marca_buscar_linea_manager,taller.marca.buscar.linea.manager,model_taller_marca_buscar_linea,taller_mecanico.group_taller_manager,1,1,1,1
+
+# ==================================
+# Access for Technicians
+# ==================================
+access_taller_marca_tech,taller.marca.tech,model_taller_marca,taller_mecanico.group_taller_technician,1,0,0,0
+access_taller_modelo_tech,taller.modelo.tech,model_taller_modelo,taller_mecanico.group_taller_technician,1,0,0,0
+access_taller_vehiculo_tech,taller.vehiculo.tech,model_taller_vehiculo,taller_mecanico.group_taller_technician,1,1,1,0
+access_taller_orden_trabajo_tech,taller.orden.trabajo.tech,model_taller_orden_trabajo,taller_mecanico.group_taller_technician,1,1,0,0
+access_taller_cita_tech,taller.cita.tech,model_taller_cita,taller_mecanico.group_taller_technician,1,0,0,0
+access_taller_orden_linea_servicio_tech,taller.orden.linea.servicio.tech,model_taller_orden_linea_servicio,taller_mecanico.group_taller_technician,1,1,1,1
+access_taller_orden_linea_repuesto_tech,taller.orden.linea.repuesto.tech,model_taller_orden_linea_repuesto,taller_mecanico.group_taller_technician,1,1,1,1
+
+# ==================================
+# Access for Customers (Portal)
+# ==================================
+access_taller_marca_customer,taller.marca.customer,model_taller_marca,taller_mecanico.group_taller_customer,1,0,0,0
+access_taller_modelo_customer,taller.modelo.customer,model_taller_modelo,taller_mecanico.group_taller_customer,1,0,0,0
+access_taller_vehiculo_customer,taller.vehiculo.customer,model_taller_vehiculo,taller_mecanico.group_taller_customer,1,0,0,0
+access_taller_orden_trabajo_customer,taller.orden.trabajo.customer,model_taller_orden_trabajo,taller_mecanico.group_taller_customer,1,0,0,0
+access_taller_cita_customer,taller.cita.customer,model_taller_cita,taller_mecanico.group_taller_customer,1,0,0,0
+access_taller_orden_linea_servicio_customer,taller.orden.linea.servicio.customer,model_taller_orden_linea_servicio,taller_mecanico.group_taller_customer,1,0,0,0
+access_taller_orden_linea_repuesto_customer,taller.orden.linea.repuesto.customer,model_taller_orden_linea_repuesto,taller_mecanico.group_taller_customer,1,0,0,0
