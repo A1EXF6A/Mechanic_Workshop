@@ -108,6 +108,20 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Recepción / Checklist">
+                            <group>
+                                <group string="Estado del Vehículo">
+                                    <field name="nivel_gasolina" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="rayones_golpes" placeholder="Ej: Puerta del conductor abollada, parabrisas trizado..."/>
+                                </group>
+                                <group string="Inventario y Accesorios">
+                                    <field name="llanta_repuesto"/>
+                                    <field name="herramientas"/>
+                                    <field name="gata"/>
+                                    <field name="objetos_personales" placeholder="Ej: Gafas de sol en la guantera..."/>
+                                </group>
+                            </group>
+                        </page>
                         <page string="Diagnóstico">
                             <field name="diagnostico" placeholder="Escriba el diagnóstico y observaciones..."/>
                         </page>
@@ -160,6 +174,6 @@
         <field name="domain">[('tecnico_id.user_id', '=', uid)]</field>
     </record>
 
-    <menuitem id="menu_orden_action" parent="menu_taller_operaciones" action="action_taller_orden" sequence="20"/>
+    <menuitem id="menu_orden_action" parent="menu_taller_operaciones" action="action_taller_orden" sequence="20" groups="taller_mecanico.group_taller_manager"/>
     <menuitem id="menu_mis_ordenes_action" parent="menu_taller_operaciones" action="action_taller_mis_ordenes" sequence="25"/>
 </odoo>

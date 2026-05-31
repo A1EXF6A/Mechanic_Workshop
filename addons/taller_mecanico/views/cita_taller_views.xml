@@ -111,5 +111,5 @@
         <field name="view_mode">calendar,kanban,list,form</field>
     </record>
 
-    <menuitem id="menu_cita_action" parent="menu_taller_operaciones" action="action_taller_cita" sequence="10"/>
+    <menuitem id="menu_cita_action" parent="menu_taller_operaciones" action="action_taller_cita" sequence="10" groups="taller_mecanico.group_taller_manager"/>
 </odoo>

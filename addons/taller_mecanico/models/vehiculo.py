@@ -12,16 +12,7 @@ class TallerVehiculo(models.Model):
     marca_id = fields.Many2one('taller.marca', string='Marca', required=True)
     modelo_id = fields.Many2one('taller.modelo', string='Modelo', required=True, domain="[('marca_id', '=', marca_id)]")
     anio = fields.Integer(string='Año')
-    color = fields.Selection([
-        ('blanco', 'Blanco'),
-        ('negro', 'Negro'),
-        ('plata', 'Plata'),
-        ('gris', 'Gris'),
-        ('rojo', 'Rojo'),
-        ('azul', 'Azul'),
-        ('verde', 'Verde'),
-        ('otro', 'Otro')
-    ], string='Color')
+    color = fields.Char(string='Color')
     kilometraje = fields.Integer(string='Kilometraje')
     tipo_combustible = fields.Selection([
         ('gasolina', 'Gasolina'),

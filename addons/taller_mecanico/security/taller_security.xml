@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Categoria del Modulo -->
+        <record id="module_category_taller_mecanico" model="ir.module.category">
+            <field name="name">Taller Mecánico</field>
+            <field name="description">Gestión de Accesos para el Taller Mecánico.</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- Grupo: Cliente / Usuario del Taller -->
+        <record id="group_taller_customer" model="res.groups">
+            <field name="name">Cliente (Portal)</field>
+            <field name="category_id" ref="module_category_taller_mecanico"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="comment">Clientes que ingresan a través del sitio web para ver sus vehículos, citas y órdenes.</field>
+        </record>
+
+        <!-- Grupo: Técnico / Mecánico -->
+        <record id="group_taller_technician" model="res.groups">
+            <field name="name">Técnico / Mecánico</field>
+            <field name="category_id" ref="module_category_taller_mecanico"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Técnicos del taller que operan sobre las órdenes de trabajo asignadas a ellos.</field>
+        </record>
+
+        <!-- Grupo: Administrador -->
+        <record id="group_taller_manager" model="res.groups">
+            <field name="name">Administrador</field>
+            <field name="category_id" ref="module_category_taller_mecanico"/>
+            <field name="implied_ids" eval="[(4, ref('group_taller_technician'))]"/>
+            <field name="comment">Administradores con acceso total al módulo, asignación de citas y facturación.</field>
+        </record>
+
+        <!-- ============================================== -->
+        <!-- Reglas de Registro (Record Rules)              -->
+        <!-- ============================================== -->
+
+        <!-- Reglas para Vehículos (taller.vehiculo) -->
+        <record id="rule_taller_vehiculo_customer" model="ir.rule">
+            <field name="name">Vehículos Propios Cliente</field>
+            <field name="model_id" ref="model_taller_vehiculo"/>
+            <field name="domain_force">[('propietario_id.partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_taller_customer'))]"/>
+        </record>
+        <record id="rule_taller_vehiculo_manager_tech" model="ir.rule">
+            <field name="name">Vehículos Todos Admin/Tech</field>
+            <field name="model_id" ref="model_taller_vehiculo"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_taller_technician')), (4, ref('group_taller_manager'))]"/>
+        </record>
+
+        <!-- Reglas para Citas (taller.cita) -->
+        <record id="rule_taller_cita_customer" model="ir.rule">
+            <field name="name">Citas Propias Cliente</field>
+            <field name="model_id" ref="model_taller_cita"/>
+            <field name="domain_force">[('cliente_id.partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_taller_customer'))]"/>
+        </record>
+        <record id="rule_taller_cita_manager_tech" model="ir.rule">
+            <field name="name">Citas Todas Admin/Tech</field>
+            <field name="model_id" ref="model_taller_cita"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_taller_technician')), (4, ref('group_taller_manager'))]"/>
+        </record>
+
+        <!-- Reglas para Órdenes de Trabajo (taller.orden.trabajo) -->
+        <record id="rule_taller_orden_customer" model="ir.rule">
+            <field name="name">Órdenes Propias Cliente</field>
+            <field name="model_id" ref="model_taller_orden_trabajo"/>
+            <field name="domain_force">[('vehiculo_id.propietario_id.partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_taller_customer'))]"/>
+        </record>
+        <record id="rule_taller_orden_technician" model="ir.rule">
+            <field name="name">Órdenes Asignadas al Técnico</field>
+            <field name="model_id" ref="model_taller_orden_trabajo"/>
+            <field name="domain_force">[('tecnico_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_taller_technician'))]"/>
+        </record>
+        <record id="rule_taller_orden_manager" model="ir.rule">
+            <field name="name">Órdenes Todas Admin</field>
+            <field name="model_id" ref="model_taller_orden_trabajo"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_taller_manager'))]"/>
+        </record>
+
+    </data>
+</odoo>

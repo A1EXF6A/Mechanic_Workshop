@@ -49,7 +49,9 @@
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 
                                                 <!-- Mensaje de Error Global -->
-                                                <div id="error-message" class="alert alert-danger d-none fw-bold small text-center shadow-sm"></div>
+                                                <div id="error-message" t-attf-class="alert alert-danger fw-bold small text-center shadow-sm #{'d-none' if not error_msg else ''}">
+                                                    <t t-if="error_msg" t-esc="error_msg"/>
+                                                </div>
 
                                                 <!-- PASO 1: Cliente -->
                                                 <div id="step1" class="wizard-step">
@@ -249,6 +251,64 @@
                         btnSubmit.innerHTML = '<i class="fa fa-spinner fa-spin me-2"></i> Verificando...';
                         
                         const dateVal = document.getElementById('date').value;
+                        
+                        // Client-side Validation of Workshop Hours
+                        try {
+                            const parts = dateVal.split('T');
+                            if (parts.length < 2) {
+                                errorBox.textContent = 'Por favor, selecciona una fecha y hora válidas.';
+                                errorBox.classList.remove('d-none');
+                                btnSubmit.disabled = false;
+                                btnSubmit.innerHTML = '<i class="fa fa-check-circle me-2"></i> SOLICITAR CITA';
+                                return;
+                            }
+                            const dateParts = parts[0].split('-');
+                            const timeParts = parts[1].split(':');
+                            
+                            const year = parseInt(dateParts[0], 10);
+                            const month = parseInt(dateParts[1], 10) - 1; // 0-based
+                            const dayOfMonth = parseInt(dateParts[2], 10);
+                            const hours = parseInt(timeParts[0], 10);
+                            const minutes = parseInt(timeParts[1], 10);
+                            
+                            const dateObj = new Date(year, month, dayOfMonth, hours, minutes);
+                            if (isNaN(dateObj.getTime())) {
+                                errorBox.textContent = 'Por favor, selecciona una fecha y hora válidas.';
+                                errorBox.classList.remove('d-none');
+                                btnSubmit.disabled = false;
+                                btnSubmit.innerHTML = '<i class="fa fa-check-circle me-2"></i> SOLICITAR CITA';
+                                return;
+                            }
+                            
+                            const day = dateObj.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+                            const timeVal = hours + minutes / 60.0;
+                            
+                            if (day === 0) { // Domingo
+                                errorBox.textContent = 'El taller está cerrado los domingos.';
+                                errorBox.classList.remove('d-none');
+                                btnSubmit.disabled = false;
+                                btnSubmit.innerHTML = '<i class="fa fa-check-circle me-2"></i> SOLICITAR CITA';
+                                return;
+                            } else if (day >= 1 && day <= 5) { // Lunes a Viernes
+                                if (timeVal < 8.0 || timeVal > 17.0) {
+                                    errorBox.textContent = 'Las citas de lunes a viernes deben programarse entre las 08:00 y las 17:00 (el taller cierra a las 18:00).';
+                                    errorBox.classList.remove('d-none');
+                                    btnSubmit.disabled = false;
+                                    btnSubmit.innerHTML = '<i class="fa fa-check-circle me-2"></i> SOLICITAR CITA';
+                                    return;
+                                }
+                            } else if (day === 6) { // Sábado
+                                if (timeVal < 9.0 || timeVal > 13.0) {
+                                    errorBox.textContent = 'Las citas los sábados deben programarse entre las 09:00 y las 13:00 (el taller cierra a las 14:00).';
+                                    errorBox.classList.remove('d-none');
+                                    btnSubmit.disabled = false;
+                                    btnSubmit.innerHTML = '<i class="fa fa-check-circle me-2"></i> SOLICITAR CITA';
+                                    return;
+                                }
+                            }
+                        } catch (e) {
+                            console.error(e);
+                        }
                         
                         try {
                             const response = await fetch('/taller/cita/check_availability', {

@@ -68,7 +68,7 @@
                             <field name="anio" placeholder="Ej: 2020"/>
                         </group>
                         <group string="Características">
-                            <field name="color" widget="radio"/>
+                            <field name="color" placeholder="Ej: Rojo Perlado, Gris Metalizado..."/>
                             <field name="kilometraje"/>
                             <field name="tipo_combustible"/>
                         </group>

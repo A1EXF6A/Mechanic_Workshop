@@ -62,6 +62,24 @@ class TallerOrdenTrabajo(models.Model):
         ('entregado', 'Entregado')
     ], string='Estado', default='recibido', tracking=True)
 
+    # ==========================================
+    # Checklist de Recepción
+    # ==========================================
+    nivel_gasolina = fields.Selection([
+        ('reserva', 'Reserva'),
+        ('cuarto', '1/4'),
+        ('medio', '1/2'),
+        ('tres_cuartos', '3/4'),
+        ('lleno', 'Lleno')
+    ], string='Nivel de Gasolina', default='medio', tracking=True)
+    
+    llanta_repuesto = fields.Boolean(string='Llanta de Repuesto', default=True)
+    herramientas = fields.Boolean(string='Kit de Herramientas', default=True)
+    gata = fields.Boolean(string='Gata Hidráulica', default=True)
+    
+    rayones_golpes = fields.Text(string='Rayones o Golpes Previos', help='Describa cualquier daño existente en la carrocería antes de ingresar al taller.')
+    objetos_personales = fields.Text(string='Objetos Personales', help='Enumere los objetos de valor dejados dentro del vehículo.')
+
     factura_id = fields.Many2one('account.move', string='Factura', readonly=True, copy=False, tracking=True)
     factura_estado = fields.Selection(related='factura_id.state', string='Estado Factura', readonly=True)
 

@@ -83,10 +83,10 @@
                                 </div>
                             </div>
 
-                            <!-- Resumen de Pago (Sticky) -->
-                            <div class="col-lg-4">
-                                <div class="card border-0 shadow-sm rounded-4 overflow-hidden sticky-top" style="top: 100px; border-radius: 20px !important;">
-                                    <div class="card-body p-4 p-md-5">
+                             <!-- Resumen de Pago (Sticky) -->
+                             <div class="col-lg-4 position-sticky align-self-start" style="top: 100px; z-index: 1;">
+                                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden" style="border-radius: 20px !important;">
+                                     <div class="card-body p-4 p-md-5">
                                         <h4 class="fw-bold mb-4">Resumen de Pago</h4>
                                         
                                         <div class="d-flex justify-content-between mb-3 text-muted">

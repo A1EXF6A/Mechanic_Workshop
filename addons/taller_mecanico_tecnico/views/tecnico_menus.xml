@@ -16,4 +16,14 @@
             </div>
         </field>
     </record>
+
+    <!-- Acción para que el técnico vea su propio perfil -->
+    <record id="action_taller_mi_perfil" model="ir.actions.act_window">
+        <field name="name">Mi Perfil</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+    <menuitem id="menu_taller_mi_perfil" parent="taller_mecanico.menu_taller_operaciones" action="action_taller_mi_perfil" sequence="50"/>
 </odoo>

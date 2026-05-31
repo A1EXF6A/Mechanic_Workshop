@@ -6,7 +6,7 @@
                 <!-- Premium Hero Section -->
                 <section class="s_cover pt128 pb128 position-relative overflow-hidden" style="background-color: var(--taller-primary);">
                     <div class="position-absolute w-100 h-100 top-0 start-0 opacity-50" 
-                         style="background-image: url('/taller_mecanico/static/src/img/hero.png'); background-size: cover; background-position: center;"/>
+                         style="background-image: url('/taller_mecanico_portal/static/src/img/hero.png'); background-size: cover; background-position: center;"/>
                     <div class="container position-relative z-index-1">
                         <div class="row align-items-center">
                             <div class="col-lg-7 text-white py-5">

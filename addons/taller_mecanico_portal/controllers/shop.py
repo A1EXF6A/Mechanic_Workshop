@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 from odoo import http
 from odoo.http import request
+
+_logger = logging.getLogger(__name__)
 
 class TallerShopController(http.Controller):
 
@@ -40,6 +43,9 @@ class TallerShopController(http.Controller):
             
         # Obtenemos productos filtrados y ordenados
         products = request.env['product.product'].sudo().search(domain, order=order)
+        
+        # Ordenamos de forma estable: primero productos con stock disponible, luego los agotados
+        products = products.sorted(key=lambda p: p.qty_available <= 0)
         
         # Obtenemos todas las categorías internas de Inventario para el sidebar
         # Excluimos las categorías internas del sistema por sus IDs de creación base (1=All, 2=Saleable, 3=Expenses, etc.)
@@ -149,8 +155,12 @@ class TallerShopController(http.Controller):
         request.session.modified = True
         return {'success': True}
 
-    @http.route(['/taller/confirmar-compra'], type='http', auth="user", website=True, methods=['POST'], csrf=True)
+    @http.route(['/taller/confirmar-compra'], type='http', auth="public", website=True, methods=['POST'], csrf=True)
     def confirmar_compra(self, **kw):
+        taller_user_id = request.session.get('taller_user_id')
+        if not taller_user_id:
+            return request.redirect('/taller/login')
+
         cart = request.session.get('taller_cart', {})
 
         if not cart:

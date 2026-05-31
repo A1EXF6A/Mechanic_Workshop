@@ -199,3 +199,110 @@ header#top .nav-link:hover::after {
 .animate-fade-in {
     animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* ==========================================================================
+   VISIBILITY & COLOR ENHANCEMENTS FOR PREMIUM DESIGN
+   ========================================================================== */
+
+/* 1. Header Global Override fixes: Allow text-white to prevail */
+h1.text-white, h2.text-white, h3.text-white, h4.text-white, h5.text-white, h6.text-white,
+.text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6 {
+    color: var(--taller-white) !important;
+}
+
+/* 2. Announcement Bar / Topbar Visibility */
+.s_header_announcement_bar,
+.o_header_announcement_bar,
+.s_header_announcement_bar *,
+.o_header_announcement_bar *,
+.o_header_meta,
+.o_header_meta *,
+.o_header_meta span,
+.o_header_meta a,
+.s_header_announcement_bar span,
+.s_header_announcement_bar a,
+.o_header_announcement_bar span,
+.o_header_announcement_bar a,
+.o_header_search_left_col,
+.o_header_search_left_col * {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 0.85rem !important;
+}
+
+
+/* 3. User Dropdown & Cart Icon Legibility in Navbar */
+header#top .dropdown-toggle,
+header#top .dropdown-toggle *,
+header#top .o_nav_user_name,
+header#top .o_nav_user_name *,
+header#top .o_wsale_my_cart,
+header#top .o_wsale_my_cart *,
+header .o_wsale_my_cart,
+header .o_wsale_my_cart * {
+    color: var(--taller-white) !important;
+}
+
+
+/* 4. Services Page - Promo Card Title Legibility */
+.bg-primary h2.h1,
+.bg-primary h2.h1 * {
+    color: var(--taller-white) !important;
+}
+
+/* 5. Nosotros Page - Custom Vivid Icon Colors */
+.bg-success.bg-opacity-10 i.fa-check-circle {
+    color: #10B981 !important; /* Premium Emerald Green */
+}
+.bg-warning.bg-opacity-10 i.fa-shield {
+    color: #F59E0B !important; /* Premium Golden Amber */
+}
+.bg-primary.bg-opacity-10 i.fa-cogs {
+    color: #2563EB !important; /* Premium Electric Blue */
+}
+
+/* 6. Modern Premium Search Bar in Navbar */
+header input[type="search"],
+header .search-query,
+.o_searchbar_input {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: var(--taller-white) !important;
+    border-radius: 50px 0 0 50px !important;
+    padding: 0.5rem 1.2rem !important;
+    font-size: 0.9rem !important;
+    transition: var(--taller-transition);
+}
+
+header input[type="search"]::placeholder,
+header .search-query::placeholder,
+.o_searchbar_input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+header input[type="search"]:focus,
+header .search-query:focus,
+.o_searchbar_input:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--taller-accent) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25) !important;
+    color: var(--taller-white) !important;
+}
+
+/* Botón de lupa de búsqueda */
+header .btn.oe_search_button,
+header button[type="submit"],
+header .o_searchbar_button {
+    background: var(--taller-accent) !important;
+    border: 1px solid var(--taller-accent) !important;
+    color: var(--taller-white) !important;
+    border-radius: 0 50px 50px 0 !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: var(--taller-transition);
+}
+
+header .btn.oe_search_button:hover,
+header button[type="submit"]:hover,
+header .o_searchbar_button:hover {
+    background: var(--taller-accent-hover) !important;
+    border-color: var(--taller-accent-hover) !important;
+}

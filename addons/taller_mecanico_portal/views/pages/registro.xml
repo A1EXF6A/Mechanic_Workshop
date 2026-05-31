@@ -44,9 +44,29 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label fw-bold">Password</label>
-                                                    <input type="password" name="password" class="form-control form-control-lg" required="1" placeholder="********"/>
+                                                    <div class="input-group">
+                                                        <input type="password" name="password" id="password_registro" class="form-control form-control-lg" required="1" placeholder="********" style="border-right: none !important; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;"/>
+                                                        <button class="btn btn-outline-secondary bg-white border-start-0 text-muted" type="button" onclick="togglePasswordVisibility('password_registro', 'toggle_registro_icon')" style="border-color: #dee2e6; border-left: none !important; border-top-right-radius: 8px !important; border-bottom-right-radius: 8px !important;">
+                                                            <i class="fa fa-eye" id="toggle_registro_icon"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <script>
+                                                function togglePasswordVisibility(inputId, iconId) {
+                                                    var passwordInput = document.getElementById(inputId);
+                                                    var toggleIcon = document.getElementById(iconId);
+                                                    if (passwordInput.type === 'password') {
+                                                        passwordInput.type = 'text';
+                                                        toggleIcon.classList.remove('fa-eye');
+                                                        toggleIcon.classList.add('fa-eye-slash');
+                                                    } else {
+                                                        passwordInput.type = 'password';
+                                                        toggleIcon.classList.remove('fa-eye-slash');
+                                                        toggleIcon.classList.add('fa-eye');
+                                                    }
+                                                }
+                                            </script>
                                             <button type="submit" class="btn btn-primary btn-lg w-100 mt-4">Crear Cuenta</button>
                                         </form>
                                         <p class="text-muted small mt-4 mb-0">Ya tienes cuenta? <a href="/taller/login">Ingresa</a></p>
