@@ -41,9 +41,19 @@ class SriUtils:
         etree.SubElement(infoFactura, "dirEstablecimiento").text = company.street or "Dir Establecimiento Prueba"
         if company.sri_obligado_contabilidad:
             etree.SubElement(infoFactura, "obligadoContabilidad").text = company.sri_obligado_contabilidad
-        etree.SubElement(infoFactura, "tipoIdentificacionComprador").text = "05" # Cedula (04 RUC, 05 Ced, 07 Consumidor Final)
+        identificacion = move.partner_id.vat or "9999999999999"
+        if identificacion == "9999999999999":
+            tipo_ident = "07" # Consumidor Final
+        elif len(identificacion) == 13:
+            tipo_ident = "04" # RUC
+        elif len(identificacion) == 10:
+            tipo_ident = "05" # Cédula
+        else:
+            tipo_ident = "06" # Pasaporte / Otros
+            
+        etree.SubElement(infoFactura, "tipoIdentificacionComprador").text = tipo_ident
         etree.SubElement(infoFactura, "razonSocialComprador").text = move.partner_id.name or "Consumidor Final"
-        etree.SubElement(infoFactura, "identificacionComprador").text = move.partner_id.vat or "9999999999999"
+        etree.SubElement(infoFactura, "identificacionComprador").text = identificacion
         etree.SubElement(infoFactura, "totalSinImpuestos").text = f"{move.amount_untaxed:.2f}"
         etree.SubElement(infoFactura, "totalDescuento").text = "0.00"
         
@@ -55,7 +65,7 @@ class SriUtils:
         # --- Detalles y cálculo de impuestos ---
         detalles_xml = []
         for line in move.invoice_line_ids:
-            if line.display_type not in ('line_section', 'line_note'):
+            if line.display_type not in ('line_section', 'line_note') and line.price_subtotal > 0:
                 # Determinar si la línea tiene IVA basándonos en si el total es mayor al subtotal
                 tiene_iva = line.price_total > line.price_subtotal
                 
@@ -71,7 +81,7 @@ class SriUtils:
                     
                 detalle_xml = {
                     'codigoPrincipal': "001",
-                    'descripcion': line.name or "Servicio/Producto",
+                    'descripcion': (line.name or "Servicio/Producto").replace('\n', ' ').replace('\r', '').strip(),
                     'cantidad': f"{line.quantity:.2f}",
                     'precioUnitario': f"{line.price_unit:.2f}",
                     'descuento': f"{line.discount or 0.00:.2f}",
@@ -192,12 +202,15 @@ class SriUtils:
         
         headers = {
             'Content-Type': 'text/xml;charset=utf-8',
-            'SOAPAction': ''
+            'SOAPAction': '',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': '*/*',
+            'Connection': 'keep-alive'
         }
         
         try:
-            response = requests.post(url, data=envelope, headers=headers, timeout=20)
-            if response.status_code != 200:
+            response = requests.post(url, data=envelope.encode('utf-8'), headers=headers, timeout=60, verify=False)
+            if response.status_code not in (200, 500):
                 return "ERROR_CONEXION", [f"Error de red SRI Recepción (HTTP {response.status_code})"]
             
             # Parsear respuesta
@@ -282,12 +295,15 @@ class SriUtils:
         
         headers = {
             'Content-Type': 'text/xml;charset=utf-8',
-            'SOAPAction': ''
+            'SOAPAction': '',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': '*/*',
+            'Connection': 'keep-alive'
         }
         
         try:
-            response = requests.post(url, data=envelope, headers=headers, timeout=20)
-            if response.status_code != 200:
+            response = requests.post(url, data=envelope.encode('utf-8'), headers=headers, timeout=60, verify=False)
+            if response.status_code not in (200, 500):
                 return "ERROR_CONEXION", None, None, [f"Error de red SRI Autorización (HTTP {response.status_code})"]
             
             parser = etree.XMLParser(recover=True, resolve_entities=False)

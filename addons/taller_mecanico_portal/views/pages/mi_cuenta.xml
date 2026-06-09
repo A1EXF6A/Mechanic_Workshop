@@ -5,15 +5,129 @@
             <div id="wrap" class="oe_structure oe_empty bg-light">
                 <section class="py-5">
                     <div class="container py-4">
+                        <t t-if="request.params.get('success_cita')">
+                            <t t-if="request.params.get('success_cita') == 'cancelada'">
+                                <div class="alert alert-warning alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #f59e0b !important;">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-times-circle fa-2x text-warning me-3"/>
+                                        <div>
+                                            <h6 class="fw-bold mb-0 text-warning">¡Cita Cancelada!</h6>
+                                            <p class="text-muted mb-0 small">Tu cita ha sido cancelada exitosamente.</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #10b981 !important;">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-check-circle fa-2x text-success me-3"/>
+                                        <div>
+                                            <h6 class="fw-bold mb-0 text-success">¡Cita Solicitada Exitosamente!</h6>
+                                            <p class="text-muted mb-0 small">Tu turno ha sido registrado. Puedes ver el estado de tu cita en la sección "Mis Citas".</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </t>
+                        </t>
+                        <t t-if="request.params.get('error_cita')">
+                            <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #ef4444 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-exclamation-circle fa-2x text-danger me-3"/>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-danger">Error con la cita</h6>
+                                        <p class="text-muted mb-0 small">
+                                            <t t-if="request.params.get('error_cita') == 'orden_en_progreso'">No se puede cancelar la cita porque el trabajo en el taller ya ha iniciado o ha sido facturado.</t>
+                                            <t t-elif="request.params.get('error_cita') == 'no_autorizado'">No tienes permisos para realizar esta acción.</t>
+                                            <t t-else="">Ha ocurrido un error al procesar tu solicitud. Por favor intenta de nuevo.</t>
+                                        </p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </t>
+                        <t t-if="request.params.get('success_foto')">
+                            <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #10b981 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-image fa-2x text-success me-3"/>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-success">¡Foto de Perfil Actualizada!</h6>
+                                        <p class="text-muted mb-0 small">Tu foto de perfil se ha actualizado correctamente.</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </t>
+                        <t t-if="request.params.get('error_foto')">
+                            <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #ef4444 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-exclamation-circle fa-2x text-danger me-3"/>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-danger">Error al subir foto</h6>
+                                        <p class="text-muted mb-0 small">No se pudo cargar la imagen. Por favor, asegúrate de que sea un archivo de imagen válido.</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </t>
+                        <t t-if="request.params.get('success_pass')">
+                            <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #10b981 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-key fa-2x text-success me-3"/>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-success">¡Contraseña Cambiada!</h6>
+                                        <p class="text-muted mb-0 small">Tu contraseña se ha actualizado exitosamente.</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </t>
+                        <t t-if="request.params.get('error_pass') == 'mismatch'">
+                            <div class="alert alert-danger shadow-sm mb-4">Las contraseñas nuevas no coinciden.</div>
+                        </t>
+                        <t t-if="request.params.get('error_pass') == 'wrong_old'">
+                            <div class="alert alert-danger shadow-sm mb-4">La contraseña actual es incorrecta.</div>
+                        </t>
+                        <t t-if="request.params.get('success_profile')">
+                            <div class="alert alert-success alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #10b981 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-check-circle fa-2x text-success me-3"/>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-success">¡Perfil Actualizado!</h6>
+                                        <p class="text-muted mb-0 small">Tus datos de información se han actualizado correctamente.</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </t>
+                        <t t-if="request.params.get('error_profile')">
+                            <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-4 border-0 rounded-4 p-3 bg-white" role="alert" style="border-left: 5px solid #ef4444 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-exclamation-circle fa-2x text-danger me-3"/>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-danger">Error al actualizar perfil</h6>
+                                        <p class="text-muted mb-0 small">
+                                            <t t-if="request.params.get('error_profile') == 'campos_requeridos'">Por favor, completa todos los campos requeridos.</t>
+                                            <t t-elif="request.params.get('error_profile') == 'celular_invalido'">El número de celular debe contener solo números.</t>
+                                            <t t-elif="request.params.get('error_profile') == 'edad_invalida'">Debes ser mayor de edad (18 años o más).</t>
+                                            <t t-elif="request.params.get('error_profile') == 'fecha_invalida'">La fecha de nacimiento tiene un formato inválido.</t>
+                                            <t t-elif="request.params.get('error_profile') == 'cedula_existente'">La cédula ingresada ya está registrada por otro usuario.</t>
+                                            <t t-elif="request.params.get('error_profile') == 'email_existente'">El correo electrónico ingresado ya está en uso.</t>
+                                            <t t-else="">Ha ocurrido un error al procesar tu solicitud. Por favor intenta de nuevo.</t>
+                                        </p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </t>
                         <div class="row mb-5 align-items-center">
                             <div class="col-lg-8">
                                 <h2 class="fw-bold mb-1 text-primary">Mi Cuenta</h2>
                                 <p class="text-muted">Bienvenido de nuevo, <t t-esc="user.nombre"/> <t t-esc="user.apellido"/></p>
                             </div>
                             <div class="col-lg-4 text-lg-end">
-                                <a href="/taller/cita" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                                    <i class="fa fa-plus me-2"/> Agendar Nueva Cita
-                                </a>
+                                <!-- Button moved to Mis Citas section -->
                             </div>
                         </div>
 
@@ -22,8 +136,22 @@
                             <div class="col-lg-4">
                                 <div class="card border-0 shadow-sm rounded-4 mb-4">
                                     <div class="card-body p-4 text-center">
-                                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 80px; height: 80px; font-size: 32px;">
-                                            <i class="fa fa-user"/>
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <t t-if="user.foto">
+                                                <img t-attf-src="data:image/jpeg;base64,{{user.foto}}" class="rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover; border: 3px solid #3b82f6;"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center shadow-sm" style="width: 100px; height: 100px; font-size: 40px;">
+                                                    <i class="fa fa-user"/>
+                                                </div>
+                                            </t>
+                                            <label for="foto_upload_input" class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center border border-white shadow" style="width: 32px; height: 32px; cursor: pointer; transform: translate(5px, 5px);">
+                                                <i class="fa fa-camera" style="font-size: 14px;"/>
+                                            </label>
+                                            <form id="form_update_foto" action="/taller/mi_cuenta/update_foto" method="post" enctype="multipart/form-data" style="display: none;">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="file" id="foto_upload_input" name="foto" accept="image/*" onchange="document.getElementById('form_update_foto').submit();"/>
+                                            </form>
                                         </div>
                                         <h5 class="fw-bold mb-1"><t t-esc="user.nombre"/> <t t-esc="user.apellido"/></h5>
                                         <p class="text-muted mb-4 small"><t t-esc="user.email"/></p>
@@ -38,6 +166,43 @@
                                                 <i class="fa fa-map-marker text-primary me-3 w-15px text-center"/> <t t-esc="user.direccion"/>
                                             </li>
                                         </ul>
+                                        
+                                        <div class="mt-4 pt-3 border-top text-start bg-light rounded p-3 shadow-sm">
+                                            <h6 class="fw-bold text-dark mb-3"><i class="fa fa-bar-chart me-2 text-primary"/> Resumen de Actividad</h6>
+                                            <ul class="list-unstyled text-muted small mb-0">
+                                                <li class="mb-2 d-flex justify-content-between align-items-center">
+                                                    <span><i class="fa fa-car text-primary w-15px text-center me-2"/> Vehículos Registrados</span>
+                                                    <span class="badge bg-primary rounded-pill"><t t-esc="user_stats['vehiculos_count']"/></span>
+                                                </li>
+                                                <li class="mb-2 d-flex justify-content-between align-items-center">
+                                                    <span><i class="fa fa-calendar-check-o text-primary w-15px text-center me-2"/> Citas Programadas</span>
+                                                    <span class="badge bg-primary rounded-pill"><t t-esc="user_stats['citas_count']"/></span>
+                                                </li>
+                                                <li class="mb-2 d-flex justify-content-between align-items-center">
+                                                    <span><i class="fa fa-wrench text-warning w-15px text-center me-2"/> Órdenes en Curso</span>
+                                                    <span class="badge bg-warning text-dark rounded-pill"><t t-esc="user_stats['ordenes_activas']"/></span>
+                                                </li>
+                                                <li class="mb-2 d-flex justify-content-between align-items-center">
+                                                    <span><i class="fa fa-check-circle-o text-success w-15px text-center me-2"/> Trabajos Finalizados</span>
+                                                    <span class="badge bg-success rounded-pill"><t t-esc="user_stats['ordenes_completadas']"/></span>
+                                                </li>
+                                                <t t-if="user_stats['ultima_cita']">
+                                                    <li class="mt-3 pt-2 border-top d-flex flex-column">
+                                                        <span class="text-xs text-uppercase fw-bold text-secondary mb-1" style="font-size: 0.75rem;">Última Cita Registrada</span>
+                                                        <span class="text-dark fw-medium"><t t-esc="user_stats['ultima_cita'].fecha_cita.strftime('%d/%m/%Y %H:%M') if user_stats['ultima_cita'].fecha_cita else 'Pendiente'"/></span>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </div>
+
+                                        <div class="mt-4 pt-3 border-top d-flex flex-column gap-2">
+                                            <button type="button" class="btn btn-primary w-100 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">
+                                                <i class="fa fa-pencil me-2"/> Editar Datos
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary w-100 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#modalCambiarPassword">
+                                                <i class="fa fa-key me-2"/> Cambiar Contraseña
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +210,15 @@
                             <!-- Contenido Principal -->
                             <div class="col-lg-8">
                                 <!-- Mis Vehículos -->
-                                <h4 class="fw-bold mb-3">Mis Vehículos</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="fw-bold mb-0">Mis Vehículos</h4>
+                                    <button type="button" class="btn btn-sm btn-outline-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAddVehiculo">
+                                        <i class="fa fa-plus me-1"/> Añadir Vehículo
+                                    </button>
+                                </div>
+                                <t t-if="request.params.get('error') == 'placa_existente'">
+                                    <div class="alert alert-danger shadow-sm mb-4">La placa ingresada ya se encuentra registrada en el sistema.</div>
+                                </t>
                                 <div class="row g-3 mb-5">
                                     <t t-if="not vehiculos">
                                         <div class="col-12">
@@ -56,25 +229,580 @@
                                     </t>
                                     <t t-foreach="vehiculos" t-as="vehiculo">
                                         <div class="col-md-6">
-                                            <div class="card border-0 shadow-sm rounded-4 h-100">
+                                            <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+                                                <!-- Imagen del vehículo -->
+                                                <t t-if="vehiculo.foto">
+                                                    <img t-attf-src="data:image/jpeg;base64,{{vehiculo.foto}}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Foto del vehículo"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <div class="d-flex align-items-center justify-content-center bg-light" style="height: 120px;">
+                                                        <i class="fa fa-car fa-3x text-primary opacity-25"/>
+                                                    </div>
+                                                </t>
                                                 <div class="card-body p-4">
                                                     <div class="d-flex justify-content-between align-items-start mb-3">
                                                         <div>
                                                             <h5 class="fw-bold mb-0 text-dark"><t t-esc="vehiculo.marca_id.name"/> <t t-esc="vehiculo.modelo_id.name"/></h5>
                                                             <span class="badge bg-light text-dark border mt-2 px-2 py-1"><t t-esc="vehiculo.placa"/></span>
                                                         </div>
-                                                        <i class="fa fa-car text-primary fs-3 opacity-50"/>
                                                     </div>
                                                     <ul class="list-unstyled text-muted small mb-0">
                                                         <li class="mb-2"><strong>Año:</strong> <t t-esc="vehiculo.anio"/></li>
                                                         <li class="mb-2"><strong>Color:</strong> <t t-esc="vehiculo.color"/></li>
                                                         <li><strong>Kilometraje:</strong> <t t-esc="vehiculo.kilometraje"/> km</li>
-                                                    </ul>
+                                                     </ul>
+                                                     <div class="mt-3">
+                                                         <a t-attf-href="/my/vehicles/{{vehiculo.id}}/history" class="btn btn-sm btn-outline-primary w-100 rounded-pill shadow-sm">
+                                                             <i class="fa fa-folder-open me-1"/> Expediente del Vehículo
+                                                         </a>
+                                                     </div>
+                                                     <t t-if="vehiculo.can_edit_delete">
+                                                        <div class="mt-3 pt-3 border-top d-flex gap-2">
+                                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-edit-vehiculo"
+                                                                    t-att-data-id="vehiculo.id"
+                                                                    t-att-data-placa="vehiculo.placa"
+                                                                    t-att-data-marca="vehiculo.marca_id.id"
+                                                                    t-att-data-modelo="vehiculo.modelo_id.name"
+                                                                    t-att-data-anio="vehiculo.anio or 2020"
+                                                                    t-att-data-color="vehiculo.color or ''">
+                                                                <i class="fa fa-pencil"/> Editar
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete-vehiculo"
+                                                                    t-att-data-id="vehiculo.id"
+                                                                    t-att-data-nombre="(vehiculo.marca_id.name or '') + ' ' + (vehiculo.modelo_id.name or '') + ' (' + (vehiculo.placa or '') + ')'">
+                                                                <i class="fa fa-trash"/> Eliminar
+                                                            </button>
+                                                        </div>
+                                                    </t>
+                                                    <t t-if="not vehiculo.can_edit_delete">
+                                                        <div class="mt-3 pt-3 border-top">
+                                                            <small class="text-muted"><i class="fa fa-info-circle"/> Este vehículo tiene citas u órdenes activas y no puede ser editado o eliminado.</small>
+                                                        </div>
+                                                    </t>
                                                 </div>
                                             </div>
                                         </div>
                                     </t>
                                 </div>
+
+                                <!-- Modal Confirmar Eliminación -->
+                                <div class="modal fade" id="modalDeleteVehiculo" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                                        <div class="modal-content border-0 shadow rounded-4">
+                                            <div class="modal-header bg-danger text-white rounded-top-4">
+                                                <h6 class="modal-title fw-bold"><i class="fa fa-exclamation-triangle me-2"/> Confirmar Eliminación</h6>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"/>
+                                            </div>
+                                            <div class="modal-body text-center p-4">
+                                                <i class="fa fa-trash fa-3x text-danger mb-3 opacity-50"/>
+                                                <p class="mb-1">¿Estás seguro de eliminar el vehículo</p>
+                                                <p class="fw-bold" id="deleteVehiculoNombre"></p>
+                                            </div>
+                                            <div class="modal-footer border-top-0 justify-content-center pb-4">
+                                                <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                                                <a id="deleteVehiculoLink" href="#" class="btn btn-danger rounded-pill px-4">Sí, eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Cambiar Contraseña -->
+                                <div class="modal fade" id="modalCambiarPassword" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content border-0 shadow rounded-4">
+                                            <div class="modal-header bg-primary text-white rounded-top-4">
+                                                <h6 class="modal-title fw-bold"><i class="fa fa-key me-2"/> Cambiar Contraseña</h6>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"/>
+                                            </div>
+                                            <form action="/taller/cambiar_password" method="POST">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <div class="modal-body p-4">
+                                                    <div class="mb-3">
+                                                        <label class="form-label text-muted small fw-bold">Contraseña Actual</label>
+                                                        <input type="password" name="old_password" class="form-control form-control-lg bg-light" required="1"/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label text-muted small fw-bold">Nueva Contraseña</label>
+                                                        <input type="password" name="new_password" class="form-control form-control-lg bg-light" required="1"/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label text-muted small fw-bold">Confirmar Nueva Contraseña</label>
+                                                        <input type="password" name="confirm_password" class="form-control form-control-lg bg-light" required="1"/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer border-top-0 pt-0 pb-4 px-4">
+                                                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-primary rounded-pill px-4">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Editar Perfil -->
+                                <div class="modal fade" id="modalEditarPerfil" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                        <div class="modal-content border-0 shadow rounded-4">
+                                            <div class="modal-header bg-primary text-white rounded-top-4">
+                                                <h6 class="modal-title fw-bold"><i class="fa fa-user me-2"/> Editar Datos de Usuario</h6>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"/>
+                                            </div>
+                                            <form action="/taller/mi_cuenta/update_profile" method="POST">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <div class="modal-body p-4" style="max-height: 60vh; overflow-y: auto;">
+                                                    <!-- SECCIÓN 1: INFORMACIÓN PERSONAL -->
+                                                    <div class="mb-5">
+                                                        <div class="d-flex align-items-center mb-4 pb-2" style="border-bottom: 2px solid #e2e8f0;">
+                                                            <div class="bg-primary-subtle text-primary rounded-3 p-2 me-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background-color: rgba(59, 130, 246, 0.1);">
+                                                                <i class="fa fa-user fs-5" style="color: #3b82f6;"/>
+                                                            </div>
+                                                            <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.15rem;">1. Información Personal</h5>
+                                                        </div>
+
+                                                        <div class="row g-3">
+                                                            <div class="col-md-6 col-lg-4">
+                                                                <label class="form-label fw-semibold text-secondary small">Cédula o DNI</label>
+                                                                <input type="text" name="cedula" class="form-control form-control-lg rounded-3 fs-6 bg-light" required="1" t-att-value="user.cedula"/>
+                                                            </div>
+                                                            <div class="col-md-6 col-lg-4">
+                                                                <label class="form-label fw-semibold text-secondary small">Nombre</label>
+                                                                <input type="text" name="nombre" class="form-control form-control-lg rounded-3 fs-6 bg-light" required="1" t-att-value="user.nombre"/>
+                                                            </div>
+                                                            <div class="col-md-6 col-lg-4">
+                                                                <label class="form-label fw-semibold text-secondary small">Apellido</label>
+                                                                <input type="text" name="apellido" class="form-control form-control-lg rounded-3 fs-6 bg-light" required="1" t-att-value="user.apellido"/>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold text-secondary small">Fecha de Nacimiento</label>
+                                                                <input type="date" name="fecha_nacimiento" class="form-control form-control-lg rounded-3 fs-6 bg-light" required="1" t-att-value="user.fecha_nacimiento"/>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold text-secondary small">Celular / Teléfono</label>
+                                                                <input type="tel" name="celular" class="form-control form-control-lg rounded-3 fs-6 bg-light" required="1" t-att-value="user.celular" pattern="[0-9]+"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- SECCIÓN 2: DIRECCIÓN Y UBICACIÓN -->
+                                                    <div class="mb-5">
+                                                        <div class="d-flex align-items-center mb-4 pb-2" style="border-bottom: 2px solid #e2e8f0;">
+                                                            <div class="bg-success-subtle text-success rounded-3 p-2 me-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background-color: rgba(16, 185, 129, 0.1);">
+                                                                <i class="fa fa-map-marker fs-5" style="color: #10b981;"/>
+                                                            </div>
+                                                            <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.15rem;">2. Dirección de Residencia y Ubicación</h5>
+                                                        </div>
+
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <label class="form-label fw-semibold text-secondary small">Dirección General</label>
+                                                                <input type="text" name="direccion" class="form-control form-control-lg rounded-3 fs-6 bg-light" required="1" t-att-value="user.direccion"/>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <label class="form-label fw-semibold text-secondary small">Calle Principal</label>
+                                                                <input type="text" name="street" class="form-control form-control-lg rounded-3 fs-6 bg-light" t-att-value="user.street"/>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label fw-semibold text-secondary small">Ciudad / Cantón</label>
+                                                                <input type="text" name="city" class="form-control form-control-lg rounded-3 fs-6 bg-light" t-att-value="user.city"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label class="form-label fw-semibold text-secondary small">Calle Secundaria / Referencia</label>
+                                                                <input type="text" name="street2" class="form-control form-control-lg rounded-3 fs-6 bg-light" t-att-value="user.street2"/>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold text-secondary small">Provincia</label>
+                                                                <select name="state_id" class="form-select form-select-lg rounded-3 fs-6 bg-light">
+                                                                    <option value="">Selecciona tu provincia...</option>
+                                                                    <t t-foreach="states" t-as="state">
+                                                                        <option t-att-value="state.id" t-att-selected="user.state_id and state.id == user.state_id.id"><t t-esc="state.name"/></option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label fw-semibold text-secondary small">País</label>
+                                                                <select name="country_id" class="form-select form-select-lg rounded-3 fs-6 bg-light">
+                                                                    <t t-foreach="countries" t-as="country">
+                                                                        <option t-att-value="country.id" t-att-selected="country.id == (user.country_id.id or default_country.id)"><t t-esc="country.name"/></option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- SECCIÓN 3: CONFIGURACIÓN DE LA CUENTA -->
+                                                    <div class="mb-3">
+                                                        <div class="d-flex align-items-center mb-4 pb-2" style="border-bottom: 2px solid #e2e8f0;">
+                                                            <div class="bg-warning-subtle text-warning rounded-3 p-2 me-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background-color: rgba(245, 158, 11, 0.1);">
+                                                                <i class="fa fa-envelope fs-5" style="color: #f59e0b;"/>
+                                                            </div>
+                                                            <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.15rem;">3. Configuración de la Cuenta</h5>
+                                                        </div>
+
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <label class="form-label fw-semibold text-secondary small">Dirección de correo electrónico</label>
+                                                                <input type="email" name="email" class="form-control form-control-lg rounded-3 fs-6 bg-light" required="1" t-att-value="user.email"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer border-top-0 pt-0 pb-4 px-4">
+                                                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-primary rounded-pill px-4">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        // Helper para modales de Bootstrap
+                                        function showModal(el) {
+                                            if (typeof bootstrap !== 'undefined' &amp;&amp; bootstrap.Modal) {
+                                                var m = bootstrap.Modal.getInstance(el) || new bootstrap.Modal(el);
+                                                m.show();
+                                            } else if (typeof jQuery !== 'undefined') {
+                                                jQuery(el).modal('show');
+                                            }
+                                        }
+
+                                        // Editar vehículo
+                                        document.querySelectorAll('.btn-edit-vehiculo').forEach(function(btn) {
+                                            btn.addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                var modal = document.getElementById('modalAddVehiculo');
+                                                modal.querySelector('[name="vehiculo_id"]').value = this.dataset.id || '';
+                                                modal.querySelector('[name="placa"]').value = this.dataset.placa || '';
+                                                modal.querySelector('[name="marca_id"]').value = this.dataset.marca || '';
+                                                modal.querySelector('[name="modelo"]').value = this.dataset.modelo || '';
+                                                modal.querySelector('[name="anio"]').value = this.dataset.anio || '2020';
+                                                modal.querySelector('[name="color"]').value = this.dataset.color || '';
+                                                modal.querySelector('.modal-title').innerHTML = '<i class="fa fa-pencil me-2"></i> Editar Vehículo';
+                                                showModal(modal);
+                                            });
+                                        });
+
+                                        // Eliminar vehículo
+                                        document.querySelectorAll('.btn-delete-vehiculo').forEach(function(btn) {
+                                            btn.addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                document.getElementById('deleteVehiculoNombre').textContent = this.dataset.nombre;
+                                                document.getElementById('deleteVehiculoLink').href = '/taller/vehiculo/delete/' + this.dataset.id;
+                                                showModal(document.getElementById('modalDeleteVehiculo'));
+                                            });
+                                        });
+
+                                        // Reset modal al abrir para crear nuevo
+                                        var addBtn = document.querySelector('[data-bs-target="#modalAddVehiculo"]');
+                                        if (addBtn) {
+                                            addBtn.addEventListener('click', function(e) {
+                                                var modal = document.getElementById('modalAddVehiculo');
+                                                modal.querySelector('[name="vehiculo_id"]').value = '';
+                                                modal.querySelector('form').reset();
+                                                modal.querySelector('.modal-title').innerHTML = '<i class="fa fa-car me-2"></i> Añadir Vehículo';
+                                            });
+                                        }
+
+                                        // ----------------- WIZARD CITA MODAL -----------------
+                                        const stepsCita = [
+                                            document.getElementById('step1-cita'),
+                                            document.getElementById('step2-cita')
+                                        ];
+                                        const indicatorsCita = [
+                                            document.getElementById('ind-step1-cita'),
+                                            document.getElementById('ind-step2-cita')
+                                        ];
+                                        const progressCita = document.getElementById('wizard-progress-cita');
+                                        const errorBoxCita = document.getElementById('error-message-cita');
+                                        
+                                        const vehiculoSelectCita = document.getElementById('vehiculo_select_cita');
+                                        const nuevoVehiculoFieldsCita = document.getElementById('nuevo-vehiculo-fields-cita');
+                                        const requiredVehFieldsCita = document.querySelectorAll('.required-veh-field-cita');
+
+                                        // Lógica para mostrar/ocultar campos de nuevo vehículo
+                                        function toggleNuevoVehiculoCita() {
+                                            if (!vehiculoSelectCita || vehiculoSelectCita.value === 'new') {
+                                                if (nuevoVehiculoFieldsCita) {
+                                                    nuevoVehiculoFieldsCita.classList.remove('d-none');
+                                                }
+                                                requiredVehFieldsCita.forEach(f => f.classList.add('required-step1-cita'));
+                                            } else {
+                                                if (nuevoVehiculoFieldsCita) {
+                                                    nuevoVehiculoFieldsCita.classList.add('d-none');
+                                                }
+                                                requiredVehFieldsCita.forEach(f => {
+                                                    f.classList.remove('required-step1-cita');
+                                                    f.classList.remove('is-invalid');
+                                                });
+                                            }
+                                        }
+
+                                        if (vehiculoSelectCita) {
+                                            vehiculoSelectCita.addEventListener('change', toggleNuevoVehiculoCita);
+                                        }
+                                        toggleNuevoVehiculoCita(); // Ejecución inicial
+
+                                        function updateUICita(stepIndex) {
+                                            stepsCita.forEach(s => { if(s) s.classList.add('d-none'); });
+                                            if (stepsCita[stepIndex - 1]) stepsCita[stepIndex - 1].classList.remove('d-none');
+                                            
+                                            indicatorsCita.forEach((ind, i) => {
+                                                if (!ind) return;
+                                                if(i &lt; stepIndex) {
+                                                    ind.classList.replace('bg-light', 'bg-primary');
+                                                    ind.classList.replace('text-muted', 'text-white');
+                                                    ind.classList.remove('border');
+                                                } else {
+                                                    ind.classList.replace('bg-primary', 'bg-light');
+                                                    ind.classList.replace('text-white', 'text-muted');
+                                                    ind.classList.add('border');
+                                                }
+                                            });
+                                            
+                                            if (progressCita) progressCita.style.width = ((stepIndex - 1) * 100) + '%';
+                                            if (errorBoxCita) errorBoxCita.classList.add('d-none');
+                                        }
+
+                                        function validateStepCita(stepIndex) {
+                                            let isValid = true;
+                                            const fields = document.querySelectorAll('.required-step' + stepIndex + '-cita');
+                                            fields.forEach(f => {
+                                                if(!f.value.trim()) {
+                                                    isValid = false;
+                                                    f.classList.add('is-invalid');
+                                                } else {
+                                                    f.classList.remove('is-invalid');
+                                                }
+                                            });
+                                            return isValid;
+                                        }
+
+                                        // Botones Siguiente
+                                        document.querySelectorAll('.btn-next-cita').forEach(btn => {
+                                            btn.addEventListener('click', function() {
+                                                let currentStep = parseInt(this.getAttribute('data-step'));
+                                                if(validateStepCita(currentStep)) {
+                                                    updateUICita(currentStep + 1);
+                                                } else {
+                                                    errorBoxCita.textContent = 'Por favor, completa todos los campos requeridos.';
+                                                    errorBoxCita.classList.remove('d-none');
+                                                }
+                                            });
+                                        });
+
+                                        // Botones Atrás
+                                        document.querySelectorAll('.btn-prev-cita').forEach(btn => {
+                                            btn.addEventListener('click', function() {
+                                                let currentStep = parseInt(this.getAttribute('data-step'));
+                                                updateUICita(currentStep - 1);
+                                            });
+                                        });
+
+                                        // ===== WEEKLY SLOTS GRID =====
+                                        const weeklyGrid = document.getElementById('weekly_slots_grid');
+                                        const hiddenDateInput = document.getElementById('date_cita');
+                                        const weekLabel = document.getElementById('week-range-label');
+                                        let currentWeekStart = null;
+
+                                        function getMonday(d) {
+                                            const date = new Date(d);
+                                            const day = date.getDay();
+                                            const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+                                            return new Date(date.setDate(diff));
+                                        }
+
+                                        function formatDateISO(d) {
+                                            return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+                                        }
+
+                                        async function loadWeekSlots(weekStartStr) {
+                                            weeklyGrid.innerHTML = '&lt;div class="text-center text-muted py-4"&gt;&lt;i class="fa fa-spinner fa-spin fa-2x mb-2"&gt;&lt;/i&gt;&lt;p class="small"&gt;Cargando horarios...&lt;/p&gt;&lt;/div&gt;';
+                                            hiddenDateInput.value = '';
+
+                                            try {
+                                                const params = {};
+                                                if (weekStartStr) params.week_start = weekStartStr;
+
+                                                const response = await fetch('/taller/cita/get_week_slots', {
+                                                    method: 'POST',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({ jsonrpc: "2.0", method: "call", params: params })
+                                                });
+
+                                                const data = await response.json();
+                                                if (!data.result || !data.result.success) {
+                                                    weeklyGrid.innerHTML = '&lt;div class="text-danger text-center py-3"&gt;&lt;i class="fa fa-exclamation-triangle me-1"&gt;&lt;/i&gt; Error al cargar horarios.&lt;/div&gt;';
+                                                    return;
+                                                }
+
+                                                const result = data.result;
+                                                currentWeekStart = result.week_start;
+                                                weekLabel.textContent = result.week_start + '  →  ' + result.week_end;
+
+                                                const days = result.days;
+                                                if (!days || days.length === 0) {
+                                                    weeklyGrid.innerHTML = '&lt;div class="text-muted text-center py-3"&gt;No hay días disponibles esta semana.&lt;/div&gt;';
+                                                    return;
+                                                }
+
+                                                // Build table
+                                                let html = '&lt;table class="table table-bordered text-center mb-0" style="min-width: 600px;"&gt;';
+                                                html += '&lt;thead&gt;&lt;tr&gt;';
+                                                days.forEach(day =&gt; {
+                                                    html += '&lt;th class="bg-primary text-white small fw-bold py-2" style="font-size: 0.85rem;"&gt;' + day.label + '&lt;/th&gt;';
+                                                });
+                                                html += '&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;';
+
+                                                // Find max slots across days
+                                                let maxSlots = 0;
+                                                days.forEach(day =&gt; { if (day.slots.length &gt; maxSlots) maxSlots = day.slots.length; });
+
+                                                for (let r = 0; r &lt; maxSlots; r++) {
+                                                    html += '&lt;tr&gt;';
+                                                    days.forEach(day =&gt; {
+                                                        if (r &lt; day.slots.length) {
+                                                            const slot = day.slots[r];
+                                                            const radioId = 'slot_' + day.date + '_' + slot.hour;
+                                                            const val = day.date + 'T' + slot.time;
+                                                            if (slot.available) {
+                                                                html += '&lt;td class="py-1 px-1 slot-cell-available" style="cursor:pointer;" data-val="' + val + '"&gt;';
+                                                                html += '&lt;label class="d-flex align-items-center justify-content-center gap-1 mb-0 small" style="cursor:pointer;" for="' + radioId + '"&gt;';
+                                                                html += '&lt;input type="radio" name="slot_radio" id="' + radioId + '" value="' + val + '" class="slot-radio" style="accent-color: #0d6efd;"/&gt; ';
+                                                                html += slot.time + '&lt;/label&gt;&lt;/td&gt;';
+                                                            } else {
+                                                                html += '&lt;td class="py-1 px-1 text-muted" style="opacity:0.4; text-decoration: line-through;"&gt;';
+                                                                html += '&lt;span class="small"&gt;' + slot.time + '&lt;/span&gt;&lt;/td&gt;';
+                                                            }
+                                                        } else {
+                                                            html += '&lt;td&gt;&lt;/td&gt;';
+                                                        }
+                                                    });
+                                                    html += '&lt;/tr&gt;';
+                                                }
+
+                                                html += '&lt;/tbody&gt;&lt;/table&gt;';
+                                                weeklyGrid.innerHTML = html;
+
+                                                // Attach radio change events
+                                                weeklyGrid.querySelectorAll('.slot-radio').forEach(radio =&gt; {
+                                                    radio.addEventListener('change', function() {
+                                                        hiddenDateInput.value = this.value;
+                                                        hiddenDateInput.classList.remove('is-invalid');
+                                                        // Highlight selected row cell
+                                                        weeklyGrid.querySelectorAll('.slot-cell-available').forEach(td =&gt; {
+                                                            td.style.backgroundColor = '';
+                                                        });
+                                                        this.closest('td').style.backgroundColor = '#e7f1ff';
+                                                    });
+                                                });
+
+                                                // Click on cell to select radio
+                                                weeklyGrid.querySelectorAll('.slot-cell-available').forEach(td =&gt; {
+                                                    td.addEventListener('click', function(e) {
+                                                        if (e.target.tagName !== 'INPUT') {
+                                                            const radio = this.querySelector('.slot-radio');
+                                                            if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); }
+                                                        }
+                                                    });
+                                                });
+
+                                            } catch (e) {
+                                                console.error(e);
+                                                weeklyGrid.innerHTML = '&lt;div class="text-danger text-center py-3"&gt;&lt;i class="fa fa-exclamation-triangle me-1"&gt;&lt;/i&gt; Error de conexión.&lt;/div&gt;';
+                                            }
+                                        }
+
+                                        // Week navigation
+                                        document.getElementById('btn-prev-week').addEventListener('click', function() {
+                                            if (currentWeekStart) {
+                                                const d = new Date(currentWeekStart + 'T00:00:00');
+                                                d.setDate(d.getDate() - 7);
+                                                loadWeekSlots(formatDateISO(d));
+                                            }
+                                        });
+                                        document.getElementById('btn-next-week').addEventListener('click', function() {
+                                            if (currentWeekStart) {
+                                                const d = new Date(currentWeekStart + 'T00:00:00');
+                                                d.setDate(d.getDate() + 7);
+                                                loadWeekSlots(formatDateISO(d));
+                                            }
+                                        });
+
+                                        // Load initial week when step 2 is shown
+                                        const origUpdateUI = updateUICita;
+                                        updateUICita = function(stepIndex) {
+                                            origUpdateUI(stepIndex);
+                                            if (stepIndex === 2 &amp;&amp; !currentWeekStart) {
+                                                loadWeekSlots(null);
+                                            }
+                                        };
+
+                                        // Enviar form y Validar AJAX
+                                        const btnSubmitCita = document.getElementById('btn-submit-wizard-cita');
+                                        if (btnSubmitCita) {
+                                            btnSubmitCita.addEventListener('click', async function() {
+                                                if(!hiddenDateInput.value) {
+                                                    errorBoxCita.textContent = 'Por favor, selecciona un horario de la grilla.';
+                                                    errorBoxCita.classList.remove('d-none');
+                                                    return;
+                                                }
+                                                
+                                                btnSubmitCita.disabled = true;
+                                                btnSubmitCita.innerHTML = '&lt;i class="fa fa-spinner fa-spin me-2"&gt;&lt;/i&gt; Verificando...';
+                                                
+                                                const dateVal = hiddenDateInput.value;
+                                                
+                                                try {
+                                                    const response = await fetch('/taller/cita/check_availability', {
+                                                        method: 'POST',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify({
+                                                            jsonrpc: "2.0",
+                                                            method: "call",
+                                                            params: { date: dateVal }
+                                                        })
+                                                    });
+                                                    
+                                                    const data = await response.json();
+                                                    const result = data.result;
+                                                    
+                                                    if (result &amp;&amp; result.available) {
+                                                        document.getElementById('cita-wizard-form').submit();
+                                                    } else {
+                                                        errorBoxCita.textContent = result ? result.message : 'Error al verificar disponibilidad.';
+                                                        errorBoxCita.classList.remove('d-none');
+                                                        btnSubmitCita.disabled = false;
+                                                        btnSubmitCita.innerHTML = '&lt;i class="fa fa-check-circle me-2"&gt;&lt;/i&gt; SOLICITAR CITA';
+                                                    }
+                                                } catch (err) {
+                                                    console.error(err);
+                                                    errorBoxCita.textContent = 'Error de conexión. Intente nuevamente.';
+                                                    errorBoxCita.classList.remove('d-none');
+                                                    btnSubmitCita.disabled = false;
+                                                    btnSubmitCita.innerHTML = '&lt;i class="fa fa-check-circle me-2"&gt;&lt;/i&gt; SOLICITAR CITA';
+                                                }
+                                            });
+                                        }
+
+                                        // Auto-abrir modal si hay error en la URL
+                                        var urlParamsCita = new URLSearchParams(window.location.search);
+                                        if (urlParamsCita.has('error_cita')) {
+                                            showModal(document.getElementById('modalAddCita'));
+                                        }
+
+                                        // Reset modal al cerrar/abrir
+                                        document.querySelectorAll('[data-bs-target="#modalAddCita"]').forEach(btn =&gt; {
+                                            btn.addEventListener('click', function() {
+                                                updateUICita(1);
+                                                currentWeekStart = null;
+                                                var form = document.getElementById('cita-wizard-form');
+                                                if (form) form.reset();
+                                                toggleNuevoVehiculoCita();
+                                            });
+                                        });
+                                    });
+                                </script>
 
                                 <!-- Historial de Órdenes de Trabajo -->
                                 <h4 class="fw-bold mb-3">Historial de Trabajos</h4>
@@ -93,7 +821,8 @@
                                                         <th class="py-3 fw-medium">Vehículo</th>
                                                         <th class="py-3 fw-medium">Ingreso</th>
                                                         <th class="py-3 fw-medium">Estado</th>
-                                                        <th class="pe-4 py-3 fw-medium text-end">Total</th>
+                                                        <th class="py-3 fw-medium text-end">Total</th>
+                                                        <th class="pe-4 py-3 fw-medium text-end">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -106,10 +835,15 @@
                                                             </td>
                                                             <td class="py-3">
                                                                 <span t-attf-class="badge rounded-pill px-3 py-2 fw-medium #{'bg-warning text-dark' if orden.estado == 'recibido' else 'bg-success text-white' if orden.estado == 'listo' else 'bg-secondary text-white'}">
-                                                                    <t t-esc="dict(orden.fields_get(allfields=['estado'])['estado']['selection'])[orden.estado]"/>
+                                                                    <t t-esc="dict(orden.fields_get(allfields=['estado'])['estado']['selection']).get(orden.estado, 'Desconocido')"/>
                                                                 </span>
                                                             </td>
-                                                            <td class="pe-4 py-3 fw-bold text-end">$<t t-esc="'%.2f' % orden.costo_total_general"/></td>
+                                                            <td class="py-3 fw-bold text-end">$<t t-esc="'%.2f' % (orden.costo_total_general or 0.0)"/></td>
+                                                            <td class="pe-4 py-3 text-end">
+                                                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="font-size: 0.75rem;" data-bs-toggle="modal" t-attf-data-bs-target="#modalDetailOrden_#{orden.id}">
+                                                                    <i class="fa fa-info-circle me-1"/> Ver Detalle
+                                                                </button>
+                                                            </td>
                                                         </tr>
                                                     </t>
                                                 </tbody>
@@ -119,7 +853,12 @@
                                 </div>
 
                                 <!-- Mis Citas -->
-                                <h4 class="fw-bold mb-3">Mis Citas</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="fw-bold mb-0">Mis Citas</h4>
+                                    <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAddCita">
+                                        <i class="fa fa-plus me-2"/> Agendar Nueva Cita
+                                    </button>
+                                </div>
                                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                                     <t t-if="not citas">
                                         <div class="card-body p-4 text-center text-muted">
@@ -134,7 +873,8 @@
                                                         <th class="ps-4 py-3 fw-medium">Fecha Programada</th>
                                                         <th class="py-3 fw-medium">Vehículo</th>
                                                         <th class="py-3 fw-medium">Motivo</th>
-                                                        <th class="pe-4 py-3 fw-medium">Estado</th>
+                                                        <th class="py-3 fw-medium">Estado</th>
+                                                        <th class="pe-4 py-3 fw-medium text-end">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -145,12 +885,35 @@
                                                             </td>
                                                             <td class="py-3"><t t-esc="cita.vehiculo_id.placa"/></td>
                                                             <td class="py-3 text-muted small">
-                                                                <t t-esc="dict(cita.fields_get(allfields=['motivo'])['motivo']['selection'])[cita.motivo]"/>
+                                                                <t t-esc="dict(cita.fields_get(allfields=['motivo'])['motivo']['selection']).get(cita.motivo, 'No especificado')"/>
                                                             </td>
-                                                            <td class="pe-4 py-3">
-                                                                <span t-attf-class="badge rounded-pill px-3 py-2 fw-medium #{'bg-info text-dark' if cita.estado == 'solicitada' else 'bg-success text-white' if cita.estado == 'confirmada' else 'bg-danger text-white'}">
-                                                                    <t t-esc="dict(cita.fields_get(allfields=['estado'])['estado']['selection'])[cita.estado]"/>
+                                                            <td class="py-3">
+                                                                <span t-attf-class="badge rounded-pill px-3 py-2 fw-medium #{'bg-info text-dark' if cita.estado == 'solicitada' else 'bg-success text-white' if cita.estado == 'confirmada' else 'bg-danger text-white' if cita.estado == 'cancelada' else 'bg-secondary text-white'}">
+                                                                    <t t-esc="dict(cita.fields_get(allfields=['estado'])['estado']['selection']).get(cita.estado, 'Desconocido')"/>
                                                                 </span>
+                                                            </td>
+                                                            <td class="pe-4 py-3 text-end">
+                                                                <t t-if="cita.estado in ['solicitada', 'confirmada']">
+                                                                    <t t-set="is_cancelable" t-value="True"/>
+                                                                    <t t-if="cita.orden_trabajo_id and (cita.orden_trabajo_id.estado in ['listo', 'entregado'] or cita.orden_trabajo_id.factura_id)">
+                                                                        <t t-set="is_cancelable" t-value="False"/>
+                                                                    </t>
+                                                                    <t t-if="is_cancelable">
+                                                                        <form action="/taller/cita/cancelar" method="post" onsubmit="return confirm('¿Está seguro de que desea cancelar esta cita?');" style="margin: 0; display: inline-block;">
+                                                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                                            <input type="hidden" name="cita_id" t-att-value="cita.id"/>
+                                                                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold" style="font-size: 0.75rem;">
+                                                                                <i class="fa fa-times me-1"/> Cancelar
+                                                                            </button>
+                                                                        </form>
+                                                                    </t>
+                                                                    <t t-else="">
+                                                                        <span class="text-muted small"><i class="fa fa-lock me-1"/> En taller</span>
+                                                                    </t>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <span class="text-muted small">-</span>
+                                                                </t>
                                                             </td>
                                                         </tr>
                                                     </t>
@@ -195,8 +958,8 @@
                                                             <td class="py-3 fw-bold text-end">$<t t-esc="'%.2f' % factura.amount_total"/></td>
                                                             <td class="pe-4 py-3 text-center">
                                                                 <div class="btn-group btn-group-sm">
-                                                                    <a t-attf-href="/taller/factura/#{factura.id}/pdf" class="btn btn-outline-danger" title="Descargar PDF">
-                                                                        <i class="fa fa-file-pdf-o"/> PDF
+                                                                    <a t-att-href="factura.get_portal_url()" class="btn btn-outline-danger" title="Ver Factura">
+                                                                        <i class="fa fa-file-pdf-o"/> Ver PDF
                                                                     </a>
                                                                     <t t-if="factura.sri_xml_file">
                                                                         <a t-attf-href="/taller/factura/#{factura.id}/xml" class="btn btn-outline-success" title="Descargar XML">
@@ -217,6 +980,606 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Modal Agregar Vehículo -->
+                <div class="modal fade" id="modalAddVehiculo" tabindex="-1" aria-labelledby="modalAddVehiculoLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-0 shadow rounded-4">
+                            <form action="/taller/vehiculo/submit" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="modal-header bg-primary text-white rounded-top-4">
+                                    <h5 class="modal-title fw-bold" id="modalAddVehiculoLabel"><i class="fa fa-car me-2"/> Añadir Vehículo</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-4">
+                                    <input type="hidden" name="vehiculo_id" value=""/>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Placa</label>
+                                            <input type="text" class="form-control" name="placa" required="1" placeholder="Ej: ABC-1234" style="text-transform: uppercase;"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Foto (Opcional)</label>
+                                            <input type="file" class="form-control" name="foto" accept="image/*"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Marca</label>
+                                            <select class="form-select" name="marca_id" required="1">
+                                                <option value="">Seleccione...</option>
+                                                <t t-foreach="marcas" t-as="m">
+                                                    <option t-att-value="m.id"><t t-esc="m.name"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Modelo</label>
+                                            <input type="text" class="form-control" name="modelo" required="1" placeholder="Ej: Corolla"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Año</label>
+                                            <input type="number" class="form-control" name="anio" min="1980" max="2027" value="2020"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Color</label>
+                                            <input type="text" class="form-control" name="color" placeholder="Ej: Blanco, Negro, Rojo"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-top-0 pt-0 pb-4 px-4">
+                                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary rounded-pill px-4 shadow-sm">Guardar Vehículo</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Agendar Nueva Cita -->
+                <div class="modal fade" id="modalAddCita" tabindex="-1" aria-labelledby="modalAddCitaLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                            <div class="modal-header bg-primary text-white py-3">
+                                <h5 class="modal-title fw-bold" id="modalAddCitaLabel">
+                                    <i class="fa fa-calendar-plus-o me-2"/> Agendar Nueva Cita
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"/>
+                            </div>
+                            <div class="modal-body p-4 bg-light">
+                                <!-- Progress indicators -->
+                                <div class="d-flex justify-content-between mb-4 position-relative" style="max-width: 250px; margin: 0 auto;">
+                                    <div class="progress position-absolute w-100" style="height: 4px; top: 50%; transform: translateY(-50%); z-index: 0;">
+                                        <div id="wizard-progress-cita" class="progress-bar bg-primary" role="progressbar" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="step-indicator bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm" style="width: 32px; height: 32px;" id="ind-step1-cita">1</div>
+                                    <div class="step-indicator bg-light text-muted rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm border" style="width: 32px; height: 32px;" id="ind-step2-cita">2</div>
+                                </div>
+
+                                <form action="/taller/cita/submit" method="post" id="cita-wizard-form">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    
+                                    <!-- Mensaje de Error Global -->
+                                    <div id="error-message-cita" t-attf-class="alert alert-danger fw-bold small text-center shadow-sm #{'d-none' if not error_msg_cita else ''}">
+                                        <t t-if="error_msg_cita" t-esc="error_msg_cita"/>
+                                    </div>
+
+                                    <!-- PASO 1: Selección / Datos de Vehículo -->
+                                    <div id="step1-cita" class="wizard-step-cita">
+                                        <div class="mb-3 border-bottom pb-2">
+                                            <h5 class="fw-bold text-dark"><i class="fa fa-car me-2 text-primary"/>Detalles del Vehículo</h5>
+                                            <p class="text-muted small">Selecciona uno de tus vehículos registrados o ingresa los datos de uno nuevo.</p>
+                                        </div>
+
+                                        <!-- Si el usuario tiene vehículos -->
+                                        <t t-if="vehiculos">
+                                            <div class="mb-3">
+                                                <label for="vehiculo_select_cita" class="form-label fw-bold small text-uppercase text-muted">Mis Vehículos</label>
+                                                <select class="form-select bg-white border" id="vehiculo_select_cita" name="vehiculo_id">
+                                                    <t t-foreach="vehiculos" t-as="v">
+                                                        <option t-att-value="v.id">
+                                                            <t t-esc="v.placa"/> - <t t-esc="v.marca_id.name"/> <t t-esc="v.modelo_id.name"/>
+                                                        </option>
+                                                    </t>
+                                                    <option value="new">+ Registrar otro vehículo / Vehículo nuevo...</option>
+                                                </select>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <!-- Si no tiene vehículos, se fuerza a registrar uno nuevo -->
+                                            <input type="hidden" name="vehiculo_id" value="new"/>
+                                        </t>
+
+                                        <!-- Bloque de Campos para Nuevo Vehículo (Se oculta dinámicamente si se selecciona uno existente) -->
+                                        <div id="nuevo-vehiculo-fields-cita" t-att-class="'d-none' if vehiculos else ''">
+                                            <div class="row g-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="marca_id_cita" class="form-label fw-bold small text-uppercase text-muted">Marca</label>
+                                                    <select class="form-select bg-white border required-veh-field-cita" id="marca_id_cita" name="marca_id">
+                                                        <option value="">Seleccione una marca...</option>
+                                                        <t t-foreach="marcas" t-as="m">
+                                                            <option t-att-value="m.id"><t t-esc="m.name"/></option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="modelo_cita" class="form-label fw-bold small text-uppercase text-muted">Modelo</label>
+                                                    <input type="text" class="form-control bg-white border required-veh-field-cita" id="modelo_cita" name="modelo" placeholder="Ej. Corolla"/>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="plate_cita" class="form-label fw-bold small text-uppercase text-muted">Placa / Matrícula</label>
+                                                    <input type="text" class="form-control bg-white border required-veh-field-cita" id="plate_cita" name="plate" placeholder="Ej. ABC-1234"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-end pt-3 border-top mt-3">
+                                            <button type="button" class="btn btn-primary rounded-pill px-4 btn-next-cita" data-step="1">Siguiente <i class="fa fa-arrow-right ms-2"/></button>
+                                        </div>
+                                    </div>
+
+                                    <!-- PASO 2: Servicio y Horario -->
+                                    <div id="step2-cita" class="wizard-step-cita d-none">
+                                        <div class="mb-3 border-bottom pb-2">
+                                            <h5 class="fw-bold text-dark"><i class="fa fa-calendar me-2 text-primary"/>Seleccionar Horario</h5>
+                                            <p class="text-muted small">A continuación los horarios disponibles. Haz clic en un horario para reservar.</p>
+                                        </div>
+
+                                        <!-- Week Navigation -->
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3" id="btn-prev-week">
+                                                <i class="fa fa-chevron-left me-1"/> Semana Anterior
+                                            </button>
+                                            <span class="fw-bold text-dark" id="week-range-label">Cargando...</span>
+                                            <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3" id="btn-next-week">
+                                                Semana Siguiente <i class="fa fa-chevron-right ms-1"/>
+                                            </button>
+                                        </div>
+
+                                        <!-- Weekly Slots Grid -->
+                                        <div id="weekly_slots_grid" class="mb-3" style="overflow-x: auto;">
+                                            <div class="text-center text-muted py-4">
+                                                <i class="fa fa-spinner fa-spin fa-2x mb-2"/>
+                                                <p class="small">Cargando horarios de la semana...</p>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" class="required-step2-cita" id="date_cita" name="date"/>
+
+                                        <!-- Especialidad y Notas -->
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label for="repair_type_cita" class="form-label fw-bold small text-uppercase text-muted">Especialidad</label>
+                                                <select class="form-select bg-white border" id="repair_type_cita" name="repair_type">
+                                                    <option value="mantenimiento">Mantenimiento Preventivo</option>
+                                                    <option value="motor">Reparación de Motor</option>
+                                                    <option value="frenos">Sistema de Frenos</option>
+                                                    <option value="diagnostico">Escaneo Computarizado</option>
+                                                    <option value="otro">Otro Servicio Especializado</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="observations_cita" class="form-label fw-bold small text-uppercase text-muted">Notas Adicionales</label>
+                                                <textarea class="form-control bg-white border" id="observations_cita" name="observations" rows="3" placeholder="Describe brevemente lo que necesita tu vehículo..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between pt-3 border-top mt-3">
+                                            <button type="button" class="btn btn-light border rounded-pill px-4 fw-bold text-muted btn-prev-cita" data-step="2"><i class="fa fa-arrow-left me-2"/> Atrás</button>
+                                            <button type="button" class="btn btn-success rounded-pill px-4 shadow-lg fw-bold" id="btn-submit-wizard-cita">
+                                                <i class="fa fa-check-circle me-2"/> SOLICITAR CITA
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modales de Detalle fuera de la tabla -->
+                <t t-foreach="ordenes" t-as="orden">
+                    <div class="modal fade" t-attf-id="modalDetailOrden_#{orden.id}" tabindex="-1" aria-hidden="true" style="text-align: left;">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="modal-header bg-primary text-white py-3">
+                                    <h5 class="modal-title fw-bold">
+                                        <i class="fa fa-file-text-o me-2"/>Detalle de Trabajo: <t t-esc="orden.name"/>
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"/>
+                                </div>
+                                <div class="modal-body p-4 bg-light">
+                                    <div class="row g-4">
+                                        <!-- Left Column: col-lg-4 -->
+                                        <div class="col-lg-4 d-flex flex-column gap-3">
+                                            <!-- Section 1: Technician -->
+                                            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white">
+                                                <h6 class="fw-bold border-bottom pb-2 text-primary mb-3">
+                                                    <i class="fa fa-user-md me-2"/>Técnico Responsable
+                                                </h6>
+                                                <t t-if="orden.tecnico_id">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px;">
+                                                            <i class="fa fa-wrench"/>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="fw-bold mb-0 text-dark"><t t-esc="orden.tecnico_id.name"/></h6>
+                                                            <span class="text-muted small"><t t-esc="orden.tecnico_id.job_title or 'Técnico Especialista'"/></span>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="list-unstyled mb-0 small text-muted">
+                                                        <li class="mb-2">
+                                                            <i class="fa fa-envelope me-2 w-15px text-center text-primary"/>
+                                                            <t t-esc="orden.tecnico_id.work_email or 'No disponible'"/>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-phone me-2 w-15px text-center text-primary"/>
+                                                            <t t-esc="orden.tecnico_id.work_phone or 'No disponible'"/>
+                                                        </li>
+                                                    </ul>
+                                                </t>
+                                                <t t-else="">
+                                                    <div class="text-center py-4 text-muted">
+                                                        <i class="fa fa-clock-o fa-2x mb-2 opacity-50"/>
+                                                        <p class="mb-0 small">Técnico por asignar.</p>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                            
+                                            <!-- Section 2: Vehicle & Diagnosis -->
+                                            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white">
+                                                <h6 class="fw-bold border-bottom pb-2 text-primary mb-3">
+                                                    <i class="fa fa-car me-2"/>Vehículo y Diagnóstico
+                                                </h6>
+                                                <table class="table table-borderless table-sm small mb-3 text-muted">
+                                                    <tr>
+                                                        <td class="fw-medium p-0">Placa:</td>
+                                                        <td class="text-dark fw-bold p-0 text-end"><t t-esc="orden.vehiculo_id.placa"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw-medium p-0">Vehículo:</td>
+                                                        <td class="text-dark p-0 text-end"><t t-esc="orden.vehiculo_id.marca_id.name"/> <t t-esc="orden.vehiculo_id.modelo_id.name"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw-medium p-0">Ingreso:</td>
+                                                        <td class="text-dark p-0 text-end"><t t-esc="orden.fecha_ingreso" t-options="{'widget': 'datetime'}"/></td>
+                                                    </tr>
+                                                </table>
+                                                <div class="bg-light p-2 rounded-2 border small">
+                                                    <strong class="text-dark d-block mb-1">Diagnóstico inicial:</strong>
+                                                    <span class="text-muted"><t t-esc="orden.diagnostico or 'Sin observaciones'"/></span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Section 5: Log History -->
+                                            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white flex-grow-1">
+                                                <h6 class="fw-bold border-bottom pb-2 text-primary mb-3">
+                                                    <i class="fa fa-history me-2"/>Historial de Registros
+                                                </h6>
+                                                <div style="max-height: 200px; overflow-y: auto;">
+                                                    <t t-set="logs" t-value="orden.get_state_history()"/>
+                                                    <t t-if="not logs">
+                                                        <p class="text-muted small mb-0">No se encontraron registros.</p>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <div class="position-relative ps-4 ms-2" style="border-left: 2px solid #e2e8f0;">
+                                                            <t t-foreach="logs" t-as="log">
+                                                                <div class="position-relative mb-3 small">
+                                                                    <div class="position-absolute bg-primary rounded-circle border border-white" style="width: 12px; height: 12px; left: -27px; top: 4px; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);"/>
+                                                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                        <span class="fw-bold text-dark"><t t-esc="log['description']"/></span>
+                                                                    </div>
+                                                                    <div class="text-muted" style="font-size: 0.75rem;"><t t-esc="log['date']" t-options="{'widget': 'datetime'}"/> - <t t-esc="log['author']"/></div>
+                                                                </div>
+                                                            </t>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Right Column: col-lg-8 -->
+                                        <div class="col-lg-8">
+                                            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white h-100">
+                                                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                                                    <h6 class="fw-bold text-primary mb-0">
+                                                        <i class="fa fa-cogs me-2"/>Servicios y Repuestos Utilizados
+                                                    </h6>
+                                                </div>
+                                                
+                                                <t t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada')">
+                                                    <t t-if="orden.estado == 'cotizacion_aprobada'">
+                                                        <div class="alert alert-info mb-3 d-flex align-items-center justify-content-between p-3 rounded-3 shadow-sm border-info">
+                                                            <div>
+                                                                <h6 class="mb-1 fw-bold text-dark"><i class="fa fa-info-circle me-2"/>Propuesta Aprobada</h6>
+                                                                <p class="mb-0 small text-muted">Aún puedes añadir servicios o repuestos adicionales si lo deseas antes de que el trabajo finalice.</p>
+                                                            </div>
+                                                            <div class="d-flex flex-column gap-2">
+                                                                <button type="button" class="btn btn-primary fw-bold rounded-pill shadow-sm px-3 py-2 js_submit_client_proposal" t-att-data-orden-id="orden.id">
+                                                                    <i class="fa fa-paper-plane me-1"/> Enviar Adicionales
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <div class="alert alert-warning mb-3 d-flex align-items-center justify-content-between p-3 rounded-3 shadow-sm border-warning">
+                                                            <div>
+                                                                <h6 class="mb-1 fw-bold text-dark"><i class="fa fa-exclamation-triangle me-2"/>Propuesta de Trabajo Pendiente</h6>
+                                                                <p class="mb-0 small text-muted">Por favor aprueba, rechaza o intercambia los items. Al finalizar, haz click en Enviar Propuesta.</p>
+                                                            </div>
+                                                            <div class="d-flex flex-column gap-2">
+                                                                <button type="button" class="btn btn-primary fw-bold rounded-pill shadow-sm px-3 py-2 js_submit_client_proposal" t-att-data-orden-id="orden.id">
+                                                                    <i class="fa fa-paper-plane me-1"/> Enviar Propuesta
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label class="form-label fw-bold text-dark small"><i class="fa fa-commenting-o me-1 text-primary"/> Especificaciones o Requerimientos Adicionales (Opcional)</label>
+                                                        <textarea class="form-control js_proposal_notes border-primary-subtle shadow-sm rounded-3" rows="3" placeholder="Ej: Necesito que me coticen adicionalmente el cambio de plumillas y revisión de frenos..."></textarea>
+                                                        <small class="text-muted d-block mt-1"><i class="fa fa-info-circle me-1"/> Si escribes notas, la propuesta se devolverá al taller para su análisis. Si lo dejas vacío, se aprobará automáticamente con los cambios que hayas hecho.</small>
+                                                    </div>
+                                                </t>
+                                                
+                                                <!-- Tabbed navigation for Services and Parts -->
+                                                <ul class="nav nav-pills nav-fill mb-3" t-attf-id="pills-tab-#{orden.id}" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active fw-bold py-2 rounded-3" t-attf-id="pills-servicios-tab-#{orden.id}" data-bs-toggle="pill" t-attf-data-bs-target="#pills-servicios-#{orden.id}" type="button" role="tab" t-attf-aria-controls="pills-servicios-#{orden.id}" aria-selected="true">
+                                                            <i class="fa fa-wrench me-2"/>Servicios
+                                                        </button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link fw-bold py-2 rounded-3" t-attf-id="pills-repuestos-tab-#{orden.id}" data-bs-toggle="pill" t-attf-data-bs-target="#pills-repuestos-#{orden.id}" type="button" role="tab" t-attf-aria-controls="pills-repuestos-#{orden.id}" aria-selected="false">
+                                                            <i class="fa fa-cogs me-2"/>Repuestos
+                                                        </button>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content" t-attf-id="pills-tabContent-#{orden.id}">
+                                                    <!-- Tab 1: Servicios -->
+                                                    <div class="tab-pane fade show active" t-attf-id="pills-servicios-#{orden.id}" role="tabpanel" t-attf-aria-labelledby="pills-servicios-tab-#{orden.id}">
+                                                        <div class="table-responsive">
+                                                            <!-- Datalist for JS search input -->
+                                                            <datalist t-attf-id="datalist_servicios_#{orden.id}">
+                                                                <t t-foreach="servicios_disponibles" t-as="serv_disp">
+                                                                    <option t-att-data-value="serv_disp.id" 
+                                                                            t-att-data-price="serv_disp.list_price"
+                                                                            t-att-data-name="serv_disp.name"
+                                                                            t-att-value="serv_disp.name + ' - $' + '%.2f' % serv_disp.list_price"/>
+                                                                </t>
+                                                            </datalist>
+
+                                                            <table class="table table-sm align-middle small mb-0" t-attf-id="table_servicios_#{orden.id}">
+                                                                <thead class="bg-light text-muted fw-bold text-uppercase" style="font-size: 0.7rem;">
+                                                                    <tr>
+                                                                        <th style="width: 45%">Descripción</th>
+                                                                        <th class="text-center" style="width: 10%">Cant.</th>
+                                                                        <th class="text-end" style="width: 15%">P. Unit</th>
+                                                                        <th class="text-end" style="width: 15%">Subt</th>
+                                                                        <th class="text-end" style="width: 15%" t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada')">Acciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="js_items_tbody_servicio">
+                                                                    <t t-if="not orden.servicio_linea_ids">
+                                                                        <tr class="js_empty_placeholder_row text-muted text-center">
+                                                                            <td colspan="5" class="py-4 text-center">No se han registrado servicios en esta orden.</td>
+                                                                        </tr>
+                                                                    </t>
+                                                                    <t t-else="">
+                                                                        <t t-foreach="orden.servicio_linea_ids" t-as="serv">
+                                                                            <tr t-attf-id="row_servicio_#{serv.id}" class="item-row" t-att-data-id="serv.id" data-type="servicio">
+                                                                                <td class="fw-bold text-dark position-relative item-desc">
+                                                                                    <span class="item-name"><t t-esc="serv.producto_id.name"/></span>
+                                                                                    <t t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada') or serv.is_extra">
+                                                                                        <span t-attf-class="badge ms-2 item-status #{'bg-warning text-dark' if serv.state_extra == 'pendiente' else 'bg-success text-white' if serv.state_extra == 'aprobado' else 'bg-danger text-white' if serv.state_extra == 'rechazado' else 'bg-info text-white'}" style="font-size: 0.65rem;">
+                                                                                            <t t-esc="(serv.state_extra or 'pendiente').upper()"/>
+                                                                                        </span>
+                                                                                    </t>
+                                                                                </td>
+                                                                                <td class="text-center item-qty"><t t-esc="serv.cantidad"/></td>
+                                                                                <td class="text-end item-price">$<t t-esc="'%.2f' % serv.precio_unitario"/></td>
+                                                                                <td class="text-end fw-bold text-dark item-subtotal">$<t t-esc="'%.2f' % serv.subtotal"/></td>
+                                                                                <td class="text-end" t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada')">
+                                                                                    <div class="d-flex justify-content-end gap-1 js_action_buttons" t-att-style="'display:none !important;' if serv.state_extra != 'pendiente' else ''">
+                                                                                        <button type="button" class="btn btn-sm btn-outline-success js_approve_extra_line py-0 px-1" t-att-data-line-id="serv.id" data-line-type="servicio" title="Aprobar"><i class="fa fa-check"/></button>
+                                                                                        <button type="button" class="btn btn-sm btn-outline-danger js_reject_extra_line py-0 px-1" t-att-data-line-id="serv.id" data-line-type="servicio" title="Rechazar"><i class="fa fa-times"/></button>
+                                                                                        <button type="button" class="btn btn-sm btn-outline-primary js_swap_btn py-0 px-1" t-att-data-line-id="serv.id" data-line-type="servicio" title="Intercambiar"><i class="fa fa-exchange"/></button>
+                                                                                    </div>
+                                                                                    <div class="d-flex justify-content-end gap-1 js_undo_buttons" t-att-style="'display:none !important;' if serv.state_extra == 'pendiente' or orden.estado == 'cotizacion_aprobada' else ''">
+                                                                                         <button type="button" class="btn btn-sm btn-outline-secondary js_pending_extra_line py-0 px-1" t-att-data-line-id="serv.id" data-line-type="servicio" title="Revertir a pendiente"><i class="fa fa-undo"/></button>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </t>
+                                                                    </t>
+                                                                </tbody>
+                                                                <tfoot class="fw-bold text-dark border-top-0" t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada')">
+                                                                    <tr>
+                                                                        <td colspan="5" class="p-2 border-0">
+                                                                            <button type="button" class="btn btn-sm btn-outline-secondary js_add_new_line" data-type="servicio">
+                                                                                <i class="fa fa-plus me-1"/> Añadir Servicio
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Tab 2: Repuestos -->
+                                                    <div class="tab-pane fade" t-attf-id="pills-repuestos-#{orden.id}" role="tabpanel" t-attf-aria-labelledby="pills-repuestos-tab-#{orden.id}">
+                                                        <div class="table-responsive">
+                                                            <!-- Datalist for JS search input -->
+                                                            <datalist t-attf-id="datalist_repuestos_#{orden.id}">
+                                                                <t t-foreach="repuestos_disponibles" t-as="rep_disp">
+                                                                    <option t-att-data-value="rep_disp.id" 
+                                                                            t-att-data-price="rep_disp.list_price"
+                                                                            t-att-data-name="rep_disp.name"
+                                                                            t-att-value="rep_disp.name + ' - $' + '%.2f' % rep_disp.list_price"/>
+                                                                </t>
+                                                            </datalist>
+
+                                                            <table class="table table-sm align-middle small mb-0" t-attf-id="table_repuestos_#{orden.id}">
+                                                                <thead class="bg-light text-muted fw-bold text-uppercase" style="font-size: 0.7rem;">
+                                                                    <tr>
+                                                                        <th style="width: 45%">Descripción</th>
+                                                                        <th class="text-center" style="width: 10%">Cant.</th>
+                                                                        <th class="text-end" style="width: 15%">P. Unit</th>
+                                                                        <th class="text-end" style="width: 15%">Subt</th>
+                                                                        <th class="text-end" style="width: 15%" t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada')">Acciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="js_items_tbody_repuesto">
+                                                                    <t t-if="not orden.repuesto_linea_ids">
+                                                                        <tr class="js_empty_placeholder_row text-muted text-center">
+                                                                            <td colspan="5" class="py-4 text-center">No se han registrado repuestos en esta orden.</td>
+                                                                        </tr>
+                                                                    </t>
+                                                                    <t t-else="">
+                                                                        <t t-foreach="orden.repuesto_linea_ids" t-as="rep">
+                                                                            <tr t-attf-id="row_repuesto_#{rep.id}" class="item-row" t-att-data-id="rep.id" data-type="repuesto">
+                                                                                <td class="fw-bold text-dark position-relative item-desc">
+                                                                                    <span class="item-name"><t t-esc="rep.producto_id.name"/></span>
+                                                                                    <t t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada') or rep.is_extra">
+                                                                                        <span t-attf-class="badge ms-2 item-status #{'bg-warning text-dark' if rep.state_extra == 'pendiente' else 'bg-success text-white' if rep.state_extra == 'aprobado' else 'bg-danger text-white' if rep.state_extra == 'rechazado' else 'bg-info text-white'}" style="font-size: 0.65rem;">
+                                                                                            <t t-esc="(rep.state_extra or 'pendiente').upper()"/>
+                                                                                        </span>
+                                                                                    </t>
+                                                                                </td>
+                                                                                <td class="text-center item-qty"><t t-esc="rep.cantidad"/></td>
+                                                                                <td class="text-end item-price">$<t t-esc="'%.2f' % rep.precio_unitario"/></td>
+                                                                                <td class="text-end fw-bold text-dark item-subtotal">$<t t-esc="'%.2f' % rep.subtotal"/></td>
+                                                                                <td class="text-end" t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada')">
+                                                                                    <div class="d-flex justify-content-end gap-1 js_action_buttons" t-att-style="'display:none !important;' if rep.state_extra != 'pendiente' else ''">
+                                                                                        <button type="button" class="btn btn-sm btn-outline-success js_approve_extra_line py-0 px-1" t-att-data-line-id="rep.id" data-line-type="repuesto" title="Aprobar"><i class="fa fa-check"/></button>
+                                                                                        <button type="button" class="btn btn-sm btn-outline-danger js_reject_extra_line py-0 px-1" t-att-data-line-id="rep.id" data-line-type="repuesto" title="Rechazar"><i class="fa fa-times"/></button>
+                                                                                        <button type="button" class="btn btn-sm btn-outline-primary js_swap_btn py-0 px-1" t-att-data-line-id="rep.id" data-line-type="repuesto" title="Intercambiar"><i class="fa fa-exchange"/></button>
+                                                                                    </div>
+                                                                                    <div class="d-flex justify-content-end gap-1 js_undo_buttons" t-att-style="'display:none !important;' if rep.state_extra == 'pendiente' or orden.estado == 'cotizacion_aprobada' else ''">
+                                                                                         <button type="button" class="btn btn-sm btn-outline-secondary js_pending_extra_line py-0 px-1" t-att-data-line-id="rep.id" data-line-type="repuesto" title="Revertir a pendiente"><i class="fa fa-undo"/></button>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </t>
+                                                                    </t>
+                                                                </tbody>
+                                                                <tfoot class="fw-bold text-dark border-top-0" t-if="orden.estado in ('cotizacion_enviada', 'cotizacion_devuelta', 'cotizacion_aprobada')">
+                                                                    <tr>
+                                                                        <td colspan="5" class="p-2 border-0">
+                                                                            <button type="button" class="btn btn-sm btn-outline-secondary js_add_new_line" data-type="repuesto">
+                                                                                <i class="fa fa-plus me-1"/> Añadir Repuesto
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Unified summary panel at the bottom -->
+                                                <div class="mt-3 pt-3 border-top bg-light p-3 rounded-3 shadow-sm">
+                                                    <div class="row g-2 text-dark small">
+                                                        <div class="col-4 border-end text-center">
+                                                            <span class="text-muted d-block" style="font-size: 0.75rem;">Total Servicios</span>
+                                                            <strong class="text-primary" style="font-size: 1.1rem;">$<t t-esc="'%.2f' % (orden.costo_total_servicios or 0.0)"/></strong>
+                                                        </div>
+                                                        <div class="col-4 border-end text-center">
+                                                            <span class="text-muted d-block" style="font-size: 0.75rem;">Total Repuestos</span>
+                                                            <strong class="text-primary" style="font-size: 1.1rem;">$<t t-esc="'%.2f' % (orden.costo_total_repuestos or 0.0)"/></strong>
+                                                        </div>
+                                                        <div class="col-4 text-center">
+                                                            <span class="text-muted d-block text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">Gran Total</span>
+                                                            <strong class="text-success" style="font-size: 1.15rem;">$<t t-esc="'%.2f' % (orden.costo_total_general or 0.0)"/></strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-top-0 pt-0 pb-4 px-4 bg-light">
+                                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- Modal Selección de Producto/Servicio (Catálogo) -->
+                <div class="modal fade" id="modalProductCatalog" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
+                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                        <div class="modal-content border-0 shadow rounded-4">
+                            <div class="modal-header bg-primary text-white rounded-top-4">
+                                <h6 class="modal-title fw-bold" id="modalProductCatalogTitle">
+                                    <i class="fa fa-shopping-basket me-2"/> Seleccionar
+                                </h6>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"/>
+                            </div>
+                            <div class="modal-body p-4 bg-light">
+                                <div class="row mb-4 g-2">
+                                    <div class="col-md-8">
+                                        <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden">
+                                            <span class="input-group-text bg-white border-0 text-muted ps-4"><i class="fa fa-search"></i></span>
+                                            <input type="text" class="form-control border-0 px-3 bg-white" id="catalogSearchInput" placeholder="Buscar por nombre..." autocomplete="off"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-select form-select-lg shadow-sm rounded-pill border-0" id="catalogSortSelect">
+                                            <option value="name_asc">Nombre (A-Z)</option>
+                                            <option value="price_asc">Precio: Menor a Mayor</option>
+                                            <option value="price_desc">Precio: Mayor a Menor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row g-3" id="catalogProductsContainer">
+                                    <!-- Productos renderizados aquí por JS -->
+                                </div>
+                                <div id="catalogEmptyState" class="text-center py-5 d-none text-muted">
+                                    <i class="fa fa-search fa-3x mb-3 opacity-25"></i>
+                                    <h5>No se encontraron resultados</h5>
+                                    <p class="small">Intenta con otras palabras clave.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Ocultar notificaciones automáticamente después de 4 segundos
+                        setTimeout(function() {
+                            const alerts = document.querySelectorAll('.alert-dismissible');
+                            alerts.forEach(function(alert) {
+                                alert.style.transition = "opacity 0.5s ease";
+                                alert.style.opacity = "0";
+                                setTimeout(() => alert.remove(), 500);
+                            });
+                        }, 4000);
+
+                        // Limpiar los parámetros GET de la URL
+                        if (window.history.replaceState) {
+                            const url = new URL(window.location);
+                            const paramsToRemove = [
+                                'success_cita', 'error_cita', 'success_foto', 'error_foto', 
+                                'success_pass', 'error_pass', 'success_profile', 'error_profile', 'error'
+                            ];
+                            let removed = false;
+                            paramsToRemove.forEach(param => {
+                                if (url.searchParams.has(param)) {
+                                    url.searchParams.delete(param);
+                                    removed = true;
+                                }
+                            });
+                            if (removed) {
+                                window.history.replaceState(null, null, url.pathname + url.search);
+                            }
+                        }
+                    });
+                </script>
             </div>
         </t>
     </template>

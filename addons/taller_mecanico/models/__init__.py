@@ -4,6 +4,7 @@ from . import marca_wizard
 from . import vehiculo
 from . import cita
 from . import orden_trabajo
+from . import propuesta
 
 from . import account_move
 from . import res_company

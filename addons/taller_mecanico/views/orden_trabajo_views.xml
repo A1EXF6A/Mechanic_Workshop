@@ -64,13 +64,19 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="action_enviar_propuesta" string="✉️ Enviar Propuesta al Cliente" type="object" 
+                            class="oe_highlight" invisible="estado not in ('recibido', 'cotizacion_devuelta')"/>
+                    <button name="action_aprobar_propuesta" string="✅ Aprobar (Forzar)" type="object" 
+                            class="btn-secondary" invisible="estado not in ('cotizacion_enviada', 'cotizacion_devuelta')"
+                            groups="taller_mecanico.group_taller_manager"/>
                     <button name="action_listo" string="✓ Marcar como Listo" type="object" 
-                            class="oe_highlight" invisible="estado != 'recibido'"/>
+                            class="oe_highlight" invisible="estado != 'cotizacion_aprobada'"/>
                     <button name="action_facturar" string="💰 Generar Factura" type="object" 
-                            class="btn-primary" invisible="estado != 'listo' or factura_id != False"/>
+                            class="btn-primary" invisible="estado != 'listo' or factura_id != False" 
+                            groups="taller_mecanico.group_taller_manager"/>
                     <button name="action_entregado" string="🚗 Entregar Vehículo" type="object" 
                             class="oe_highlight" invisible="estado != 'listo'"/>
-                    <field name="estado" widget="statusbar" statusbar_visible="recibido,listo,entregado"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="recibido,cotizacion_enviada,cotizacion_aprobada,listo,entregado"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -125,23 +131,45 @@
                         <page string="Diagnóstico">
                             <field name="diagnostico" placeholder="Escriba el diagnóstico y observaciones..."/>
                         </page>
+                        <page string="Peticiones del Cliente" invisible="not notas_cliente_propuesta">
+                            <div class="alert alert-info" role="alert" invisible="not notas_cliente_propuesta">
+                                <i class="fa fa-info-circle me-2"/> <strong>Nota:</strong> Estas son las observaciones enviadas por el cliente en la propuesta.
+                            </div>
+                            <field name="notas_cliente_propuesta" readonly="1"/>
+                        </page>
                         <page string="Servicios Realizados">
                             <field name="servicio_linea_ids">
-                                <list editable="bottom">
-                                    <field name="producto_id"/>
+                                <list editable="bottom" decoration-info="agregado_por_cliente == True">
+                                    <field name="producto_id" options="{'no_create': True, 'no_open': True}"/>
                                     <field name="cantidad"/>
                                     <field name="precio_unitario" widget="monetary"/>
+                                    <field name="is_extra" optional="hide"/>
+                                    <field name="agregado_por_cliente" readonly="1" optional="show"/>
+                                    <field name="state_extra"/>
                                     <field name="subtotal" widget="monetary" readonly="1"/>
                                 </list>
                             </field>
                         </page>
                         <page string="Repuestos Utilizados">
                             <field name="repuesto_linea_ids">
-                                <list editable="bottom">
-                                    <field name="producto_id"/>
+                                <list editable="bottom" decoration-info="agregado_por_cliente == True">
+                                    <field name="producto_id" options="{'no_create': True, 'no_open': True}"/>
                                     <field name="cantidad"/>
                                     <field name="precio_unitario" widget="monetary"/>
+                                    <field name="is_extra" optional="hide"/>
+                                    <field name="agregado_por_cliente" readonly="1" optional="show"/>
+                                    <field name="state_extra"/>
                                     <field name="subtotal" widget="monetary" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Historial de Propuestas">
+                            <field name="propuesta_ids" readonly="1">
+                                <list>
+                                    <field name="fecha"/>
+                                    <field name="creador_tipo"/>
+                                    <field name="creador_nombre"/>
+                                    <field name="notas"/>
                                 </list>
                             </field>
                         </page>
@@ -176,4 +204,49 @@
 
     <menuitem id="menu_orden_action" parent="menu_taller_operaciones" action="action_taller_orden" sequence="20" groups="taller_mecanico.group_taller_manager"/>
     <menuitem id="menu_mis_ordenes_action" parent="menu_taller_operaciones" action="action_taller_mis_ordenes" sequence="25"/>
+    <record id="view_taller_propuesta_form" model="ir.ui.view">
+        <field name="name">taller.propuesta.form</field>
+        <field name="model">taller.propuesta</field>
+        <field name="arch" type="xml">
+            <form string="Propuesta de Trabajo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="orden_id" readonly="1"/>
+                            <field name="creador_nombre" readonly="1"/>
+                            <field name="creador_tipo" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="fecha" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Notas / Observaciones">
+                        <field name="notas" readonly="1" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Servicios Propuestos">
+                            <field name="linea_servicio_ids" readonly="1">
+                                <list>
+                                    <field name="producto_id"/>
+                                    <field name="cantidad"/>
+                                    <field name="precio_unitario"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Repuestos Propuestos">
+                            <field name="linea_repuesto_ids" readonly="1">
+                                <list>
+                                    <field name="producto_id"/>
+                                    <field name="cantidad"/>
+                                    <field name="precio_unitario"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>

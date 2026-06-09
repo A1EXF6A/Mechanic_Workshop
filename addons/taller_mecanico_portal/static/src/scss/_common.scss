@@ -83,6 +83,15 @@ header#top .btn:hover i.fa {
     color: var(--taller-white) !important;
 }
 
+/* Evitar que los iconos dentro de los dropdowns se pongan blancos (como en el menu de admin) */
+header#top .dropdown-menu i.fa,
+header#top .dropdown-menu * {
+    color: inherit;
+}
+header#top .dropdown-menu i.fa {
+    color: inherit !important;
+}
+
 /* Badge de cantidad del Carrito */
 header#top .my_cart_quantity {
     background-color: var(--taller-accent) !important;
@@ -210,25 +219,74 @@ h1.text-white, h2.text-white, h3.text-white, h4.text-white, h5.text-white, h6.te
     color: var(--taller-white) !important;
 }
 
-/* 2. Announcement Bar / Topbar Visibility */
+/* 2. Announcement Bar & Top Header Meta Visibility */
 .s_header_announcement_bar,
 .o_header_announcement_bar,
-.s_header_announcement_bar *,
-.o_header_announcement_bar *,
-.o_header_meta,
-.o_header_meta *,
-.o_header_meta span,
-.o_header_meta a,
-.s_header_announcement_bar span,
-.s_header_announcement_bar a,
-.o_header_announcement_bar span,
-.o_header_announcement_bar a,
-.o_header_search_left_col,
-.o_header_search_left_col * {
-    color: rgba(255, 255, 255, 0.95) !important;
-    font-size: 0.85rem !important;
+.o_header_meta {
+    background-color: #0F172A !important; /* Premium Slate Dark */
+    background: #0F172A !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
 }
 
+.s_header_announcement_bar *,
+.o_header_announcement_bar *,
+.o_header_meta *,
+.o_header_meta a,
+.o_header_meta span,
+.o_header_meta li,
+.s_header_announcement_bar a,
+.s_header_announcement_bar span,
+.o_header_announcement_bar a,
+.o_header_announcement_bar span,
+.o_header_search_left_col,
+.o_header_search_left_col *,
+.o_no_autohide_item a,
+.o_no_autohide_item span,
+.o_no_autohide_item * {
+    color: #ffffff !important;
+    font-size: 0.85rem !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+}
+
+/* Specific selector for Iniciar Sesión and Mi Carrito in the topbar */
+header a[href*="/taller/login"],
+header a[href*="/login"],
+header a[href*="/taller/carrito"],
+header a[href*="/shop/cart"],
+.o_header_meta a.nav-link,
+.o_no_autohide_item a {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    font-weight: 500 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+}
+
+/* Fix native Odoo "Mi carrito" widget: icon inline with text */
+header .o_wsale_my_cart,
+header a.o_wsale_my_cart {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+}
+
+header .o_wsale_my_cart i.fa,
+header a.o_wsale_my_cart i.fa {
+    font-size: 0.85rem !important;
+    margin-right: 0 !important;
+    vertical-align: middle !important;
+}
+
+header .o_wsale_my_cart span,
+header a.o_wsale_my_cart span:not(.my_cart_quantity) {
+    font-size: 0.85rem !important;
+}
 
 /* 3. User Dropdown & Cart Icon Legibility in Navbar */
 header#top .dropdown-toggle,
@@ -306,3 +364,164 @@ header .o_searchbar_button:hover {
     background: var(--taller-accent-hover) !important;
     border-color: var(--taller-accent-hover) !important;
 }
+
+/* ==========================================================================
+   NAVBAR LINKS PROFESSIONAL FONT AWESOME ICONS (NAV-LINK & DROPDOWN-ITEM)
+   ========================================================================== */
+
+/* Home */
+header a.nav-link[href="/"]::before,
+header a.dropdown-item[href="/"]::before,
+header a.nav-link[href="/es_EC"]::before,
+header a.dropdown-item[href="/es_EC"]::before,
+header a.nav-link[href="/es_EC/"]::before,
+header a.dropdown-item[href="/es_EC/"]::before {
+    content: "\f015" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Servicios */
+header a[href*="/taller/servicios"]:not(.navbar-brand)::before {
+    content: "\f085" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Nosotros */
+header a[href*="/taller/nosotros"]:not(.navbar-brand)::before {
+    content: "\f05a" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Contacto */
+header a[href*="/taller/contacto"]:not(.navbar-brand)::before {
+    content: "\f0e0" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* FAQ */
+header a[href*="/taller/faq"]:not(.navbar-brand)::before {
+    content: "\f059" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Cita */
+header a[href*="/taller/cita"]:not(.navbar-brand)::before {
+    content: "\f073" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Trazabilidad */
+header a[href*="/taller/consulta"]:not(.navbar-brand)::before {
+    content: "\f002" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Productos */
+header a[href*="/taller/productos"]:not(.navbar-brand)::before {
+    content: "\f1b3" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Carrito */
+header a[href*="/taller/carrito"]:not(.navbar-brand)::before,
+header a[href*="/shop/cart"]:not(.navbar-brand)::before {
+    content: "\f07a" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Login */
+header a[href*="/taller/login"]:not(.navbar-brand)::before,
+header a[href*="/web/login"]:not(.navbar-brand)::before {
+    content: "\f090" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Tienda / Shop */
+header a[href*="/shop"]:not(.navbar-brand)::before {
+    content: "\f290" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* Precios */
+header a[href*="/precios"]:not(.navbar-brand)::before {
+    content: "\f02c" !important;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome" !important;
+    font-weight: 900 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+}
+
+/* ─── Premium Loading Button Animation ─────────────────────────────────────── */
+
+@keyframes taller-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.7; }
+}
+
+@keyframes taller-dot-bounce {
+    0%, 80%, 100% { transform: translateY(0);   opacity: 0.4; }
+    40%            { transform: translateY(-5px); opacity: 1;   }
+}
+
+.btn-sending {
+    position: relative;
+    overflow: hidden;
+    cursor: not-allowed !important;
+    background-color: var(--taller-accent, #2563EB) !important;
+    border-color: var(--taller-accent, #2563EB) !important;
+    color: white !important;
+    animation: taller-pulse 1.5s infinite ease-in-out !important;
+    box-shadow: var(--taller-shadow-md) !important;
+    transition: none !important;
+}
+
+.taller-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+.taller-dots span {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    animation: taller-dot-bounce 1.2s infinite ease-in-out;
+}
+.taller-dots span:nth-child(2) { animation-delay: 0.2s; }
+.taller-dots span:nth-child(3) { animation-delay: 0.4s; }

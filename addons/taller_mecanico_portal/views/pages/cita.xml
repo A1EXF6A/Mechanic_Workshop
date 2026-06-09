@@ -35,14 +35,13 @@
                                         <!-- Formulario Wizard -->
                                         <div class="col-md-8 p-4 p-lg-5 bg-white position-relative">
                                             
-                                            <!-- Progreso Visual -->
-                                            <div class="d-flex justify-content-between mb-4 position-relative">
+                                            <!-- Progreso Visual (2 pasos) -->
+                                            <div class="d-flex justify-content-between mb-4 position-relative" style="max-width: 250px; margin: 0 auto;">
                                                 <div class="progress position-absolute w-100" style="height: 4px; top: 50%; transform: translateY(-50%); z-index: 0;">
                                                     <div id="wizard-progress" class="progress-bar bg-primary" role="progressbar" style="width: 0%;"></div>
                                                 </div>
                                                 <div class="step-indicator bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm" style="width: 32px; height: 32px;" id="ind-step1">1</div>
                                                 <div class="step-indicator bg-light text-muted rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm border" style="width: 32px; height: 32px;" id="ind-step2">2</div>
-                                                <div class="step-indicator bg-light text-muted rounded-circle d-flex align-items-center justify-content-center fw-bold position-relative z-index-1 shadow-sm border" style="width: 32px; height: 32px;" id="ind-step3">3</div>
                                             </div>
 
                                             <form action="/taller/cita/submit" method="post" id="cita-wizard-form">
@@ -53,76 +52,70 @@
                                                     <t t-if="error_msg" t-esc="error_msg"/>
                                                 </div>
 
-                                                <!-- PASO 1: Cliente -->
+                                                <!-- PASO 1: Selección / Datos de Vehículo -->
                                                 <div id="step1" class="wizard-step">
                                                     <div class="mb-4 border-bottom pb-2">
-                                                        <h4 class="fw-bold"><i class="fa fa-user-circle me-2 text-primary"/>Información Personal</h4>
-                                                        <p class="text-muted small">Tus datos para contactarte sobre el estado de tu vehículo.</p>
+                                                        <h4 class="fw-bold"><i class="fa fa-car me-2 text-primary"/>Detalles del Vehículo</h4>
+                                                        <p class="text-muted small">Selecciona uno de tus vehículos registrados o ingresa los datos de uno nuevo.</p>
                                                     </div>
-                                                    <div class="row g-3 mb-4">
-                                                        <div class="col-md-6">
-                                                            <label for="cedula" class="form-label fw-bold small text-uppercase text-muted">Cédula / DNI</label>
-                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step1" id="cedula" name="cedula" placeholder="Ej. 1712345678"/>
+
+                                                    <!-- Si el usuario tiene vehículos -->
+                                                    <t t-if="vehiculos">
+                                                        <div class="mb-4">
+                                                            <label for="vehiculo_select" class="form-label fw-bold small text-uppercase text-muted">Mis Vehículos</label>
+                                                            <select class="form-select form-select-lg bg-light border-0" id="vehiculo_select" name="vehiculo_id">
+                                                                <t t-foreach="vehiculos" t-as="v">
+                                                                    <option t-att-value="v.id">
+                                                                        <t t-esc="v.placa"/> - <t t-esc="v.marca_id.name"/> <t t-esc="v.modelo_id.name"/>
+                                                                    </option>
+                                                                </t>
+                                                                <option value="new">+ Registrar otro vehículo / Vehículo nuevo...</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label for="name" class="form-label fw-bold small text-uppercase text-muted">Nombre Completo</label>
-                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step1" id="name" name="name" placeholder="Ej. Juan Pérez"/>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="email" class="form-label fw-bold small text-uppercase text-muted">Correo Electrónico</label>
-                                                            <input type="email" class="form-control form-control-lg bg-light border-0 required-step1" id="email" name="email" placeholder="Ej. correo@ejemplo.com"/>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="phone" class="form-label fw-bold small text-uppercase text-muted">Teléfono Móvil</label>
-                                                            <input type="tel" class="form-control form-control-lg bg-light border-0 required-step1" id="phone" name="phone" placeholder="Ej. 0987654321"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <!-- Si no tiene vehículos, se fuerza a registrar uno nuevo -->
+                                                        <input type="hidden" name="vehiculo_id" value="new"/>
+                                                    </t>
+
+                                                    <!-- Bloque de Campos para Nuevo Vehículo (Se oculta dinámicamente si se selecciona uno existente) -->
+                                                    <div id="nuevo-vehiculo-fields" t-att-class="'d-none' if vehiculos else ''">
+                                                        <div class="row g-3 mb-4">
+                                                            <div class="col-md-6">
+                                                                <label for="marca_id" class="form-label fw-bold small text-uppercase text-muted">Marca</label>
+                                                                <select class="form-select form-control-lg bg-light border-0 required-veh-field" id="marca_id" name="marca_id">
+                                                                    <option value="">Seleccione una marca...</option>
+                                                                    <t t-foreach="marcas" t-as="m">
+                                                                        <option t-att-value="m.id"><t t-esc="m.name"/></option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="modelo" class="form-label fw-bold small text-uppercase text-muted">Modelo</label>
+                                                                <input type="text" class="form-control form-control-lg bg-light border-0 required-veh-field" id="modelo" name="modelo" placeholder="Ej. Corolla"/>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <label for="plate" class="form-label fw-bold small text-uppercase text-muted">Placa / Matrícula</label>
+                                                                <input type="text" class="form-control form-control-lg bg-light border-0 required-veh-field" id="plate" name="plate" placeholder="Ej. ABC-1234"/>
+                                                            </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="text-end pt-3">
                                                         <button type="button" class="btn btn-primary btn-lg shadow-sm fw-bold px-5 btn-next" data-step="1">Siguiente <i class="fa fa-arrow-right ms-2"/></button>
                                                     </div>
                                                 </div>
 
-                                                <!-- PASO 2: Vehículo -->
+                                                <!-- PASO 2: Servicio y Horario -->
                                                 <div id="step2" class="wizard-step d-none">
                                                     <div class="mb-4 border-bottom pb-2">
-                                                        <h4 class="fw-bold"><i class="fa fa-car me-2 text-primary"/>Detalles del Vehículo</h4>
-                                                        <p class="text-muted small">Información técnica necesaria para el diagnóstico.</p>
-                                                    </div>
-                                                    <div class="row g-3 mb-4">
-                                                        <div class="col-md-6">
-                                                            <label for="marca_id" class="form-label fw-bold small text-uppercase text-muted">Marca</label>
-                                                            <select class="form-select form-control-lg bg-light border-0 required-step2" id="marca_id" name="marca_id">
-                                                                <option value="">Seleccione una marca...</option>
-                                                                <t t-foreach="marcas" t-as="m">
-                                                                    <option t-att-value="m.id"><t t-esc="m.name"/></option>
-                                                                </t>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="modelo" class="form-label fw-bold small text-uppercase text-muted">Modelo</label>
-                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step2" id="modelo" name="modelo" placeholder="Ej. Corolla"/>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label for="plate" class="form-label fw-bold small text-uppercase text-muted">Placa / Matrícula</label>
-                                                            <input type="text" class="form-control form-control-lg bg-light border-0 required-step2" id="plate" name="plate" placeholder="Ej. ABC-1234"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex justify-content-between pt-3">
-                                                        <button type="button" class="btn btn-light btn-lg border fw-bold text-muted btn-prev" data-step="2"><i class="fa fa-arrow-left me-2"/> Atrás</button>
-                                                        <button type="button" class="btn btn-primary btn-lg shadow-sm fw-bold px-5 btn-next" data-step="2">Siguiente <i class="fa fa-arrow-right ms-2"/></button>
-                                                    </div>
-                                                </div>
-
-                                                <!-- PASO 3: Cita -->
-                                                <div id="step3" class="wizard-step d-none">
-                                                    <div class="mb-4 border-bottom pb-2">
                                                         <h4 class="fw-bold"><i class="fa fa-cog me-2 text-primary"/>Servicio y Horario</h4>
-                                                        <p class="text-muted small">Selecciona la fecha, hora exacta y especialidad.</p>
+                                                        <p class="text-muted small">Selecciona la fecha, hora exacta y especialidad del taller.</p>
                                                     </div>
                                                     <div class="row g-3 mb-4">
                                                         <div class="col-md-6">
                                                             <label for="date" class="form-label fw-bold small text-uppercase text-muted">Fecha y Hora</label>
-                                                            <input type="datetime-local" class="form-control form-control-lg bg-light border-0 required-step3" id="date" name="date"/>
+                                                            <input type="datetime-local" class="form-control form-control-lg bg-light border-0 required-step2" id="date" name="date"/>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="repair_type" class="form-label fw-bold small text-uppercase text-muted">Especialidad</label>
@@ -140,7 +133,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between pt-3">
-                                                        <button type="button" class="btn btn-light btn-lg border fw-bold text-muted btn-prev" data-step="3"><i class="fa fa-arrow-left me-2"/> Atrás</button>
+                                                        <button type="button" class="btn btn-light btn-lg border fw-bold text-muted btn-prev" data-step="2"><i class="fa fa-arrow-left me-2"/> Atrás</button>
                                                         <button type="button" class="btn btn-success btn-lg shadow-lg fw-bold px-4" id="btn-submit-wizard">
                                                             <i class="fa fa-check-circle me-2"/> SOLICITAR CITA
                                                         </button>
@@ -168,17 +161,42 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     const steps = [
                         document.getElementById('step1'),
-                        document.getElementById('step2'),
-                        document.getElementById('step3')
+                        document.getElementById('step2')
                     ];
                     const indicators = [
                         document.getElementById('ind-step1'),
-                        document.getElementById('ind-step2'),
-                        document.getElementById('ind-step3')
+                        document.getElementById('ind-step2')
                     ];
                     const progress = document.getElementById('wizard-progress');
                     const errorBox = document.getElementById('error-message');
                     
+                    const vehiculoSelect = document.getElementById('vehiculo_select');
+                    const nuevoVehiculoFields = document.getElementById('nuevo-vehiculo-fields');
+                    const requiredVehFields = document.querySelectorAll('.required-veh-field');
+
+                    // Lógica para mostrar/ocultar campos de nuevo vehículo
+                    function toggleNuevoVehiculo() {
+                        if (!vehiculoSelect || vehiculoSelect.value === 'new') {
+                            if (nuevoVehiculoFields) {
+                                nuevoVehiculoFields.classList.remove('d-none');
+                            }
+                            requiredVehFields.forEach(f => f.classList.add('required-step1'));
+                        } else {
+                            if (nuevoVehiculoFields) {
+                                nuevoVehiculoFields.classList.add('d-none');
+                            }
+                            requiredVehFields.forEach(f => {
+                                f.classList.remove('required-step1');
+                                f.classList.remove('is-invalid');
+                            });
+                        }
+                    }
+
+                    if (vehiculoSelect) {
+                        vehiculoSelect.addEventListener('change', toggleNuevoVehiculo);
+                    }
+                    toggleNuevoVehiculo(); // Ejecución inicial
+
                     function updateUI(stepIndex) {
                         // Ocultar todos
                         steps.forEach(s => s.classList.add('d-none'));
@@ -198,8 +216,8 @@
                             }
                         });
                         
-                        // Barra de progreso (0%, 50%, 100%)
-                        progress.style.width = ((stepIndex - 1) * 50) + '%';
+                        // Barra de progreso (0% o 100%)
+                        progress.style.width = ((stepIndex - 1) * 100) + '%';
                         errorBox.classList.add('d-none');
                     }
 
@@ -241,7 +259,7 @@
                     // Enviar form y Validar AJAX
                     const btnSubmit = document.getElementById('btn-submit-wizard');
                     btnSubmit.addEventListener('click', async function() {
-                        if(!validateStep(3)) {
+                        if(!validateStep(2)) {
                             errorBox.textContent = 'Por favor, selecciona una fecha y hora.';
                             errorBox.classList.remove('d-none');
                             return;
@@ -252,7 +270,7 @@
                         
                         const dateVal = document.getElementById('date').value;
                         
-                        // Client-side Validation of Workshop Hours
+                        // Validación en Cliente de Horarios del Taller
                         try {
                             const parts = dateVal.split('T');
                             if (parts.length < 2) {

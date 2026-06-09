@@ -7,12 +7,13 @@
         Añade el acceso web "Mi Cuenta", vistas de autos y agenda de citas para los clientes.
     """,
     'author': 'Tu Nombre',
-    'depends': ['taller_mecanico', 'website', 'website_sale', 'usuarios_taller'],
+    'depends': ['taller_mecanico', 'website', 'website_sale', 'usuarios_taller', 'portal'],
     'data': [
         'views/pages/login.xml',
         'views/pages/registro.xml',
         'views/pages/registro_confirmacion.xml',
         'views/pages/mi_cuenta.xml',
+        'views/pages/historial_vehiculo.xml',
         'views/pages/home.xml',
         'views/pages/servicios.xml',
         'views/pages/contacto.xml',
@@ -26,6 +27,7 @@
         'views/pages/consulta_orden.xml',
         'views/pages/pricing.xml',
         'views/templates.xml',
+        'views/report_factura.xml',
     ],
     'assets': {
         'web.assets_frontend': [

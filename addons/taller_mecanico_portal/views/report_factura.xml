@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_factura_portal" model="ir.actions.report">
+        <field name="name">Factura Portal</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">taller_mecanico_portal.report_factura_portal_document</field>
+        <field name="report_file">taller_mecanico_portal.report_factura_portal_document</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+
+    <template id="report_factura_portal_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Helvetica', 'Arial', sans-serif; font-size: 13px; color: #333;">
+                        
+                        <!-- Título de Factura -->
+                        <div class="row mb-4">
+                            <div class="col-12 text-end">
+                                <h2 style="color: #0f172a; font-weight: bold; margin-bottom: 0;">FACTURA</h2>
+                                <h4 style="color: #64748b; margin-top: 0;"><t t-esc="o.name"/></h4>
+                            </div>
+                        </div>
+
+                        <!-- Info Empresa y Cliente -->
+                        <div class="row mt-4 mb-4">
+                            <div class="col-6">
+                                <h5 style="color: #0f172a; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">EMISOR</h5>
+                                <strong><t t-esc="o.company_id.name"/></strong><br/>
+                                RUC: <t t-esc="o.company_id.vat"/><br/>
+                                <t t-if="o.company_id.street"><t t-esc="o.company_id.street"/><br/></t>
+                                <t t-if="o.company_id.city"><t t-esc="o.company_id.city"/>, <t t-esc="o.company_id.country_id.name"/><br/></t>
+                                <t t-if="o.company_id.phone">Tel: <t t-esc="o.company_id.phone"/><br/></t>
+                                <t t-if="o.company_id.email">Email: <t t-esc="o.company_id.email"/></t>
+                            </div>
+                            <div class="col-6">
+                                <h5 style="color: #0f172a; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">CLIENTE</h5>
+                                <strong><t t-esc="o.partner_id.name"/></strong><br/>
+                                Identificación: <t t-esc="o.partner_id.vat"/><br/>
+                                <t t-if="o.partner_id.street"><t t-esc="o.partner_id.street"/><br/></t>
+                                <t t-if="o.partner_id.city"><t t-esc="o.partner_id.city"/>, <t t-esc="o.partner_id.country_id.name"/><br/></t>
+                                <t t-if="o.partner_id.phone">Tel: <t t-esc="o.partner_id.phone"/><br/></t>
+                                <t t-if="o.partner_id.email">Email: <t t-esc="o.partner_id.email"/></t>
+                            </div>
+                        </div>
+                        
+                        <!-- Detalles de la Factura -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 8px; background-color: #f8fafc; border: 1px solid #e2e8f0;"><strong>Fecha de Emisión:</strong> <t t-esc="o.invoice_date"/></td>
+                                        <td style="padding: 8px; background-color: #f8fafc; border: 1px solid #e2e8f0;"><strong>Fecha de Vencimiento:</strong> <t t-esc="o.invoice_date_due"/></td>
+                                        <td style="padding: 8px; background-color: #f8fafc; border: 1px solid #e2e8f0;"><strong>Estado SRI:</strong> <span t-esc="o.sri_estado_autorizacion and o.sri_estado_autorizacion.upper() or 'LOCAL'"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Info SRI si aplica -->
+                        <t t-if="o.sri_clave_acceso">
+                            <div class="row mb-4" style="border: 1px solid #cbd5e1; border-radius: 5px; padding: 15px; background-color: #ffffff;">
+                                <div class="col-12 text-center">
+                                    <strong style="font-size: 14px;">CLAVE DE ACCESO:</strong><br/>
+                                    <span style="font-size: 12px; letter-spacing: 1px;"><t t-esc="o.sri_clave_acceso"/></span><br/>
+                                    <img t-att-src="'/report/barcode/?barcode_type=Code128&amp;value=%s&amp;width=600&amp;height=100' % o.sri_clave_acceso" style="width: 100%; max-width: 600px; height: 60px; margin-top: 10px;" alt="Código de Barras"/>
+                                    <br/>
+                                    <small t-if="o.sri_fecha_autorizacion">Fecha de Autorización: <t t-esc="o.sri_fecha_autorizacion"/></small>
+                                </div>
+                            </div>
+                        </t>
+
+                        <!-- Tabla de Líneas -->
+                        <table class="table table-sm" style="width: 100%; margin-bottom: 20px;">
+                            <thead>
+                                <tr style="background-color: #0f172a; color: #ffffff;">
+                                    <th style="padding: 8px;">Descripción</th>
+                                    <th style="padding: 8px; text-align: right;">Cantidad</th>
+                                    <th style="padding: 8px; text-align: right;">Precio Unit.</th>
+                                    <th style="padding: 8px; text-align: right;">Descuento</th>
+                                    <th style="padding: 8px; text-align: right;">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.invoice_line_ids" t-as="line">
+                                    <t t-if="line.display_type not in ('line_section', 'line_note')">
+                                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                                            <td style="padding: 8px;"><t t-esc="line.name"/></td>
+                                            <td style="padding: 8px; text-align: right;"><t t-esc="line.quantity"/></td>
+                                            <td style="padding: 8px; text-align: right;">$ <t t-esc="'%.2f' % line.price_unit"/></td>
+                                            <td style="padding: 8px; text-align: right;"><t t-esc="line.discount"/> %</td>
+                                            <td style="padding: 8px; text-align: right;">$ <t t-esc="'%.2f' % line.price_subtotal"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                        
+                        <!-- Totales -->
+                        <div class="row justify-content-end">
+                            <div class="col-5">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="padding: 5px;"><strong>Subtotal Sin Impuestos</strong></td>
+                                        <td style="padding: 5px; text-align: right;">$ <t t-esc="'%.2f' % o.amount_untaxed"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px;">Impuestos</td>
+                                        <td style="padding: 5px; text-align: right;">$ <t t-esc="'%.2f' % o.amount_tax"/></td>
+                                    </tr>
+                                    <tr style="border-top: 2px solid #0f172a; font-size: 16px;">
+                                        <td style="padding: 8px;"><strong>TOTAL</strong></td>
+                                        <td style="padding: 8px; text-align: right;"><strong>$ <t t-esc="'%.2f' % o.amount_total"/></strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

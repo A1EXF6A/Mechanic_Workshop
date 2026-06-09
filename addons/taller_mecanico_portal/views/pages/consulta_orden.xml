@@ -150,24 +150,59 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <!-- Líneas de Servicios -->
                                                                         <t t-foreach="orden.servicio_linea_ids" t-as="l_serv">
-                                                                            <tr>
-                                                                                <td class="ps-3 py-3"><i class="fa fa-wrench text-muted me-2"/> <t t-esc="l_serv.producto_id.name"/></td>
-                                                                                <td class="text-center py-3"><t t-esc="int(l_serv.cantidad)"/></td>
-                                                                                <td class="text-end py-3">$<t t-esc="'%.2f' % l_serv.precio_unitario"/></td>
-                                                                                <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % l_serv.subtotal"/></td>
-                                                                            </tr>
-                                                                        </t>
-                                                                        <!-- Líneas de Repuestos -->
-                                                                        <t t-foreach="orden.repuesto_linea_ids" t-as="l_rep">
-                                                                            <tr>
-                                                                                <td class="ps-3 py-3"><i class="fa fa-cogs text-muted me-2"/> <t t-esc="l_rep.producto_id.name"/></td>
-                                                                                <td class="text-center py-3"><t t-esc="int(l_rep.cantidad)"/></td>
-                                                                                <td class="text-end py-3">$<t t-esc="'%.2f' % l_rep.precio_unitario"/></td>
-                                                                                <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % l_rep.subtotal"/></td>
-                                                                            </tr>
-                                                                        </t>
+                                                                             <tr>
+                                                                                 <td class="ps-3 py-3">
+                                                                                     <i class="fa fa-wrench text-muted me-2"/>
+                                                                                     <t t-esc="l_serv.producto_id.name"/>
+                                                                                     <t t-if="l_serv.is_extra">
+                                                                                         <span t-attf-class="badge ms-2 #{'bg-warning text-dark' if l_serv.state_extra == 'pendiente' else 'bg-success text-white' if l_serv.state_extra == 'aprobado' else 'bg-danger text-white'}" style="font-size: 0.7rem;">
+                                                                                             Extra: <t t-esc="l_serv.state_extra.upper()"/>
+                                                                                         </span>
+                                                                                         <t t-if="l_serv.state_extra == 'pendiente'">
+                                                                                             <div class="mt-1 d-flex gap-1 ms-4">
+                                                                                                 <button type="button" class="btn btn-sm btn-success js_approve_extra_line py-0 px-2" t-att-data-line-id="l_serv.id" t-att-data-line-type="'servicio'" style="font-size: 0.7rem;">
+                                                                                                     <i class="fa fa-check me-1"/>Aprobar
+                                                                                                 </button>
+                                                                                                 <button type="button" class="btn btn-sm btn-danger js_reject_extra_line py-0 px-2" t-att-data-line-id="l_serv.id" t-att-data-line-type="'servicio'" style="font-size: 0.7rem;">
+                                                                                                     <i class="fa fa-times me-1"/>Rechazar
+                                                                                                 </button>
+                                                                                             </div>
+                                                                                         </t>
+                                                                                     </t>
+                                                                                 </td>
+                                                                                 <td class="text-center py-3"><t t-esc="int(l_serv.cantidad)"/></td>
+                                                                                 <td class="text-end py-3">$<t t-esc="'%.2f' % l_serv.precio_unitario"/></td>
+                                                                                 <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % l_serv.subtotal"/></td>
+                                                                             </tr>
+                                                                         </t>
+                                                                         <!-- Líneas de Repuestos -->
+                                                                         <t t-foreach="orden.repuesto_linea_ids" t-as="l_rep">
+                                                                             <tr>
+                                                                                 <td class="ps-3 py-3">
+                                                                                     <i class="fa fa-cogs text-muted me-2"/>
+                                                                                     <t t-esc="l_rep.producto_id.name"/>
+                                                                                     <t t-if="l_rep.is_extra">
+                                                                                         <span t-attf-class="badge ms-2 #{'bg-warning text-dark' if l_rep.state_extra == 'pendiente' else 'bg-success text-white' if l_rep.state_extra == 'aprobado' else 'bg-danger text-white'}" style="font-size: 0.7rem;">
+                                                                                             Extra: <t t-esc="l_rep.state_extra.upper()"/>
+                                                                                         </span>
+                                                                                         <t t-if="l_rep.state_extra == 'pendiente'">
+                                                                                             <div class="mt-1 d-flex gap-1 ms-4">
+                                                                                                 <button type="button" class="btn btn-sm btn-success js_approve_extra_line py-0 px-2" t-att-data-line-id="l_rep.id" t-att-data-line-type="'repuesto'" style="font-size: 0.7rem;">
+                                                                                                     <i class="fa fa-check me-1"/>Aprobar
+                                                                                                 </button>
+                                                                                                 <button type="button" class="btn btn-sm btn-danger js_reject_extra_line py-0 px-2" t-att-data-line-id="l_rep.id" t-att-data-line-type="'repuesto'" style="font-size: 0.7rem;">
+                                                                                                     <i class="fa fa-times me-1"/>Rechazar
+                                                                                                 </button>
+                                                                                             </div>
+                                                                                         </t>
+                                                                                     </t>
+                                                                                 </td>
+                                                                                 <td class="text-center py-3"><t t-esc="int(l_rep.cantidad)"/></td>
+                                                                                 <td class="text-end py-3">$<t t-esc="'%.2f' % l_rep.precio_unitario"/></td>
+                                                                                 <td class="text-end pe-3 py-3">$<t t-esc="'%.2f' % l_rep.subtotal"/></td>
+                                                                             </tr>
+                                                                         </t>
                                                                         <!-- Mano de obra fija si aplica -->
                                                                         <t t-if="orden.costo_mano_obra > 0">
                                                                             <tr>

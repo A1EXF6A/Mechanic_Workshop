@@ -89,8 +89,6 @@
         <field name="view_mode">kanban,list,form</field>
     </record>
 
-    <menuitem id="menu_vehiculo_action" parent="menu_taller_vehiculos" action="action_taller_vehiculo" sequence="10"/>
-
     <!-- Wizard: Buscar y Agregar Marca desde API NHTSA (definido primero para que la lista pueda referenciarlo) -->
     <record id="view_taller_marca_buscar_wizard_form" model="ir.ui.view">
         <field name="name">taller.marca.buscar.wizard.form</field>
@@ -199,5 +197,29 @@
     <menuitem id="menu_agregar_marca_wizard" parent="menu_taller_configuracion" action="action_taller_marca_buscar_wizard"
               name="&#10133; Buscar y Agregar Marca" sequence="20"/>
 
+    <!-- Vista heredada para mostrar los vehículos de cada usuario en su perfil administrativo -->
+    <record id="usuarios_taller_user_profile_form_inherit" model="ir.ui.view">
+        <field name="name">usuarios_taller.user_profile.form.inherit</field>
+        <field name="model">usuarios_taller.user_profile</field>
+        <field name="inherit_id" ref="usuarios_taller.usuarios_taller_user_profile_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Vehículos Registrados">
+                        <field name="vehiculo_ids" readonly="1">
+                            <list>
+                                <field name="placa"/>
+                                <field name="marca_id"/>
+                                <field name="modelo_id"/>
+                                <field name="anio"/>
+                                <field name="color"/>
+                                <field name="tipo_combustible"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
 
 </odoo>

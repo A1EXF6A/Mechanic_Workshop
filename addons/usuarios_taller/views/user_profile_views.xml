@@ -11,6 +11,7 @@
                 <field name="email"/>
                 <field name="celular"/>
                 <field name="edad"/>
+                <field name="is_verified" widget="boolean_toggle"/>
             </list>
         </field>
     </record>
@@ -21,19 +22,32 @@
         <field name="arch" type="xml">
             <form string="Usuario Taller">
                 <sheet>
+                    <field name="foto" widget="image" class="oe_avatar"/>
                     <group>
-                        <group>
+                        <group string="Información Personal">
                             <field name="cedula"/>
                             <field name="nombre"/>
                             <field name="apellido"/>
-                            <field name="email"/>
-                        </group>
-                        <group>
-                            <field name="direccion"/>
+                            <field name="fecha_nacimiento"/>
+                            <field name="edad" readonly="1"/>
                             <field name="celular"/>
-                            <field name="edad"/>
-                            <field name="password" password="True"/>
                         </group>
+                        <group string="Información de Residencia / Entrega">
+                            <field name="direccion" string="Dirección completa"/>
+                            <field name="street"/>
+                            <field name="street2"/>
+                            <field name="city"/>
+                            <field name="state_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="country_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group string="Credenciales">
+                        <field name="email"/>
+                        <field name="password" password="True"/>
+                        <field name="is_verified"/>
+                        <field name="verification_token" readonly="1"/>
+                        <field name="partner_id" readonly="1"/>
+                        <field name="user_id" readonly="1"/>
                     </group>
                 </sheet>
             </form>

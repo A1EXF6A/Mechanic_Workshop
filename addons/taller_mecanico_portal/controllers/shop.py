@@ -65,7 +65,8 @@ class TallerShopController(http.Controller):
                     'count': count
                 })
         
-        return request.render('taller_mecanico.productos_page', {
+        # FIX: The module name is taller_mecanico_portal, not taller_mecanico!
+        return request.render('taller_mecanico_portal.productos_page', {
             'products': products,
             'categories': categories_data,
             'current_category': category,
@@ -92,7 +93,8 @@ class TallerShopController(http.Controller):
                     'subtotal': subtotal,
                 })
 
-        return request.render('taller_mecanico.carrito_page', {
+        # FIX: The module name is taller_mecanico_portal!
+        return request.render('taller_mecanico_portal.carrito_page', {
             'cart_items': cart_items,
             'total': total,
         })
@@ -158,7 +160,9 @@ class TallerShopController(http.Controller):
     @http.route(['/taller/confirmar-compra'], type='http', auth="public", website=True, methods=['POST'], csrf=True)
     def confirmar_compra(self, **kw):
         taller_user_id = request.session.get('taller_user_id')
-        if not taller_user_id:
+        is_native_user = request.env.user.id != request.env.ref('base.public_user').id
+        
+        if not taller_user_id and not is_native_user:
             return request.redirect('/taller/login')
 
         cart = request.session.get('taller_cart', {})
@@ -169,6 +173,19 @@ class TallerShopController(http.Controller):
         # Usar el generador nativo de Odoo para crear la orden asegurando que las direcciones 
         # de facturación y envío (partner_invoice_id, partner_shipping_id) estén correctas.
         sale_order = request.website.sale_get_order(force_create=True)
+        
+        if taller_user_id and not is_native_user:
+            user_profile = request.env['usuarios_taller.user_profile'].sudo().browse(taller_user_id)
+            if user_profile.exists() and user_profile.partner_id:
+                public_partner = request.website.user_id.sudo().partner_id
+                # Solo asignamos el partner si la orden es del usuario publico,
+                # para no sobreescribir las direcciones que ya hayan ingresado en /shop/address
+                if sale_order.partner_id.id == public_partner.id:
+                    sale_order.sudo().write({
+                        'partner_id': user_profile.partner_id.id,
+                        'partner_invoice_id': user_profile.partner_id.id,
+                        'partner_shipping_id': user_profile.partner_id.id
+                    })
 
         # Limpiamos las líneas anteriores del carrito nativo por si acaso
         sale_order.order_line.sudo().unlink()

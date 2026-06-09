@@ -4,54 +4,149 @@
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure oe_empty bg-light">
                 <section class="py-5 taller-auth">
-                    <div class="container py-5">
+                    <div class="container py-4">
                         <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="card border-0 shadow-lg taller-auth-card">
+                            <div class="col-lg-10 col-xl-9">
+                                <div class="card border-0 shadow-lg taller-auth-card rounded-4 overflow-hidden">
                                     <div class="card-body p-4 p-lg-5">
-                                        <h2 class="fw-bold mb-2 taller-auth-title">Registro de Usuario</h2>
-                                        <p class="text-muted mb-4 taller-auth-subtitle">Crea tu cuenta para gestionar tus servicios.</p>
-                                        <form action="/taller/registro/submit" method="post">
+                                        <div class="text-center mb-5">
+                                            <h2 class="fw-bold mb-2 taller-auth-title text-primary" style="font-size: 2.2rem; letter-spacing: -0.5px;">Crear tu Cuenta</h2>
+                                            <p class="text-muted taller-auth-subtitle">Regístrate para gestionar tus citas, vehículos y facturas en tiempo real.</p>
+                                        </div>
+
+                                        <!-- Alerta de Errores -->
+                                        <t t-if="error">
+                                            <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4 p-3 shadow-sm border-0 d-flex align-items-center" role="alert">
+                                                <i class="fa fa-exclamation-circle me-3 fs-4" style="color: #dc3545;"/>
+                                                <div>
+                                                    <strong class="d-block mb-1">¡Atención!</strong>
+                                                    <span t-if="error == 'passwords_mismatch'">Las contraseñas ingresadas no coinciden. Por favor, verifica de nuevo.</span>
+                                                    <span t-elif="error == 'missing_dob'">La fecha de nacimiento es obligatoria.</span>
+                                                    <span t-elif="error == 'underage'">Debes ser mayor de edad (18 años o más) para registrarte en el taller.</span>
+                                                    <span t-elif="error == 'invalid_dob'">La fecha de nacimiento ingresada no es válida.</span>
+                                                    <span t-elif="error == 'cedula_exists'">Esta cédula de identidad ya se encuentra registrada en el sistema.</span>
+                                                    <span t-elif="error == 'email_exists'">El correo electrónico ingresado ya se encuentra en uso.</span>
+                                                    <span t-else="">Ocurrió un error al procesar el registro. Por favor intente nuevamente o contacte a soporte.</span>
+                                                </div>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        </t>
+
+                                        <t t-set="post" t-value="post_data or {}"/>
+
+                                        <form action="/taller/registro/submit" method="post" class="needs-validation" novalidate="1">
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Cedula</label>
-                                                    <input type="text" name="cedula" class="form-control form-control-lg" required="1" placeholder="0102030405"/>
+
+                                            <!-- SECCIÓN 1: INFORMACIÓN PERSONAL -->
+                                            <div class="mb-5">
+                                                <div class="d-flex align-items-center mb-4 pb-2" style="border-bottom: 2px solid #e2e8f0;">
+                                                    <div class="bg-primary-subtle text-primary rounded-3 p-2 me-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background-color: rgba(59, 130, 246, 0.1);">
+                                                        <i class="fa fa-user fs-5" style="color: #3b82f6;"/>
+                                                    </div>
+                                                    <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.25rem;">1. Información Personal</h4>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Edad</label>
-                                                    <input type="number" name="edad" class="form-control form-control-lg" min="18" required="1" placeholder="18"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Nombre</label>
-                                                    <input type="text" name="nombre" class="form-control form-control-lg" required="1" placeholder="Juan"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Apellido</label>
-                                                    <input type="text" name="apellido" class="form-control form-control-lg" required="1" placeholder="Perez"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Direccion de correo</label>
-                                                    <input type="email" name="email" class="form-control form-control-lg" required="1" placeholder="tu@email.com"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Celular</label>
-                                                    <input type="text" name="celular" class="form-control form-control-lg" required="1" placeholder="0987654321"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Direccion donde vive</label>
-                                                    <input type="text" name="direccion" class="form-control form-control-lg" required="1" placeholder="Av. Principal 123"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label fw-bold">Password</label>
-                                                    <div class="input-group">
-                                                        <input type="password" name="password" id="password_registro" class="form-control form-control-lg" required="1" placeholder="********" style="border-right: none !important; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;"/>
-                                                        <button class="btn btn-outline-secondary bg-white border-start-0 text-muted" type="button" onclick="togglePasswordVisibility('password_registro', 'toggle_registro_icon')" style="border-color: #dee2e6; border-left: none !important; border-top-right-radius: 8px !important; border-bottom-right-radius: 8px !important;">
-                                                            <i class="fa fa-eye" id="toggle_registro_icon"></i>
-                                                        </button>
+
+                                                <div class="row g-3">
+                                                    <div class="col-md-6 col-lg-4">
+                                                        <label class="form-label fw-semibold text-secondary">Cédula o DNI</label>
+                                                        <input type="text" name="cedula" class="form-control form-control-lg rounded-3 fs-6" required="1" placeholder="Ej: 1805529049" t-att-value="post.get('cedula')"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-4">
+                                                        <label class="form-label fw-semibold text-secondary">Nombre</label>
+                                                        <input type="text" name="nombre" class="form-control form-control-lg rounded-3 fs-6" required="1" placeholder="Ej: Juan" t-att-value="post.get('nombre')"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-4">
+                                                        <label class="form-label fw-semibold text-secondary">Apellido</label>
+                                                        <input type="text" name="apellido" class="form-control form-control-lg rounded-3 fs-6" required="1" placeholder="Ej: Pérez" t-att-value="post.get('apellido')"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label fw-semibold text-secondary">Fecha de Nacimiento</label>
+                                                        <input type="date" name="fecha_nacimiento" class="form-control form-control-lg rounded-3 fs-6" required="1" t-att-value="post.get('fecha_nacimiento')"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label fw-semibold text-secondary">Celular / Teléfono</label>
+                                                        <input type="tel" name="celular" class="form-control form-control-lg rounded-3 fs-6" required="1" placeholder="Ej: 0987654321" t-att-value="post.get('celular')"/>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- SECCIÓN 2: DIRECCIÓN Y ENTREGA -->
+                                            <div class="mb-5">
+                                                <div class="d-flex align-items-center mb-4 pb-2" style="border-bottom: 2px solid #e2e8f0;">
+                                                    <div class="bg-success-subtle text-success rounded-3 p-2 me-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background-color: rgba(16, 185, 129, 0.1);">
+                                                        <i class="fa fa-map-marker fs-5" style="color: #10b981;"/>
+                                                    </div>
+                                                    <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.25rem;">2. Dirección de Residencia y Entrega</h4>
+                                                </div>
+
+                                                <div class="row g-3">
+                                                    <div class="col-md-8">
+                                                        <label class="form-label fw-semibold text-secondary">Calle Principal</label>
+                                                        <input type="text" name="street" class="form-control form-control-lg rounded-3 fs-6" required="1" placeholder="Ej: Av. Ceballos 123 y Montalvo" t-att-value="post.get('street')"/>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label fw-semibold text-secondary">Ciudad / Lugar</label>
+                                                        <input type="text" name="city" class="form-control form-control-lg rounded-3 fs-6" required="1" placeholder="Ej: Ambato" t-att-value="post.get('city')"/>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="form-label fw-semibold text-secondary">Calle Secundaria / Referencia de Entrega</label>
+                                                        <input type="text" name="street2" class="form-control form-control-lg rounded-3 fs-6" placeholder="Ej: Frente al parque principal, casa de 3 pisos" t-att-value="post.get('street2')"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label fw-semibold text-secondary">Provincia</label>
+                                                        <select name="state_id" class="form-select form-select-lg rounded-3 fs-6" required="1">
+                                                            <option value="">Selecciona tu provincia...</option>
+                                                            <t t-foreach="states" t-as="state">
+                                                                <option t-att-value="state.id" t-att-selected="state.id == int(post.get('state_id') or 0)"><t t-esc="state.name"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label fw-semibold text-secondary">País</label>
+                                                        <select name="country_id" class="form-select form-select-lg rounded-3 fs-6" required="1">
+                                                            <t t-foreach="countries" t-as="country">
+                                                                <option t-att-value="country.id" t-att-selected="country.id == (int(post.get('country_id') or 0) or default_country.id)"><t t-esc="country.name"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- SECCIÓN 3: CONFIGURACIÓN DE LA CUENTA -->
+                                            <div class="mb-4">
+                                                <div class="d-flex align-items-center mb-4 pb-2" style="border-bottom: 2px solid #e2e8f0;">
+                                                    <div class="bg-warning-subtle text-warning rounded-3 p-2 me-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background-color: rgba(245, 158, 11, 0.1);">
+                                                        <i class="fa fa-lock fs-5" style="color: #f59e0b;"/>
+                                                    </div>
+                                                    <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.25rem;">3. Configuración de Cuenta y Seguridad</h4>
+                                                </div>
+
+                                                <div class="row g-3">
+                                                    <div class="col-12">
+                                                        <label class="form-label fw-semibold text-secondary">Dirección de correo electrónico</label>
+                                                        <input type="email" name="email" class="form-control form-control-lg rounded-3 fs-6" required="1" placeholder="Ej: tu@email.com" t-att-value="post.get('email')"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label fw-semibold text-secondary">Contraseña</label>
+                                                        <div class="input-group">
+                                                            <input type="password" name="password" id="password_registro" class="form-control form-control-lg rounded-start-3 fs-6" required="1" placeholder="Mínimo 6 caracteres" style="border-right: none !important;"/>
+                                                            <button class="btn btn-outline-secondary bg-white border-start-0 text-muted rounded-end-3" type="button" onclick="togglePasswordVisibility('password_registro', 'toggle_registro_icon')" style="border-color: #dee2e6;">
+                                                                <i class="fa fa-eye" id="toggle_registro_icon"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label fw-semibold text-secondary">Confirmar Contraseña</label>
+                                                        <div class="input-group">
+                                                            <input type="password" name="confirm_password" id="password_registro_confirm" class="form-control form-control-lg rounded-start-3 fs-6" required="1" placeholder="Repite tu contraseña" style="border-right: none !important;"/>
+                                                            <button class="btn btn-outline-secondary bg-white border-start-0 text-muted rounded-end-3" type="button" onclick="togglePasswordVisibility('password_registro_confirm', 'toggle_registro_confirm_icon')" style="border-color: #dee2e6;">
+                                                                <i class="fa fa-eye" id="toggle_registro_confirm_icon"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <script>
                                                 function togglePasswordVisibility(inputId, iconId) {
                                                     var passwordInput = document.getElementById(inputId);
@@ -67,9 +162,15 @@
                                                     }
                                                 }
                                             </script>
-                                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-4">Crear Cuenta</button>
+
+                                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-5 shadow-sm rounded-3 py-3 fw-bold" style="font-size: 1.1rem; transition: all 0.2s ease;">
+                                                <i class="fa fa-user-plus me-2"/>Crear mi Cuenta
+                                            </button>
                                         </form>
-                                        <p class="text-muted small mt-4 mb-0">Ya tienes cuenta? <a href="/taller/login">Ingresa</a></p>
+
+                                        <div class="text-center mt-4">
+                                            <p class="text-muted">¿Ya tienes una cuenta? <a href="/taller/login" class="fw-semibold text-primary text-decoration-none">Ingresa aquí</a></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

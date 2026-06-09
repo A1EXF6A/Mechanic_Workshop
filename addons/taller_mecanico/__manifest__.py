@@ -7,7 +7,7 @@
         Contiene los modelos principales de vehículos, citas y órdenes de trabajo.
     """,
     'author': 'Tu Nombre',
-    'depends': ['stock', 'sale', 'account', 'usuarios_taller', 'contacts', 'hr', 'mail', 'payment_stripe', 'payment_paypal'],
+    'depends': ['stock', 'sale', 'account', 'usuarios_taller', 'contacts', 'hr', 'mail', 'payment_stripe', 'payment_paypal', 'website_sale'],
     'external_dependencies': {
         'python': ['requests'],
     },
@@ -16,6 +16,7 @@
         'security/ir.model.access.csv',
         'data/product.product.csv',
         'data/stock_init_data.xml',
+        'data/cron_data.xml',
         'data/demo_data.xml',
         'views/menus.xml',
         'views/vehiculo_views.xml',

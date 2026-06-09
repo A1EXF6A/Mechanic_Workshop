@@ -54,35 +54,39 @@ class AccountMove(models.Model):
             if not lineas_validas:
                 raise UserError("La factura debe contener al menos una línea de producto o servicio (detalle) para poder ser procesada y enviada al SRI.")
                 
-            # --- Generar Clave de Acceso ---
-            fecha = move.invoice_date.strftime('%d%m%Y') if move.invoice_date else fields.Date.today().strftime('%d%m%Y')
-            tipo_comprobante = '01' # Factura
-            ruc = (company.vat or "0999999999001").zfill(13)
+            # --- Generar o Reutilizar Clave de Acceso ---
             ambiente = company.sri_entorno or '1'
-            serie = '001001' # Establecimiento 001 + Punto de Emisión 001
-            
-            # Secuencial (9 dígitos)
-            nombre = move.name or ""
-            partes = nombre.replace('/', '-').split('-')
-            secuencial = partes[-1] if partes else "000000001"
-            secuencial = ''.join(filter(str.isdigit, secuencial)).zfill(9)
-            
-            # Código numérico aleatorio de 8 dígitos para mayor seguridad
-            codigo_numerico = str(random.randint(1, 99999999)).zfill(8)
-            tipo_emision = '1' # Normal
-            
-            clave_parcial = f"{fecha}{tipo_comprobante}{ruc}{ambiente}{serie}{secuencial}{codigo_numerico}{tipo_emision}"
-            clave_parcial = clave_parcial.ljust(48, '0')[:48]
-            
-            # Calcular Dígito Verificador Módulo 11 Real
-            digito_verificador = SriUtils.calcular_modulo_11(clave_parcial)
-            clave_acceso = f"{clave_parcial}{digito_verificador}"
-            
-            # Guardar Clave de Acceso preliminar
-            move.write({
-                'sri_clave_acceso': clave_acceso,
-                'sri_estado_autorizacion': 'enviado'
-            })
+            if move.sri_clave_acceso:
+                clave_acceso = move.sri_clave_acceso
+                move.write({'sri_estado_autorizacion': 'enviado'})
+            else:
+                fecha = move.invoice_date.strftime('%d%m%Y') if move.invoice_date else fields.Date.today().strftime('%d%m%Y')
+                tipo_comprobante = '01' # Factura
+                ruc = (company.vat or "0999999999001").zfill(13)
+                serie = '001001' # Establecimiento 001 + Punto de Emisión 001
+                
+                # Secuencial (9 dígitos)
+                nombre = move.name or ""
+                partes = nombre.replace('/', '-').split('-')
+                secuencial = partes[-1] if partes else "000000001"
+                secuencial = ''.join(filter(str.isdigit, secuencial)).zfill(9)
+                
+                # Código numérico aleatorio de 8 dígitos para mayor seguridad
+                codigo_numerico = str(random.randint(1, 99999999)).zfill(8)
+                tipo_emision = '1' # Normal
+                
+                clave_parcial = f"{fecha}{tipo_comprobante}{ruc}{ambiente}{serie}{secuencial}{codigo_numerico}{tipo_emision}"
+                clave_parcial = clave_parcial.ljust(48, '0')[:48]
+                
+                # Calcular Dígito Verificador Módulo 11 Real
+                digito_verificador = SriUtils.calcular_modulo_11(clave_parcial)
+                clave_acceso = f"{clave_parcial}{digito_verificador}"
+                
+                # Guardar Clave de Acceso preliminar
+                move.write({
+                    'sri_clave_acceso': clave_acceso,
+                    'sri_estado_autorizacion': 'enviado'
+                })
             
             # --- Generar XML de la Factura ---
             try:
